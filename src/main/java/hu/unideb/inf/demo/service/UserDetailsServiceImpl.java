@@ -1,4 +1,4 @@
-package hu.unideb.inf.demo.service.impl;
+package hu.unideb.inf.demo.service;
 
 import hu.unideb.inf.demo.entity.User;
 import hu.unideb.inf.demo.repository.UserRepository;

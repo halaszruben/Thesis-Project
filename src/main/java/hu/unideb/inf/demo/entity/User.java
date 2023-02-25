@@ -1,5 +1,6 @@
 package hu.unideb.inf.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,8 +19,12 @@ public class User implements UserDetails {
     private Long id;
     private LocalDate cohortStartDate;
     private String username;
+    @JsonIgnore
     private String password;
     private String email;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @JsonIgnore
+    private List<Authority> authorities = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -81,6 +86,10 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     @Override

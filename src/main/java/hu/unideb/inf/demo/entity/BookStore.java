@@ -2,6 +2,8 @@ package hu.unideb.inf.demo.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "book_stores")
 public class BookStore {
@@ -13,6 +15,8 @@ public class BookStore {
     private String location;
     @Column(columnDefinition = "TEXT")
     private String description;
+    @ManyToMany
+    private List<User> user;
 
     public Long getId() {
         return id;
@@ -44,5 +48,13 @@ public class BookStore {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<User> getUser() {
+        return user;
+    }
+
+    public void setUser(List<User> user) {
+        this.user = user;
     }
 }
