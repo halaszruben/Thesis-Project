@@ -6,6 +6,7 @@ import Login from './Login';
 import PrivateRoute from './PrivateRoute';
 import WorkerDashboard from './WorkerDashboard';
 import WorkerTableView from './WorkerTableView';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [jwt, setJwt] = useLocalState("", "jwt");

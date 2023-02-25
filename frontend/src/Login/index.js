@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useLocalState } from "../util/useLocalStorage";
 
 const Login = () => {
@@ -36,33 +37,72 @@ const Login = () => {
                 alert(message);
             });
     }
+
     return (
         <>
-            <div>
-                <label htmlFor="username">Username</label>
-                <input
-                    type="email"
-                    id="username"
-                    value={username}
-                    onChange={(event) => setUsername(event.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                />
-            </div>
-            <div>
-                <button id="submit" type="button" onClick={() => sendLoginRequest()}>
-                    Login
-                </button>
-            </div>
+            <Container className="mt-5">
+                <Row className="justify-content-center">
+                    <Col md="8" lg="6">
+                        <Form.Group className="mb-3" >
+                            <Form.Label htmlFor="username" className="fs-4">Username:</Form.Label>
+                            <Form.Control
+                                type="email"
+                                size="lg"
+                                placeholder="littleJon"
+                                value={username}
+                                onChange={(event) => setUsername(event.target.value)}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+
+                <Row className="justify-content-center">
+                    <Col
+                        md="8"
+                        lg="6">
+                        <Form.Group className="mb-3" >
+                            <Form.Label htmlFor="password" className="fs-4">Password:</Form.Label>
+                            <Form.Control
+                                type="password"
+                                size="lg"
+                                placeholder="Type in your password"
+                                value={password}
+                                onChange={(event) => setPassword(event.target.value)}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+
+                <Row className="justify-content-center">
+                    <Col
+                        md="8"
+                        lg="6"
+                        className="mt-2 d-flex flex-column gap-5 flex-md-row justify-content-md-between">
+                        <Button
+                            id="submit"
+                            type="button"
+                            size="lg"
+                            onClick={() => sendLoginRequest()}
+                        >
+                            Login
+                        </Button>
+
+                        <Button
+                            variant="secondary"
+                            type="button"
+                            size="lg"
+                            onClick={() => {
+                                window.location.href = "/";
+                            }}
+                        >
+                            Exit
+                        </Button>
+                    </Col>
+                </Row>
+            </Container>
         </>
     );
 };
+
 
 export default Login;
