@@ -35,4 +35,8 @@ public class BookstoreTableService {
     public BookStoreTable save(BookStoreTable bookStoreTable) {
         return bookStoreTableRepository.save(bookStoreTable);
     }
+
+    public void delete(Long tableId) {
+        bookStoreTableRepository.deleteById(tableId);
+    }
 }

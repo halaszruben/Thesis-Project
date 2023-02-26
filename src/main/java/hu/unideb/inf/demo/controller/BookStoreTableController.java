@@ -4,6 +4,7 @@ import hu.unideb.inf.demo.entity.BookStoreTable;
 import hu.unideb.inf.demo.entity.User;
 import hu.unideb.inf.demo.service.BookstoreTableService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -45,5 +46,17 @@ public class BookStoreTableController {
                                          @RequestBody BookStoreTable bookStoreTable) {
         BookStoreTable updatedTable = bookstoreTableService.save(bookStoreTable);
         return ResponseEntity.ok(updatedTable);
+    }
+
+    @DeleteMapping("{tableId}")
+    public ResponseEntity<?> deleteTable(@PathVariable Long tableId) {
+
+        try {
+            bookstoreTableService.delete(tableId);
+            return ResponseEntity.ok("Table successfully deleted!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
