@@ -2,6 +2,7 @@ package hu.unideb.inf.demo.service;
 
 import hu.unideb.inf.demo.entity.BookStoreTable;
 import hu.unideb.inf.demo.entity.User;
+import hu.unideb.inf.demo.enums.BookStoreTableStatusEnum;
 import hu.unideb.inf.demo.repository.BookStoreTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class BookstoreTableService {
 
     public BookStoreTable save(Set<User> user) {
         BookStoreTable bookStoreTable = new BookStoreTable();
-        bookStoreTable.setStatus("Free Table");
+        bookStoreTable.setStatus(BookStoreTableStatusEnum.TABLE_IS_FREE.getStatus());
         bookStoreTable.setUser(user);
 
         return bookStoreTableRepository.save(bookStoreTable);

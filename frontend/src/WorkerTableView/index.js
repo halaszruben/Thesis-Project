@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocalState } from '../util/useLocalStorage';
 import ajax from '../util/fetchService'
+import { Badge, Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { toast, ToastContainer } from 'react-toastify';
 
 const WorkerTableView = () => {
     const [jwt, setJwt] = useLocalState("", "jwt");
@@ -8,14 +10,14 @@ const WorkerTableView = () => {
     const [table, setTable] = useState({
         chairs: "",
         description: "",
-
+        assignedNumber: null,
     });
 
     function updateTable(prop, value) {
         const newTable = { ...table };
         newTable[prop] = value;
-        console.log(newTable);
         setTable(newTable);
+
     }
 
     function save() {
@@ -23,6 +25,17 @@ const WorkerTableView = () => {
         ajax(`/api/tables/${tableId}`, "PUT", jwt, table)
             .then((tableData) => {
                 setTable(tableData);
+
+                toast.success('The table has been Updated!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             });
     }
 
@@ -39,34 +52,89 @@ const WorkerTableView = () => {
                 setTable(tableData);
             });
     }, []);
+
     return (
-        <div>
-            <h1>Table {tableId}</h1>
+        <Container className="mt-5" >
+            <Row className="d-flex justify-content-center">
+                <Col>
+                    {table.assignedNumber ?
+                        (<h1 className='tableNumber'>Table #{table.assignedNumber}</h1>) : (
+                            <h1 className='tableNumber'>This is a new Table</h1>
+                        )}
+
+                </Col>
+                <Col>
+                    <Badge pill bg="success" style={{ fontSize: "1em" }}>
+                        {table.status}
+                    </Badge>
+                </Col>
+            </Row>
+
             {table ? (
                 <>
-                    <h2>Status: {table.status}</h2>
-                    <h3>
-                        chairs:
-                        <input
-                            type="text"
-                            id="chairs"
-                            onChange={(event) => updateTable("chairs", event.target.value)}
-                            value={table.chairs} />
-                    </h3>
-                    <h3>
-                        description:
-                        <textarea
-                            type="text"
-                            id="description"
-                            onChange={(event) => updateTable("description", event.target.value)}
-                            value={table.description} />
-                    </h3>
-                    <button onClick={() => save()}>Update Table</button>
+
+                    <Form.Group
+                        as={Row}
+                        className="my-3"
+                        controlId="assignedNumber">
+                        <Form.Label column sm="3" md="2">
+                            Assigned Table number:
+                        </Form.Label>
+                        <Col sm="9" md="8" lg="6">
+                            <Form.Control
+                                onChange={(event) => updateTable("assignedNumber", event.target.value)}
+                                type="number"
+                                value={table.assignedNumber}
+                                placeholder="the_number_you_want_to_identify_this_table_with"
+                            />
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group
+                        as={Row}
+                        className="my-3"
+                        controlId="chairs">
+                        <Form.Label column sm="3" md="2">
+                            Number of sitting places:
+                        </Form.Label>
+                        <Col sm="9" md="8" lg="6">
+                            <Form.Control
+                                onChange={(event) => updateTable("chairs", event.target.value)}
+                                type="number"
+                                value={table.chairs}
+                                placeholder="0"
+                            />
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group
+                        as={Row}
+                        className="mb-3"
+                        controlId="description">
+                        <Form.Label column sm="3" md="2">
+                            Description:
+                        </Form.Label>
+                        <Col sm="9" md="8" lg="6">
+                            <Form.Control
+                                type=""
+                                placeholder="describe_the_background"
+                                onChange={(event) => updateTable("description", event.target.value)}
+                                value={table.description}
+                            />
+                        </Col>
+                    </Form.Group>
+
+                    <Button size="lg" onClick={() => save()}>
+                        Save Attributes
+                    </Button>
+                    <ToastContainer />
                 </>
             ) : (
                 <></>
-            )}
-        </div>
+            )
+            }
+        </Container>
+
     );
 };
 

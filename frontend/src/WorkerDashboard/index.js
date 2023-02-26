@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ajax from "../util/fetchService";
 import { useLocalState } from "../util/useLocalStorage";
-import { Button, Card } from "react-bootstrap";
+import { Alert, Button, Card } from "react-bootstrap";
 
 const WorkerDashboard = () => {
     const [jwt, setJwt] = useLocalState("", "jwt");
@@ -51,7 +51,8 @@ const WorkerDashboard = () => {
                             <Card.Body
                                 className="d-flex flex-column justify-content-around">
                                 <Card.Title
-                                    style={{ fontStyle: "italic" }}>
+                                    className="tableNumber"
+                                >
                                     Table #{table.id}
                                 </Card.Title>
                                 <Card.Subtitle className="mb-1 text-muted">
@@ -75,9 +76,10 @@ const WorkerDashboard = () => {
                                     Edit
                                 </Button>
                                 <Button
-                                    variant="warning"
+                                    variant="warning" size="sm"
                                     onClick={() => deleteTable(table.id)}
                                 >
+
                                     Delete
                                 </Button>
                             </Card.Body>
