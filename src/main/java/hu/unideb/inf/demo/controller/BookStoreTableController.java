@@ -1,5 +1,6 @@
 package hu.unideb.inf.demo.controller;
 
+import hu.unideb.inf.demo.dto.BookStoreTableResponseDto;
 import hu.unideb.inf.demo.entity.BookStoreTable;
 import hu.unideb.inf.demo.entity.User;
 import hu.unideb.inf.demo.service.BookstoreTableService;
@@ -38,7 +39,10 @@ public class BookStoreTableController {
     public ResponseEntity<?> getTable(@PathVariable Long tableId) {
         Optional<BookStoreTable> bookStoreTableOpt = bookstoreTableService.findById(tableId);
 
-        return ResponseEntity.ok(bookStoreTableOpt.orElse(new BookStoreTable()));
+        BookStoreTableResponseDto response =
+                new BookStoreTableResponseDto(bookStoreTableOpt.orElse(new BookStoreTable()));
+
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("{tableId}")

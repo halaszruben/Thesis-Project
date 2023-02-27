@@ -11,7 +11,9 @@ const WorkerTableView = () => {
         chairs: "",
         description: "",
         assignedNumber: null,
+        status: null,
     });
+    const [tableStatuses, setTableStatuses] = useState([]);
 
     function updateTable(prop, value) {
         const newTable = { ...table };
@@ -21,6 +23,12 @@ const WorkerTableView = () => {
     }
 
     function save() {
+
+        console.log(`Status is ${table.status}`);
+        if (table.status === tableStatuses[0].status) {
+            console.log("setting new status be:", tableStatuses[1].status);
+            updateTable("status", tableStatuses[1].status);
+        }
 
         ajax(`/api/tables/${tableId}`, "PUT", jwt, table)
             .then((tableData) => {
@@ -42,14 +50,17 @@ const WorkerTableView = () => {
     useEffect(() => {
 
         ajax(`/api/tables/${tableId}`, "GET", jwt)
-            .then((tableData) => {
-                if (tableData.chairs === null) {
-                    tableData.chairs = "";
-                }
-                if (tableData.description === null) {
-                    tableData.description = "";
-                }
+            .then((tableResponse) => {
+
+                let tableData = tableResponse.table;
+
+                if (tableData.chairs === null) tableData.chairs = "";
+                if (tableData.description === null) tableData.description = "";
+
                 setTable(tableData);
+                console.log(tableData);
+                console.log(tableResponse);
+                setTableStatuses(tableResponse.statusEnums);
             });
     }, []);
 
@@ -80,7 +91,7 @@ const WorkerTableView = () => {
                         <Form.Label column sm="3" md="2">
                             Assigned Table number:
                         </Form.Label>
-                        <Col sm="9" md="8" lg="6">
+                        <Col sm="4" md="3" lg="2" xs="5">
                             <Form.Control
                                 onChange={(event) => updateTable("assignedNumber", event.target.value)}
                                 type="number"
@@ -97,7 +108,7 @@ const WorkerTableView = () => {
                         <Form.Label column sm="3" md="2">
                             Number of sitting places:
                         </Form.Label>
-                        <Col sm="9" md="8" lg="6">
+                        <Col sm="4" md="3" lg="2" xs="5">
                             <Form.Control
                                 onChange={(event) => updateTable("chairs", event.target.value)}
                                 type="number"
@@ -114,7 +125,7 @@ const WorkerTableView = () => {
                         <Form.Label column sm="3" md="2">
                             Description:
                         </Form.Label>
-                        <Col sm="9" md="8" lg="6">
+                        <Col sm="9" md="8" lg="8">
                             <Form.Control
                                 type=""
                                 placeholder="describe_the_background"
@@ -124,7 +135,7 @@ const WorkerTableView = () => {
                         </Col>
                     </Form.Group>
 
-                    <Button size="lg" onClick={() => save()}>
+                    <Button size="lg" className="mt-5" onClick={() => save()}>
                         Save Attributes
                     </Button>
                     <ToastContainer />

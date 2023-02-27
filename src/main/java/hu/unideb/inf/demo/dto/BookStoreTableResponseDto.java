@@ -5,19 +5,20 @@ import hu.unideb.inf.demo.enums.BookStoreTableStatusEnum;
 
 public class BookStoreTableResponseDto {
 
-    private BookStoreTable bookStoreTable;
+    private BookStoreTable table;
     private BookStoreTableStatusEnum[] statusEnums = BookStoreTableStatusEnum.values();
 
-    public BookStoreTableResponseDto(BookStoreTable bookStoreTable) {
-        this.bookStoreTable = bookStoreTable;
+    public BookStoreTableResponseDto(BookStoreTable table) {
+        super();
+        this.table = table;
     }
 
-    public BookStoreTable getBookStoreTable() {
-        return bookStoreTable;
+    public BookStoreTable getTable() {
+        return table;
     }
 
-    public void setBookStoreTable(BookStoreTable bookStoreTable) {
-        this.bookStoreTable = bookStoreTable;
+    public void setBookStoreTable(BookStoreTable table) {
+        this.table = table;
     }
 
     public BookStoreTableStatusEnum[] getStatusEnums() {
