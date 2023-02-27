@@ -3,7 +3,10 @@ package hu.unideb.inf.demo.controller;
 import hu.unideb.inf.demo.dto.BookStoreTableResponseDto;
 import hu.unideb.inf.demo.entity.BookStoreTable;
 import hu.unideb.inf.demo.entity.User;
+import hu.unideb.inf.demo.enums.AuthorityEnum;
 import hu.unideb.inf.demo.service.BookstoreTableService;
+import hu.unideb.inf.demo.service.UserService;
+import hu.unideb.inf.demo.util.AuthorityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +24,11 @@ public class BookStoreTableController {
     @Autowired
     private BookstoreTableService bookstoreTableService;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("")
-    public ResponseEntity<?> createTabele(@AuthenticationPrincipal Set<User> users) {
+    public ResponseEntity<?> createTable(@AuthenticationPrincipal Set<User> users) {
         BookStoreTable newBookStore = bookstoreTableService.save(users);
 
         return ResponseEntity.ok(newBookStore);
@@ -48,6 +54,15 @@ public class BookStoreTableController {
     @PutMapping("{tableId}")
     public ResponseEntity<?> updateTable(@PathVariable Long tableId,
                                          @RequestBody BookStoreTable bookStoreTable) {
+        if (bookStoreTable.getTableClaimer() != null) {
+            User tableClaimer = bookStoreTable.getTableClaimer();
+            tableClaimer = userService.findUserByUsername(tableClaimer.getUsername()).orElse(new User());
+
+            if (AuthorityUtil.hasRole(AuthorityEnum.ROLE_CUSTOMER.name(), tableClaimer)) {
+                bookStoreTable.setTableClaimer(tableClaimer);
+            }
+        }
+
         BookStoreTable updatedTable = bookstoreTableService.save(bookStoreTable);
         return ResponseEntity.ok(updatedTable);
     }

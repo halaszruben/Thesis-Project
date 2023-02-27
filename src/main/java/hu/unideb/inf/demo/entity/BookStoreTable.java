@@ -2,7 +2,6 @@ package hu.unideb.inf.demo.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,6 +18,9 @@ public class BookStoreTable {
     private String status;
     @ManyToMany
     private Set<User> user;
+    @ManyToOne
+    private User tableClaimer;
+    //this might not be a great idea
 
     public Long getId() {
         return id;
@@ -66,5 +68,13 @@ public class BookStoreTable {
 
     public void setUser(Set<User> user) {
         this.user = user;
+    }
+
+    public User getTableClaimer() {
+        return tableClaimer;
+    }
+
+    public void setTableClaimer(User tableClaimer) {
+        this.tableClaimer = tableClaimer;
     }
 }

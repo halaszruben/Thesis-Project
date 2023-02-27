@@ -4,3 +4,19 @@
   font-size: x-large !important;
   color: purple;
 }
+
+.table-wrapper {
+  border: 2px dashed coral;
+  padding: 2em;
+  border-radius: 1em;
+  margin-top: 2em;
+}
+
+.table-statuses {
+  width: min-content;
+  background-color: white;
+  white-space: nowrap;
+  font-family: cursive;
+  margin-top: -1.85em !important;
+  margin-bottom: 1em !important;
+}
