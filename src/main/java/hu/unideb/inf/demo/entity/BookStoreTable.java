@@ -14,6 +14,7 @@ public class BookStoreTable {
     private Long id;
     private Integer chairs;
     private Integer assignedNumber;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private String status;
     @ManyToMany

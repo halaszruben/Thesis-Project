@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from "react";
 import ajax from "../util/fetchService";
 import { useLocalState } from "../util/useLocalStorage";
-import { Alert, Badge, Button, Card, Col, Row } from "react-bootstrap";
+import { Badge, Button, Card, Col, Container, Row } from "react-bootstrap";
 
-const WorkerDashboard = () => {
+const CustomerDashboard = () => {
     const [jwt, setJwt] = useLocalState("", "jwt");
     const [tables, setTables] = useState(null);
 
 
-    function deleteTable(tableId) {
-        ajax(`api/tables/${tableId}`, "DELETE", jwt)
 
-        const tablesCopy = [...tables];
-        const i = tablesCopy.findIndex((table) => table.id === tableId);
-        tablesCopy.splice(i, 1);
-        setTables(tablesCopy);
-    }
 
-    function createTable() {
-        ajax("api/tables", "POST", jwt)
-            .then((table) => {
-                window.location.href = `/tables/${table.id}`;
-            });
-    }
+
 
     useEffect(() => {
         ajax("api/tables", "GET", jwt)
@@ -32,7 +20,7 @@ const WorkerDashboard = () => {
     }, [jwt]);
 
     return (
-        <div style={{ margin: "3em" }}>
+        <Container style={{ margin: "3em" }}>
 
             <Row>
                 <Col>
@@ -49,11 +37,12 @@ const WorkerDashboard = () => {
                 </Col>
             </Row>
 
-            <div className="mb-5">
-                <Button size="lg" onClick={() => createTable()}>
-                    Add new Table
-                </Button>
-            </div>
+            <Row>
+                <Col>
+                    <div className="h1">Customer Dashboard</div>
+                </Col>
+            </Row>
+
             {tables ? (
                 <div
                     className="d-grid gap-5"
@@ -95,15 +84,9 @@ const WorkerDashboard = () => {
                                         window.location.href = `/tables/${table.id}`;
                                     }}
                                 >
-                                    Edit
+                                    Sit down
                                 </Button>
-                                <Button
-                                    variant="warning" size="sm"
-                                    onClick={() => deleteTable(table.id)}
-                                >
 
-                                    Delete
-                                </Button>
                             </Card.Body>
                         </Card>
                     ))}
@@ -111,8 +94,8 @@ const WorkerDashboard = () => {
             ) : (
                 <></>
             )}
-        </div>
+        </Container>
     );
 };
 
-export default WorkerDashboard;
+export default CustomerDashboard;

@@ -8,26 +8,47 @@ import WorkerDashboard from './WorkerDashboard';
 import WorkerTableView from './WorkerTableView';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import jwt_decode from "jwt-decode";
+import { useState } from 'react';
+import CustomerDashboard from './CustomerDashboard';
 
 function App() {
   const [jwt, setJwt] = useLocalState("", "jwt");
+  const [roles, setRoles] = useState(getRolesFromJwt());
+
+  console.log(roles);
+  function getRolesFromJwt() {
+    if (jwt) {
+      const decodedJwt = jwt_decode(jwt);
+      return decodedJwt.authorities;
+    }
+    return [];
+  }
 
   return (
     <Routes>
       <Route path="/dashboard" element={
-        <PrivateRoute>
-          <WorkerDashboard />
-        </PrivateRoute>
-      } />
-      <Route path="/tables/:id"
-        element={
+        roles.find((role) => role === "ROLE_WORKER") ? (
           <PrivateRoute>
-            <WorkerTableView />
+            <WorkerDashboard />
           </PrivateRoute>
+        ) : (
+          < PrivateRoute >
+            <CustomerDashboard />
+          </PrivateRoute>
+        )
+      }
+
+      />
+      < Route path="/tables/:id"
+        element={
+          < PrivateRoute >
+            <WorkerTableView />
+          </PrivateRoute >
         } />
-      <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Homepage />} />
-    </Routes>
+      < Route path="/login" element={< Login />} />
+      < Route path="/" element={< Homepage />} />
+    </Routes >
   );
 }
 

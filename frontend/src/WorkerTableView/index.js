@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocalState } from '../util/useLocalStorage';
 import ajax from '../util/fetchService'
 import { Badge, Button, Col, Container, Form, Row } from 'react-bootstrap';
@@ -14,6 +14,7 @@ const WorkerTableView = () => {
         status: null,
     });
     const [tableStatuses, setTableStatuses] = useState([]);
+    const prevTableValue = useRef(table);
 
     function updateTable(prop, value) {
         const newTable = { ...table };
@@ -22,30 +23,42 @@ const WorkerTableView = () => {
 
     }
 
+
+
     function save() {
 
-        console.log(`Status is ${table.status}`);
         if (table.status === tableStatuses[0].status) {
-            console.log("setting new status be:", tableStatuses[1].status);
             updateTable("status", tableStatuses[1].status);
+        } else {
+            persist();
+            toast.success('The table has been Updated!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
+    }
 
+    function persist() {
         ajax(`/api/tables/${tableId}`, "PUT", jwt, table)
             .then((tableData) => {
                 setTable(tableData);
 
-                toast.success('The table has been Updated!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
             });
-    }
+
+    };
+
+    useEffect(() => {
+        if (prevTableValue.current.status !== table.status) {
+            persist();
+        }
+        prevTableValue.current = table;
+    }, [table]);
 
     useEffect(() => {
 
@@ -135,10 +148,18 @@ const WorkerTableView = () => {
                         </Col>
                     </Form.Group>
 
-                    <Button size="lg" className="mt-5" onClick={() => save()}>
-                        Save Attributes
-                    </Button>
-                    <ToastContainer />
+                    <div className="d-flex gap-5">
+                        <Button size="lg" className="mt-5" onClick={() => save()}>
+                            Save Attributes
+                        </Button>
+                        <Button
+                            size="lg" variant="secondary" className="mt-5"
+                            onClick={() => (window.location.href = "/dashboard")}
+                        >
+                            Back
+                        </Button>
+                        <ToastContainer />
+                    </div>
                 </>
             ) : (
                 <></>
