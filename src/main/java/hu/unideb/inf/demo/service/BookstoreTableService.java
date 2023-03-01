@@ -19,7 +19,7 @@ public class BookstoreTableService {
 
     public BookStoreTable save(Set<User> user) {
         BookStoreTable bookStoreTable = new BookStoreTable();
-        bookStoreTable.setStatus(BookStoreTableStatusEnum.TABLE_IS_FREE.getStatus());
+        bookStoreTable.setStatus(BookStoreTableStatusEnum.UNAVAILABLE.getStatus());
         bookStoreTable.setUser(user);
 
         return bookStoreTableRepository.save(bookStoreTable);

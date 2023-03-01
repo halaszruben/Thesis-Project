@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocalState } from '../util/useLocalStorage';
 import ajax from '../util/fetchService'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import StatusBadge from '../StatusBadge';
 import { useNavigate } from 'react-router-dom';
 
-const WorkerTableView = () => {
+const CustomerTableView = () => {
     const [jwt, setJwt] = useLocalState("", "jwt");
     const tableId = window.location.href.split("/tables/")[1];
     const [table, setTable] = useState({
@@ -26,34 +26,13 @@ const WorkerTableView = () => {
 
     }
 
-    function save(status) {
+    function leave(status) {
 
-        // if (table.status === tableStatuses[4].status) {
-        //     updateTable("status", tableStatuses[0].status);
         if (status && table.status !== status) {
             updateTable("status", status);
-            toast.info(`The table status has been updated to: ${status}`, {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
+            window.location.href = "/dashboard";
         } else {
             persist();
-            toast.success("The data has been updated!", {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
         }
     }
 
@@ -118,9 +97,11 @@ const WorkerTableView = () => {
                         <Col sm="4" md="3" lg="2" xs="5">
                             <Form.Control
                                 onChange={(event) => updateTable("assignedNumber", event.target.value)}
-                                type="number"
+                                type="text"
+                                readOnly
                                 value={table.assignedNumber}
                                 placeholder="the_number_you_want_to_identify_this_table_with"
+                                style={{ backgroundColor: "lightgrey" }}
                             />
                         </Col>
                     </Form.Group>
@@ -135,9 +116,11 @@ const WorkerTableView = () => {
                         <Col sm="4" md="3" lg="2" xs="5">
                             <Form.Control
                                 onChange={(event) => updateTable("chairs", event.target.value)}
-                                type="number"
+                                type="text"
+                                readOnly
                                 value={table.chairs}
                                 placeholder="0"
+                                style={{ backgroundColor: "lightgrey" }}
                             />
                         </Col>
                     </Form.Group>
@@ -152,48 +135,27 @@ const WorkerTableView = () => {
                         <Col sm="9" md="8" lg="8">
                             <Form.Control
                                 type=""
+                                readOnly
                                 placeholder="describe_the_background"
                                 onChange={(event) => updateTable("description", event.target.value)}
                                 value={table.description}
+                                style={{ backgroundColor: "lightgrey", color: "darkblue" }}
                             />
                         </Col>
                     </Form.Group>
 
-                    <div className="d-flex gap-3">
-                        <Button
-                            size="lg"
-                            className="mt-5"
-                            variant="success"
-                            onClick={() => save(tableStatuses[0].status)}>
-                            Save Attributes /
-                            Free the table up
-                        </Button>
+                    <div className="d-flex gap-5">
 
                         <Button
+                            variant="danger"
                             size="lg"
                             className="mt-5"
-                            variant="info"
-                            onClick={() => save(tableStatuses[3].status)}>
-                            Tidying
+                            onClick={() => leave(tableStatuses[2].status)}>
+                            Leave
                         </Button>
 
-                        <Button
-                            size="lg"
-                            variant="secondary"
-                            className="mt-5"
-                            onClick={() => (window.location.href = "/dashboard")}
-                        >
-                            Back
-                        </Button>
                         <ToastContainer />
                     </div>
-                    <Button
-                        size="lg"
-                        className="mt-5"
-                        variant="dark"
-                        onClick={() => save(tableStatuses[4].status)}>
-                        Unavailable
-                    </Button>
                 </>
             ) : (
                 <></>
@@ -205,4 +167,4 @@ const WorkerTableView = () => {
 };
 
 
-export default WorkerTableView;
+export default CustomerTableView;

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ajax from "../util/fetchService";
 import { useLocalState } from "../util/useLocalStorage";
-import { Alert, Badge, Button, Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
+import StatusBadge from "../StatusBadge";
+import { useNavigate } from "react-router-dom";
 
 const WorkerDashboard = () => {
     const [jwt, setJwt] = useLocalState("", "jwt");
     const [tables, setTables] = useState(null);
+    const navigate = useNavigate();
 
 
     function deleteTable(tableId) {
@@ -41,7 +44,7 @@ const WorkerDashboard = () => {
                         style={{ cursor: "pointer", fontSize: "large", color: "burgundy" }}
                         onClick={() => {
                             setJwt(null);
-                            window.location.href = "/login"
+                            window.location.href = "/login";
                         }}
                     >
                         Logout
@@ -73,13 +76,7 @@ const WorkerDashboard = () => {
                                     Table #{table.assignedNumber}
                                 </Card.Title>
                                 <div>
-                                    <Badge
-                                        pill
-                                        bg="success"
-                                        style={{ fontSize: "1em" }}
-                                    >
-                                        {table.status}
-                                    </Badge>
+                                    <StatusBadge text={table.status} />
                                 </div>
                                 <Card.Text style={{ marginTop: "1em" }}>
                                     <p>
@@ -99,10 +96,9 @@ const WorkerDashboard = () => {
                                     Edit
                                 </Button>
                                 <Button
-                                    variant="warning" size="sm"
+                                    variant="danger" size="sm"
                                     onClick={() => deleteTable(table.id)}
                                 >
-
                                     Delete
                                 </Button>
                             </Card.Body>
@@ -111,8 +107,9 @@ const WorkerDashboard = () => {
                 </div>
             ) : (
                 <></>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 };
 

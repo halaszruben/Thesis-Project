@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
 import ajax from "../util/fetchService";
 import { useLocalState } from "../util/useLocalStorage";
-import { Badge, Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import jwt_decode from "jwt-decode"
+import StatusBadge from "../StatusBadge";
+import { useNavigate } from "react-router-dom";
 
 const CustomerDashboard = () => {
     const [jwt, setJwt] = useLocalState("", "jwt");
     const [tables, setTables] = useState(null);
+    const navigate = useNavigate();
+
+    function orderAtTable(table) {
+        window.location.href = `/tables/${table.id}`;
+        claimTable(table);
+    }
 
     function claimTable(table) {
 
@@ -68,7 +76,7 @@ const CustomerDashboard = () => {
 
                 {(tables && tables.filter((table) => table.status === "Table is free").length > 0) ? (
                     <div
-                        className="d-grid gap-5"
+                        className="d-grid gap-4"
                         style={{ gridTemplateColumns: "repeat(auto-fit, 18rem)" }}
                     >
                         {tables.filter((table) => table.status === "Table is free")
@@ -85,13 +93,7 @@ const CustomerDashboard = () => {
                                             Table #{table.assignedNumber}
                                         </Card.Title>
                                         <div>
-                                            <Badge
-                                                pill
-                                                bg="success"
-                                                style={{ fontSize: "1em" }}
-                                            >
-                                                {table.status}
-                                            </Badge>
+                                            <StatusBadge text={table.status} />
                                         </div>
                                         <Card.Text style={{ marginTop: "1em" }}>
                                             <p>
@@ -103,9 +105,9 @@ const CustomerDashboard = () => {
                                         </Card.Text>
 
                                         <Button
-                                            variant="primary"
+                                            variant="info"
                                             onClick={() => {
-                                                claimTable(table);
+                                                orderAtTable(table);
                                             }}
                                         >
                                             Sit down
@@ -144,13 +146,7 @@ const CustomerDashboard = () => {
                                             Table #{table.assignedNumber}
                                         </Card.Title>
                                         <div>
-                                            <Badge
-                                                pill
-                                                bg="success"
-                                                style={{ fontSize: "1em" }}
-                                            >
-                                                {table.status}
-                                            </Badge>
+                                            <StatusBadge text={table.status} />
                                         </div>
                                         <Card.Text style={{ marginTop: "1em" }}>
                                             <p>
@@ -193,13 +189,7 @@ const CustomerDashboard = () => {
                                             Table #{table.assignedNumber}
                                         </Card.Title>
                                         <div>
-                                            <Badge
-                                                pill
-                                                bg="success"
-                                                style={{ fontSize: "1em" }}
-                                            >
-                                                {table.status}
-                                            </Badge>
+                                            <StatusBadge text={table.status} />
                                         </div>
                                         <Card.Text style={{ marginTop: "1em" }}>
                                             <p>

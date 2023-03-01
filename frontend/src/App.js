@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import jwt_decode from "jwt-decode";
 import { useState } from 'react';
 import CustomerDashboard from './CustomerDashboard';
+import CustomerTableView from './CustomerTableView';
 
 function App() {
   const [jwt, setJwt] = useLocalState("", "jwt");
@@ -26,6 +27,7 @@ function App() {
   }
 
   return (
+
     <Routes>
       <Route path="/dashboard" element={
         roles.find((role) => role === "ROLE_WORKER") ? (
@@ -42,12 +44,22 @@ function App() {
       />
       < Route path="/tables/:id"
         element={
-          < PrivateRoute >
-            <WorkerTableView />
-          </PrivateRoute >
-        } />
+          roles.find((role) => role === "ROLE_WORKER") ? (
+            < PrivateRoute >
+              <WorkerTableView />
+            </PrivateRoute >
+          ) : (
+            <PrivateRoute>
+              <CustomerTableView />
+            </PrivateRoute>
+          )
+        }
+      />
+
       < Route path="/login" element={< Login />} />
+
       < Route path="/" element={< Homepage />} />
+
     </Routes >
   );
 }
