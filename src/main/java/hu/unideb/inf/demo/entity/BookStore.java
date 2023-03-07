@@ -15,8 +15,8 @@ public class BookStore {
     private String location;
     @Column(columnDefinition = "TEXT")
     private String description;
-    @ManyToMany
-    private List<User> user;
+    @OneToMany
+    private List<User> workerUsers;
 
     public Long getId() {
         return id;
@@ -50,11 +50,11 @@ public class BookStore {
         this.description = description;
     }
 
-    public List<User> getUser() {
-        return user;
+    public List<User> getWorkerUsers() {
+        return workerUsers;
     }
 
-    public void setUser(List<User> user) {
-        this.user = user;
+    public void setWorkerUsers(List<User> workerUsers) {
+        this.workerUsers = workerUsers;
     }
 }

@@ -9,18 +9,22 @@ import WorkerTableView from './WorkerTableView';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import jwt_decode from "jwt-decode";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CustomerDashboard from './CustomerDashboard';
 import CustomerTableView from './CustomerTableView';
+import { useUser } from './UserProvider';
 
 function App() {
-  const [jwt, setJwt] = useLocalState("", "jwt");
-  const [roles, setRoles] = useState(getRolesFromJwt());
+  const user = useUser();
+  const [roles, setRoles] = useState([]);
 
-  console.log(roles);
+  useEffect(() => {
+    setRoles(getRolesFromJwt());
+  }, [user.jwt])
+
   function getRolesFromJwt() {
-    if (jwt) {
-      const decodedJwt = jwt_decode(jwt);
+    if (user.jwt) {
+      const decodedJwt = jwt_decode(user.jwt);
       return decodedJwt.authorities;
     }
     return [];

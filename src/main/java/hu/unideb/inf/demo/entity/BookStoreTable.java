@@ -16,8 +16,6 @@ public class BookStoreTable {
     @Column(columnDefinition = "TEXT")
     private String description;
     private String status;
-    @ManyToMany
-    private Set<User> user;
     @ManyToOne
     private User tableClaimer;
     //this might not be a great idea
@@ -60,14 +58,6 @@ public class BookStoreTable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Set<User> getUser() {
-        return user;
-    }
-
-    public void setUser(Set<User> user) {
-        this.user = user;
     }
 
     public User getTableClaimer() {

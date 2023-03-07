@@ -28,8 +28,8 @@ public class BookStoreTableController {
     private UserService userService;
 
     @PostMapping("")
-    public ResponseEntity<?> createTable(@AuthenticationPrincipal Set<User> users) {
-        BookStoreTable newBookStore = bookstoreTableService.save(users);
+    public ResponseEntity<?> createTable() {
+        BookStoreTable newBookStore = bookstoreTableService.save();
 
         return ResponseEntity.ok(newBookStore);
     }

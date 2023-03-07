@@ -17,10 +17,9 @@ public class BookstoreTableService {
     @Autowired
     private BookStoreTableRepository bookStoreTableRepository;
 
-    public BookStoreTable save(Set<User> user) {
+    public BookStoreTable save() {
         BookStoreTable bookStoreTable = new BookStoreTable();
         bookStoreTable.setStatus(BookStoreTableStatusEnum.UNAVAILABLE.getStatus());
-        bookStoreTable.setUser(user);
 
         return bookStoreTableRepository.save(bookStoreTable);
     }

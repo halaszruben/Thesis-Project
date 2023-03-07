@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import ajax from "../util/fetchService";
-import { useLocalState } from "../util/useLocalStorage";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import StatusBadge from "../StatusBadge";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../UserProvider";
 
 const WorkerDashboard = () => {
-    const [jwt, setJwt] = useLocalState("", "jwt");
+    const user = useUser();
     const [tables, setTables] = useState(null);
     const navigate = useNavigate();
 
 
     function deleteTable(tableId) {
-        ajax(`api/tables/${tableId}`, "DELETE", jwt)
+        ajax(`api/tables/${tableId}`, "DELETE", user.jwt)
 
         const tablesCopy = [...tables];
         const i = tablesCopy.findIndex((table) => table.id === tableId);
@@ -21,18 +21,19 @@ const WorkerDashboard = () => {
     }
 
     function createTable() {
-        ajax("api/tables", "POST", jwt)
+        ajax("api/tables", "POST", user.jwt)
             .then((table) => {
                 window.location.href = `/tables/${table.id}`;
             });
     }
 
     useEffect(() => {
-        ajax("api/tables", "GET", jwt)
+        ajax("api/tables", "GET", user.jwt)
             .then((tablesData) => {
                 setTables(tablesData);
             });
-    }, [jwt]);
+        if (!user.jwt) window.location.href = "/login";
+    }, [user.jwt]);
 
     return (
         <div style={{ margin: "3em" }}>
@@ -43,7 +44,7 @@ const WorkerDashboard = () => {
                         className="d-flex justify-content-end"
                         style={{ cursor: "pointer", fontSize: "large", color: "burgundy" }}
                         onClick={() => {
-                            setJwt(null);
+                            user.setJwt(null);
                             window.location.href = "/login";
                         }}
                     >

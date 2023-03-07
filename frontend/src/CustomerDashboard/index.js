@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import ajax from "../util/fetchService";
-import { useLocalState } from "../util/useLocalStorage";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import jwt_decode from "jwt-decode"
 import StatusBadge from "../StatusBadge";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../UserProvider";
 
 const CustomerDashboard = () => {
-    const [jwt, setJwt] = useLocalState("", "jwt");
+    const user = useUser();
     const [tables, setTables] = useState(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user.jwt)
+            window.location.href = "/login";
+    });
 
     function orderAtTable(table) {
         window.location.href = `/tables/${table.id}`;
@@ -17,18 +22,15 @@ const CustomerDashboard = () => {
     }
 
     function claimTable(table) {
-
-        const decodedJwt = jwt_decode(jwt);
-
-        const user = {
+        const decodedJwt = jwt_decode(user.jwt);
+        const tableClaimer = {
             username: decodedJwt.sub,
-        };
-
-        table.tableClaimer = user;
+        }
+        table.tableClaimer = tableClaimer;
         //TODO: no hard code
         table.status = "Table is occupied";
 
-        ajax(`api/tables/${table.id}`, "PUT", jwt, table)
+        ajax(`api/tables/${table.id}`, "PUT", user.jwt, table)
             .then(updatedTable => {
                 const tablesCopy = [...tables];
                 const i = tablesCopy.findIndex((t) => t.id === table.id);
@@ -38,11 +40,11 @@ const CustomerDashboard = () => {
     }
 
     useEffect(() => {
-        ajax("api/tables", "GET", jwt)
+        ajax("api/tables", "GET", user.jwt)
             .then((tablesData) => {
                 setTables(tablesData);
             });
-    }, [jwt]);
+    }, [user.jwt]);
 
     return (
         <Container style={{ margin: "3em" }}>
@@ -53,7 +55,7 @@ const CustomerDashboard = () => {
                         className="d-flex justify-content-end"
                         style={{ cursor: "pointer", fontSize: "large", color: "burgundy" }}
                         onClick={() => {
-                            setJwt(null);
+                            user.setJwt(null);
                             window.location.href = "/login";
                         }}
                     >

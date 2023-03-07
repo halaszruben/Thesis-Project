@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocalState } from '../util/useLocalStorage';
 import ajax from '../util/fetchService'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
 import StatusBadge from '../StatusBadge';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../UserProvider';
 
 const CustomerTableView = () => {
-    const [jwt, setJwt] = useLocalState("", "jwt");
+    const user = useUser();
     const tableId = window.location.href.split("/tables/")[1];
     const [table, setTable] = useState({
         chairs: "",
@@ -37,7 +37,7 @@ const CustomerTableView = () => {
     }
 
     function persist() {
-        ajax(`/api/tables/${tableId}`, "PUT", jwt, table)
+        ajax(`/api/tables/${tableId}`, "PUT", user.jwt, table)
             .then((tableData) => {
                 setTable(tableData);
 
@@ -54,7 +54,7 @@ const CustomerTableView = () => {
 
     useEffect(() => {
 
-        ajax(`/api/tables/${tableId}`, "GET", jwt)
+        ajax(`/api/tables/${tableId}`, "GET", user.jwt)
             .then((tableResponse) => {
 
                 let tableData = tableResponse.table;
