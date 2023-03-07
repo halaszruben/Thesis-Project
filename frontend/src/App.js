@@ -46,7 +46,7 @@ function App() {
       }
 
       />
-      < Route path="/tables/:id"
+      < Route path="/tables/:tableId"
         element={
           roles.find((role) => role === "ROLE_WORKER") ? (
             < PrivateRoute >

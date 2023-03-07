@@ -63,8 +63,6 @@ const CustomerTableView = () => {
                 if (tableData.description === null) tableData.description = "";
 
                 setTable(tableData);
-                console.log(tableData);
-                console.log(tableResponse);
                 setTableStatuses(tableResponse.statusEnums);
             });
     }, []);

@@ -20,3 +20,10 @@
   margin-top: -1.85em !important;
   margin-bottom: 1em !important;
 }
+
+.comment-bubble {
+  background: #eeeeee;
+  border-radius: 1em;
+  padding: 1em;
+  margin: 1em 0em;
+}
