@@ -6,6 +6,8 @@ import StatusBadge from '../StatusBadge';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from "../UserProvider";
 import Comment from '../Comment';
+import { useInterval } from "../util/useInterval";
+import dayjs from 'dayjs';
 
 const WorkerTableView = () => {
     const user = useUser();
@@ -29,7 +31,18 @@ const WorkerTableView = () => {
     const [comment, setComment] = useState(emptyComment);
     const [comments, setComments] = useState([]);
 
-    //tesztelek
+    useInterval(() => {
+        updateCommentTimeDisplay();
+    }, 1000 * 5);
+    function updateCommentTimeDisplay() {
+        console.log("Comments in update", comments);
+        const commentsCopy = [...comments];
+        commentsCopy.forEach(
+            (comment) => (comment.createdDate = dayjs(comment.createdDate))
+        );
+        console.log("Copy of comments is:", commentsCopy);
+        setComments(commentsCopy);
+    }
 
     function handleEditComment(commentId) {
         const i = comments.findIndex((comment) => comment.id === commentId);
@@ -274,12 +287,10 @@ const WorkerTableView = () => {
                     <div className="mt-5">
                         {comments.map((comment) => (
                             <Comment
-                                createdDate={comment.createdDate}
-                                createdBy={comment.createdBy}
-                                text={comment.text}
+                                key={comment.id}
+                                commentData={comment}
                                 emitDeleteComment={handleDeleteComment}
                                 emitEditComment={handleEditComment}
-                                id={comment.id}
                             />
                         ))}
                     </div>
