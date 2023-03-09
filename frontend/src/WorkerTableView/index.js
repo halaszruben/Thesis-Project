@@ -5,9 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import StatusBadge from '../StatusBadge';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from "../UserProvider";
-import Comment from '../Comment';
-import { useInterval } from "../util/useInterval";
-import dayjs from 'dayjs';
+import CommentContainer from '../CommentContainer';
 
 const WorkerTableView = () => {
     const user = useUser();
@@ -19,91 +17,15 @@ const WorkerTableView = () => {
         assignedNumber: null,
         status: null,
     });
-    const emptyComment = {
-        id: null,
-        text: "",
-        tableId: tableId != null ? parseInt(tableId) : null,
-        user: user.jwt,
-    };
+
     const [tableStatuses, setTableStatuses] = useState([]);
     const prevTableValue = useRef(table);
     const navigate = useNavigate();
-    const [comment, setComment] = useState(emptyComment);
-    const [comments, setComments] = useState([]);
-
-    useInterval(() => {
-        updateCommentTimeDisplay();
-    }, 1000 * 5);
-    function updateCommentTimeDisplay() {
-        console.log("Comments in update", comments);
-        const commentsCopy = [...comments];
-        commentsCopy.forEach(
-            (comment) => (comment.createdDate = dayjs(comment.createdDate))
-        );
-        console.log("Copy of comments is:", commentsCopy);
-        setComments(commentsCopy);
-    }
-
-    function handleEditComment(commentId) {
-        const i = comments.findIndex((comment) => comment.id === commentId);
-        console.log("I've been to to edit this comment", comments[i]);
-        const commentCopy = {
-            id: comments[i].id,
-            text: comments[i].text,
-            tableId: tableId != null ? parseInt(tableId) : null,
-            user: user.jwt,
-        };
-        setComment(commentCopy);
-    }
-
-    function handleDeleteComment(commentId) {
-        console.log("I've been to to delete this comment", comment);
-        ajax(`/api/comments/${commentId}`, "DELETE", user.jwt)
-            .then((msg) => {
-                const commentsCopy = [...comments];
-                const i = commentsCopy.findIndex((comment) => comment.id === commentId);
-                commentsCopy.splice(i, 1);
-                setComments(commentsCopy);
-            });
-    }
-
-    function submitComment() {
-        if (comment.id) {
-            ajax(`/api/comments/${comment.id}`, "put", user.jwt, comment).then((d) => {
-                const commentsCopy = [...comments];
-                const i = commentsCopy.findIndex((comment) => comment.id === d.id);
-                commentsCopy[i] = d;
-                setComments(commentsCopy);
-                setComment(emptyComment);
-            });
-        } else {
-            ajax("/api/comments", "POST", user.jwt, comment).then((d) => {
-                const commentsCopy = [...comments];
-                commentsCopy.push(d);
-                setComments(commentsCopy);
-                setComment(emptyComment);
-            });
-        }
-    }
-
-    useEffect(() => {
-        ajax(`/api/comments?tableId=${tableId}`, "get", user.jwt, null
-        ).then((commentsData) => {
-            setComments(commentsData);
-        });
-    }, []);
-
-    function updateComment(value) {
-        const commentCopy = { ...comment };
-        commentCopy.text = value;
-        setComment(commentCopy);
-    }
 
     function updateTable(prop, value) {
         const newTable = { ...table };
         newTable[prop] = value;
         setTable(newTable);
-
     }
 
     function save(status) {
@@ -275,25 +197,7 @@ const WorkerTableView = () => {
                         Unavailable
                     </Button>
 
-                    <div className="mt-5">
-                        <textarea
-                            style={{ width: "100%", borderRadius: "0.25em" }}
-                            onChange={(e) => updateComment(e.target.value)}
-                            value={comment.text}
-                        ></textarea>
-                        <Button onClick={() => submitComment()}>Post Comment</Button>
-                    </div>
-
-                    <div className="mt-5">
-                        {comments.map((comment) => (
-                            <Comment
-                                key={comment.id}
-                                commentData={comment}
-                                emitDeleteComment={handleDeleteComment}
-                                emitEditComment={handleEditComment}
-                            />
-                        ))}
-                    </div>
+                    <CommentContainer tableId={tableId} />
 
                 </>
             ) : (

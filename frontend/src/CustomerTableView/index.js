@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import StatusBadge from '../StatusBadge';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../UserProvider';
+import CommentContainer from '../CommentContainer';
 
 const CustomerTableView = () => {
     const user = useUser();
@@ -154,6 +155,8 @@ const CustomerTableView = () => {
 
                         <ToastContainer />
                     </div>
+
+                    <CommentContainer tableId={tableId} />
                 </>
             ) : (
                 <></>

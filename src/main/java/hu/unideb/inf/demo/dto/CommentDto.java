@@ -1,10 +1,13 @@
 package hu.unideb.inf.demo.dto;
 
+import java.time.ZonedDateTime;
+
 public class CommentDto {
     private Long id;
     private Long tableId;
     private String text;
     private String user;
+    private ZonedDateTime createdDate;
 
     public Long getTableId() {
         return tableId;
@@ -38,8 +41,18 @@ public class CommentDto {
         this.id = id;
     }
 
+    public ZonedDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(ZonedDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
     @Override
     public String toString() {
-        return "CommentDto [tableId=" + tableId + ", text=" + text + ", user=" + user + "]";
+        return "CommentDto [id=" + id + ", tableId=" + tableId + ", text=" + text + ", user=" + user
+                + ", createdDate=" + createdDate + "]";
     }
+
 }

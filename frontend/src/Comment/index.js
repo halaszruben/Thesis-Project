@@ -20,7 +20,15 @@ const Comment = (props) => {
     function updateCommentRelativeTime() {
         if (createdDate) {
             dayjs.extend(relativeTime);
-            setCommentRelativeTime(dayjs(createdDate).fromNow());
+            console.log("typeof createdDate", typeof createdDate);
+
+            if (typeof createdDate === "string")
+                setCommentRelativeTime(dayjs(createdDate).fromNow());
+            else {
+                console.log(createdDate);
+                console.log(createdDate.fromNow());
+                setCommentRelativeTime(createdDate.fromNow());
+            }
         }
     }
 

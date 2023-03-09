@@ -1,5 +1,8 @@
 package hu.unideb.inf.demo.service;
 
+import java.time.ZonedDateTime;
+import java.util.Set;
+
 import hu.unideb.inf.demo.dto.CommentDto;
 import hu.unideb.inf.demo.entity.BookStoreTable;
 import hu.unideb.inf.demo.entity.Comment;
@@ -8,9 +11,6 @@ import hu.unideb.inf.demo.repository.BookStoreTableRepository;
 import hu.unideb.inf.demo.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.Set;
 
 @Service
 public class CommentService {
@@ -30,7 +30,9 @@ public class CommentService {
         comment.setText(commentDto.getText());
         comment.setCreatedBy(user);
         if (comment.getId() == null)
-            comment.setCreatedDate(LocalDateTime.now());
+            comment.setCreatedDate(ZonedDateTime.now());
+        else
+            comment.setCreatedDate(commentDto.getCreatedDate());
 
         return commentRepo.save(comment);
     }
