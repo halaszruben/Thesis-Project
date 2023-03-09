@@ -132,13 +132,13 @@ const CustomerTableView = () => {
                             Description:
                         </Form.Label>
                         <Col sm="9" md="8" lg="8">
-                            <Form.Control
+                            <textarea
                                 type=""
                                 readOnly
                                 placeholder="describe_the_background"
                                 onChange={(event) => updateTable("description", event.target.value)}
                                 value={table.description}
-                                style={{ backgroundColor: "lightgrey", color: "darkblue" }}
+                                style={{ width: "80%", height: "80px", borderRadius: "0.25em", backgroundColor: "lightgrey", color: "darkblue" }}
                             />
                         </Col>
                     </Form.Group>

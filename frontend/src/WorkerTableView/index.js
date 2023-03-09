@@ -152,7 +152,8 @@ const WorkerTableView = () => {
                             Description:
                         </Form.Label>
                         <Col sm="9" md="8" lg="8">
-                            <Form.Control
+                            <textarea
+                                style={{ width: "80%", height: "80px", borderRadius: "0.25em" }}
                                 type=""
                                 placeholder="describe_the_background"
                                 onChange={(event) => updateTable("description", event.target.value)}

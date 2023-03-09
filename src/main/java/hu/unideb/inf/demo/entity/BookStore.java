@@ -1,8 +1,11 @@
 package hu.unideb.inf.demo.entity;
 
-import jakarta.persistence.*;
-
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "book_stores")
@@ -15,8 +18,6 @@ public class BookStore {
     private String location;
     @Column(columnDefinition = "TEXT")
     private String description;
-    @OneToMany
-    private List<User> workerUsers;
 
     public Long getId() {
         return id;
@@ -48,13 +49,5 @@ public class BookStore {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<User> getWorkerUsers() {
-        return workerUsers;
-    }
-
-    public void setWorkerUsers(List<User> workerUsers) {
-        this.workerUsers = workerUsers;
     }
 }
