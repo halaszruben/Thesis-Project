@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import CustomerDashboard from './CustomerDashboard';
 import CustomerTableView from './CustomerTableView';
 import { useUser } from './UserProvider';
+import RegisterWorker from './RegisterWorker';
 
 function App() {
   const user = useUser();
@@ -63,6 +64,8 @@ function App() {
       < Route path="/login" element={< Login />} />
 
       < Route path="/" element={< Homepage />} />
+
+      <Route path="/registerWorker" element={< RegisterWorker />} />
 
     </Routes >
   );
