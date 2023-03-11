@@ -14,6 +14,7 @@ import CustomerDashboard from './CustomerDashboard';
 import CustomerTableView from './CustomerTableView';
 import { useUser } from './UserProvider';
 import RegisterWorker from './RegisterWorker';
+import RegisterCustomer from './RegisterCustomer';
 
 function App() {
   const user = useUser();
@@ -66,6 +67,8 @@ function App() {
       < Route path="/" element={< Homepage />} />
 
       <Route path="/registerWorker" element={< RegisterWorker />} />
+
+      <Route path="/registerCustomer" element={< RegisterCustomer />} />
 
     </Routes >
   );

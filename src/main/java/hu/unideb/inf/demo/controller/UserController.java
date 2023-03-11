@@ -30,9 +30,16 @@ public class UserController {
     private JwtUtil jwtUtil;
 
     @PostMapping("register/worker")
-    private ResponseEntity<?> createWorkerUser(@RequestBody UserDto userDto) {
+    private void createWorkerUser(@RequestBody UserDto userDto) {
 
         userService.createWorkerUser(userDto);
+
+    }
+
+    @PostMapping("register/customer")
+    private ResponseEntity<?> createCustomerUser(@RequestBody UserDto userDto) {
+
+        userService.createCustomerUser(userDto);
 
         try {
             Authentication authenticate = authenticationManager
@@ -58,4 +65,5 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
 }

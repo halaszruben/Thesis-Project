@@ -47,4 +47,22 @@ public class UserService {
 
         authorityRepository.save(authority);
     }
+
+    public void createCustomerUser(UserDto userDto) {
+        User newUser = new User();
+
+        newUser.setUsername(userDto.getUsername());
+        newUser.setName(userDto.getName());
+
+        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+        newUser.setPassword(encodedPassword);
+
+        userRepository.save(newUser);
+
+        Authority authority = new Authority();
+        authority.setAuthority("ROLE_CUSTOMER");
+        authority.setUser(newUser);
+
+        authorityRepository.save(authority);
+    }
 }

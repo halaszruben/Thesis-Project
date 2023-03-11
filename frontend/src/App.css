@@ -27,3 +27,10 @@
   padding: 1em;
   margin: 1em 0em;
 }
+
+.registerHeaders {
+  text-align: center;
+  font-family: cursive;
+  margin: 1em;
+  color: chocolate;
+}
