@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +19,8 @@ public class BookStore {
     private String location;
     @Column(columnDefinition = "TEXT")
     private String description;
+    @ManyToOne(optional = false)
+    private User user;
 
     public Long getId() {
         return id;
@@ -49,5 +52,13 @@ public class BookStore {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

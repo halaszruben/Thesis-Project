@@ -41,6 +41,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
+                //.requestMatchers("/api").permitAll()
                 .requestMatchers("/api/users/register/**").anonymous()
                 .anyRequest().authenticated()
                 .and()

@@ -152,10 +152,10 @@ const RegisterWorker = () => {
                             type="button"
                             size="lg"
                             onClick={() => {
-                                navigate("/");
+                                navigate("/dashboard");
                             }}
                         >
-                            Exit
+                            Back
                         </Button>
 
                     </Col>
