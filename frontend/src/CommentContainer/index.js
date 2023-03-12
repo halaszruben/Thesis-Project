@@ -60,15 +60,7 @@ const CommentContainer = (props) => {
     function formatComments(commentsCopy) {
         commentsCopy.forEach((comment) => {
             if (typeof comment.createDate === "string") {
-                console.log(
-                    "BEFORE Converting string date to dayjs date",
-                    comment.createdDate
-                );
                 comment.createdDate = dayjs(comment.createDate);
-                console.log(
-                    "AFTER Converting string date to dayjs date",
-                    comment.createdDate
-                );
             }
         });
         setComments(commentsCopy);
@@ -114,7 +106,9 @@ const CommentContainer = (props) => {
                     onChange={(e) => updateComment(e.target.value)}
                     value={comment.text}
                 ></textarea>
-                <Button onClick={() => submitComment()}
+                <Button
+                    className="mt-2"
+                    onClick={() => submitComment()}
                     value="">Post Comment</Button>
             </div>
 

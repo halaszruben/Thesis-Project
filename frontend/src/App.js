@@ -16,6 +16,7 @@ import RegisterWorker from './RegisterWorker';
 import RegisterCustomer from './RegisterCustomer';
 import ManagerDashboard from './ManagerDashboard';
 import ManagerBookstoreView from './ManagerBookstoreView';
+import CustomerBookstoreView from './CustomerBookstoreView';
 
 function App() {
   const user = useUser();
@@ -39,16 +40,15 @@ function App() {
       <Route path="/dashboard" element={
         roles.find((role) => role === "ROLE_WORKER") ? (
           < PrivateRoute >
-            <CustomerDashboard />
+            <WorkerDashboard />
           </PrivateRoute>
-
         ) : roles.find((role) => role === "ROLE_MANAGER") ? (
           <PrivateRoute>
             < ManagerDashboard />
           </PrivateRoute>
         ) : (
           <PrivateRoute>
-            <WorkerDashboard />
+            <CustomerBookstoreView />
           </PrivateRoute>
         )
       }
@@ -56,12 +56,14 @@ function App() {
 
       <Route path='/tables'
         element={
-          roles.find((role) => role === "ROLE_MANAGER") ? (
+          roles.find((role) => role === "ROLE_MANAGER" || role === "ROLE_WORKER") ? (
             <PrivateRoute>
               < WorkerDashboard />
             </PrivateRoute>
           ) : (
-            <></>
+            <PrivateRoute>
+              < CustomerDashboard />
+            </PrivateRoute>
           )
         } />
 
@@ -96,33 +98,18 @@ function App() {
 
       < Route path="/" element={< Homepage />} />
 
-      <Route path="/registerWorker" element={< RegisterWorker />} />
+      <Route path="/registerWorker" element={
+        roles.find((role) => role === "ROLE_MANAGER") ? (
+          <PrivateRoute>
+            < RegisterWorker />
+          </PrivateRoute>
+        ) : (
+          <></>
+        )
+      }
+      />
 
       <Route path="/registerCustomer" element={< RegisterCustomer />} />
-
-      <Route path="/bookstores"
-        element={
-          roles.find((role) => role === "ROLE_MANAGER") ? (
-            <PrivateRoute>
-
-            </PrivateRoute>
-          ) : (
-            <></>
-          )
-        }
-      />
-
-      <Route path="/bookstores/:id"
-        element={
-          roles.find((role) => role === "ROLE_MANAGER") ? (
-            <PrivateRoute>
-
-            </PrivateRoute>
-          ) : (
-            <></>
-          )
-        }
-      />
 
     </Routes >
   );

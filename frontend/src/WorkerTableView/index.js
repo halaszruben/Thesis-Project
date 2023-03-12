@@ -10,7 +10,6 @@ import CommentContainer from '../CommentContainer';
 const WorkerTableView = () => {
     const user = useUser();
     const { tableId } = useParams();
-    //const tableId = window.location.href.split("/tables/")[1];
     const [table, setTable] = useState({
         chairs: "",
         description: "",
@@ -21,6 +20,10 @@ const WorkerTableView = () => {
     const [tableStatuses, setTableStatuses] = useState([]);
     const prevTableValue = useRef(table);
     const navigate = useNavigate();
+
+    function deleteAllComments() {
+        ajax("/api/comments", "DELETE", user.jwt).then(() => window.location.reload(true))
+    }
 
     function updateTable(prop, value) {
         const newTable = { ...table };
@@ -34,7 +37,7 @@ const WorkerTableView = () => {
         //     updateTable("status", tableStatuses[0].status);
         if (status && table.status !== status) {
             updateTable("status", status);
-            toast.info(`The table status has been updated to: ${status}`, {
+            toast.info(`The table status has been updated to: '${status}'`, {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -190,13 +193,23 @@ const WorkerTableView = () => {
                         </Button>
                         <ToastContainer />
                     </div>
-                    <Button
-                        size="lg"
-                        className="mt-5"
-                        variant="dark"
-                        onClick={() => save(tableStatuses[4].status)}>
-                        Unavailable
-                    </Button>
+                    <div className='d-flex gap-3'>
+                        <Button
+                            size="lg"
+                            className="mt-5"
+                            variant="dark"
+                            onClick={() => save(tableStatuses[4].status)}>
+                            Unavailable
+                        </Button>
+
+                        <Button
+                            size="lg"
+                            className="mt-5"
+                            variant="dark"
+                            onClick={() => deleteAllComments()}>
+                            Delete All comments
+                        </Button>
+                    </div>
 
                     <CommentContainer tableId={tableId} />
 

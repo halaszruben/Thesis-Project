@@ -47,4 +47,8 @@ public class CommentService {
         commentRepo.deleteById(commentId);
     }
 
+    public void deleteAll() {
+        commentRepo.deleteAll();
+    }
+
 }

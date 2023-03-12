@@ -51,6 +51,21 @@ const ManagerBookstoreView = () => {
 
                     <h1 className='bookstoreTitle d-flex'>{bookstore.name}</h1>
 
+                    <Row>
+                        <Col>
+                            <div
+                                className="d-flex justify-content-end"
+                                style={{ cursor: "pointer" }}
+                                onClick={() => {
+                                    user.setJwt(null);
+                                    navigate("/login")
+                                }}
+                            >
+                                Logout
+                            </div>
+                        </Col>
+                    </Row>
+
                     <Form.Group
                         as={Row}
                         className='my-3'

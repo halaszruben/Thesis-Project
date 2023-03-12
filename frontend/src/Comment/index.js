@@ -43,18 +43,19 @@ const Comment = (props) => {
                                 onClick={() => emitEditComment(id)}
                                 style={{ cursor: "pointer", color: "blue" }}
                             >
-                                edit
+                                Edit
                             </div>
                             <div
                                 onClick={() => emitDeleteComment(id)}
                                 style={{ cursor: "pointer", color: "red" }}
                             >
-                                delete
+                                Delete
                             </div>
                         </>
                     ) : (
                         <></>
                     )}
+
                 </div>
                 <div>{text}</div>
             </div>

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import hu.unideb.inf.demo.entity.BookStore;
 import hu.unideb.inf.demo.entity.User;
+import hu.unideb.inf.demo.enums.AuthorityEnum;
 import hu.unideb.inf.demo.repository.BookStoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,17 @@ public class BookStoreService {
         return bookStoreRepository.save(bookStore);
     }
 
-    public Set<BookStore> findByUser (User user) {
-        return bookStoreRepository.findByUser(user);
+    public Set<BookStore> findByUser(User user) {
+        boolean hasCustomerRole = user.getAuthorities()
+                .stream()
+                .filter(auth -> AuthorityEnum.ROLE_CUSTOMER.name().equals(auth.getAuthority()))
+                .count() > 0;
+
+        if (hasCustomerRole) {
+            return bookStoreRepository.findAll(user);
+        } else {
+            return bookStoreRepository.findByUser(user);
+        }
     }
 
     public Optional<BookStore> findById(Long bookstoreId) {

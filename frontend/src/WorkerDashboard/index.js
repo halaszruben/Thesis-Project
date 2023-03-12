@@ -10,7 +10,6 @@ const WorkerDashboard = () => {
     const [tables, setTables] = useState(null);
     const navigate = useNavigate();
 
-
     function deleteTable(tableId) {
         ajax(`api/tables/${tableId}`, "DELETE", user.jwt)
 
@@ -28,6 +27,7 @@ const WorkerDashboard = () => {
     }
 
     useEffect(() => {
+
         ajax("api/tables", "GET", user.jwt)
             .then((tablesData) => {
                 setTables(tablesData);

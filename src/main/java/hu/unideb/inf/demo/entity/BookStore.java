@@ -21,6 +21,8 @@ public class BookStore {
     private String description;
     @ManyToOne(optional = false)
     private User user;
+    @ManyToOne
+    private User customer;
 
     public Long getId() {
         return id;
@@ -60,5 +62,13 @@ public class BookStore {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public User getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(User customer) {
+        this.customer = customer;
     }
 }

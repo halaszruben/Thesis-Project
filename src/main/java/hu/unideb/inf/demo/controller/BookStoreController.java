@@ -6,6 +6,7 @@ import java.util.Set;
 import hu.unideb.inf.demo.entity.BookStore;
 import hu.unideb.inf.demo.entity.User;
 import hu.unideb.inf.demo.service.BookStoreService;
+import hu.unideb.inf.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,6 +24,8 @@ public class BookStoreController {
 
     @Autowired
     private BookStoreService bookStoreService;
+    @Autowired
+    private UserService userService;
 
     @PostMapping("")
     public ResponseEntity<?> createBookstore(@AuthenticationPrincipal User user) {

@@ -1,37 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Row } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { useUser } from '../UserProvider';
 import ajax from '../util/fetchService';
 
-const ManagerDashboard = () => {
+const CustomerBookstoreView = () => {
 
     const user = useUser();
     const [bookstores, setBookstores] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        ajax("api/bookstores", "GET", user.jwt)
-            .then((bookstoreData) => {
-                setBookstores(bookstoreData);
+        ajax("/api/bookstores", "GET", user.jwt)
+            .then((bookstoresData) => {
+                setBookstores(bookstoresData);
             });
     }, [user.jwt]);
 
-    function createBookStore() {
-        ajax("api/bookstores", "POST", user.jwt)
-            .then((bookstore) => {
-                window.location.href = `/bookstores/${bookstore.id}`;
-            });
-    }
-
     return (
-        <div style={{ margin: "2em" }}>
+        <Container>
 
             <Row>
                 <Col>
                     <div
                         className="d-flex justify-content-end"
-                        style={{ cursor: "pointer", marginBottom: "1em" }}
+                        style={{ cursor: "pointer" }}
                         onClick={() => {
                             user.setJwt(null);
                             navigate("/login")
@@ -42,6 +35,12 @@ const ManagerDashboard = () => {
                 </Col>
             </Row>
 
+            <Row>
+                <Col>
+                    <div className='h1'>Customer Bookstore View</div>
+                </Col>
+            </Row>
+
             {bookstores ? (
                 <div
                     className='d-grid gap-5'
@@ -49,6 +48,7 @@ const ManagerDashboard = () => {
                 >
 
                     {bookstores.map((bookstore) => (
+
                         <Card
                             key={bookstore.id}
                             style={{ width: "18rem", height: "18rem" }}
@@ -70,11 +70,11 @@ const ManagerDashboard = () => {
                                 </Card.Text>
 
                                 <Button
-                                    variant="secondary"
+                                    variant="primary"
                                     onClick={() => {
-                                        window.location.href = `/bookstores/${bookstore.id}`;
+                                        window.location.href = `/tables`;
                                     }}>
-                                    Manage
+                                    Look around
                                 </Button>
 
                             </Card.Body>
@@ -85,18 +85,8 @@ const ManagerDashboard = () => {
             ) : (
                 <></>
             )}
-
-            <div className="mt-5">
-                <Button
-                    size='lg'
-                    onClick={() => createBookStore()}>
-                    Add a new Restaurant
-                </Button>
-            </div>
-
-        </div>
-
+        </Container>
     );
 };
 
-export default ManagerDashboard;
+export default CustomerBookstoreView;
