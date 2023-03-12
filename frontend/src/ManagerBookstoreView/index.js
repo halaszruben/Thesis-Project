@@ -49,6 +49,8 @@ const ManagerBookstoreView = () => {
             {bookstore ? (
                 <>
 
+                    <h1 className='bookstoreTitle d-flex'>{bookstore.name}</h1>
+
                     <Form.Group
                         as={Row}
                         className='my-3'
@@ -120,21 +122,34 @@ const ManagerBookstoreView = () => {
                     </Form.Group>
 
                     <Button
+                        className='me-3'
                         size='lg'
                         onClick={() => save()}>
                         Update bookstore
                     </Button>
 
                     <Button
+                        className='me-3'
                         size='lg'
+                        variant='info'
                         onClick={() => (navigate("/registerWorker"))}>
                         Manage Workers
                     </Button>
 
                     <Button
+                        className='me-3'
                         size='lg'
+                        variant='info'
                         onClick={() => (navigate("/tables"))}>
                         Manage Tables
+                    </Button>
+
+                    <Button
+                        className='me-3'
+                        size='lg'
+                        variant='secondary'
+                        onClick={() => (navigate("/dashboard"))}>
+                        Back
                     </Button>
 
                 </>
