@@ -29,7 +29,12 @@ public class BookStoreService {
                 .filter(auth -> AuthorityEnum.ROLE_CUSTOMER.name().equals(auth.getAuthority()))
                 .count() > 0;
 
-        if (hasCustomerRole) {
+        boolean hasWorkerRole = user.getAuthorities()
+                .stream()
+                .filter(auth -> AuthorityEnum.ROLE_WORKER.name().equals(auth.getAuthority()))
+                .count() > 0;
+
+        if (hasCustomerRole || hasWorkerRole) {
             return bookStoreRepository.findAll(user);
         } else {
             return bookStoreRepository.findByUser(user);

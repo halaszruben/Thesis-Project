@@ -17,6 +17,7 @@ import RegisterCustomer from './RegisterCustomer';
 import ManagerDashboard from './ManagerDashboard';
 import ManagerBookstoreView from './ManagerBookstoreView';
 import CustomerBookstoreView from './CustomerBookstoreView';
+import WorkerBookstoreView from './WorkerBookstoreView'
 
 function App() {
   const user = useUser();
@@ -40,7 +41,7 @@ function App() {
       <Route path="/dashboard" element={
         roles.find((role) => role === "ROLE_WORKER") ? (
           < PrivateRoute >
-            <WorkerDashboard />
+            <WorkerBookstoreView />
           </PrivateRoute>
         ) : roles.find((role) => role === "ROLE_MANAGER") ? (
           <PrivateRoute>
