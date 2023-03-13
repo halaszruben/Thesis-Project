@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import { useUser } from '../UserProvider';
 import ajax from '../util/fetchService';
-import WorkerTableView from '../WorkerTableView';
 
 const ManagerBookstoreView = () => {
 
@@ -27,6 +27,17 @@ const ManagerBookstoreView = () => {
             .then((bookstoreData) => {
                 setBookstore(bookstoreData);
             });
+
+        toast.success("The data has been updated!", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     }
 
     useEffect(() => {
@@ -151,6 +162,8 @@ const ManagerBookstoreView = () => {
                         onClick={() => (navigate("/dashboard"))}>
                         Back
                     </Button>
+
+                    <ToastContainer />
 
                 </>
 
