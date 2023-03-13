@@ -9,6 +9,7 @@ const WorkerBookstoreView = () => {
     const [bookstores, setBookstores] = useState(null);
     const navigate = useNavigate();
 
+
     useEffect(() => {
         ajax("/api/bookstores", "GET", user.jwt)
             .then((bookstoresData) => {

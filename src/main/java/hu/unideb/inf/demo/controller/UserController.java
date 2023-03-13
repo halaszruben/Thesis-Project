@@ -1,5 +1,7 @@
 package hu.unideb.inf.demo.controller;
 
+import java.util.Set;
+
 import hu.unideb.inf.demo.dto.UserDto;
 import hu.unideb.inf.demo.entity.User;
 import hu.unideb.inf.demo.service.UserService;
@@ -12,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,6 +67,13 @@ public class UserController {
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> getUsers(@AuthenticationPrincipal User user) {
+        Set<User> users = userService.findByUsername(user);
+        
+        return ResponseEntity.ok(users);
     }
 
 }

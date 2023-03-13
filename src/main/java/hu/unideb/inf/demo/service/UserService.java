@@ -2,6 +2,7 @@ package hu.unideb.inf.demo.service;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.Set;
 
 import hu.unideb.inf.demo.dto.UserDto;
 import hu.unideb.inf.demo.entity.Authority;
@@ -64,5 +65,9 @@ public class UserService {
         authority.setUser(newUser);
 
         authorityRepository.save(authority);
+    }
+
+    public Set<User> findByUsername (User user) {
+        return userRepository.findAll(user);
     }
 }

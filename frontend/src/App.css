@@ -29,10 +29,10 @@
 }
 
 .registerHeaders {
-  text-align: center;
+  text-align: center !important;
   font-family: cursive;
-  margin: 1em;
-  color: chocolate;
+  margin: 1.1em;
+  color: navy;
 }
 
 .bookstoreTitle {
@@ -42,4 +42,12 @@
   justify-content: center;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   color: darkred;
+}
+
+.employee-header {
+  margin-bottom: -38px !important;
+  text-align: center !important;
+  margin-top: 65px;
+  font-family: cursive;
+  color: chocolate;
 }

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { Button, Col, Container, Row, Form } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Container, Row, Form, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { useUser } from '../UserProvider';
 
 const RegisterWorker = () => {
+    const userJwt = useUser();
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -11,6 +13,21 @@ const RegisterWorker = () => {
     const [cohortStartDate, setCohortStartDate] = useState(null);
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [users, setUsers] = useState(null);
+
+    useEffect(() => {
+        fetch("/api/users", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userJwt.jwt}`
+            },
+            method: "GET",
+        }).then((response) => {
+            if (response.status === 200) return response.json();
+        }).then((usersData) => {
+            setUsers(usersData);
+        });
+    }, []);
 
     function createWorkerUser() {
         const reqBody = {
@@ -161,10 +178,60 @@ const RegisterWorker = () => {
                     </Col>
                 </Row>
                 <ToastContainer />
+
+                <h1 className="employee-header" >Here are your current employees! </h1>
+
+                <div className="table-wrapper occupied-table mb-2">
+                    <Table responsive>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nickname</th>
+                                <th>Username</th>
+                                <th>Phone number</th>
+                                <th>Email</th>
+                                <th>Started (Y/M/D)</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {users ? (
+                                users.map((user) => (
+                                    <tr key={user.id}>
+                                        <td>{user.id}</td>
+                                        <td>{user.name}</td>
+                                        <td>{user.username}</td>
+                                        <td>{user.phoneNumber}</td>
+                                        <td>{user.email}</td>
+                                        <td>{user.cohortStartDate}</td>
+                                    </tr>
+                                ))
+                            ) : (<></>)}
+                        </tbody>
+
+                    </Table>
+
+                    <Row>
+                        <Col>
+                            <div
+                                className="d-flex justify-content-center"
+                                style={{ cursor: "pointer", fontSize: "large", color: "burgundy" }}
+                                onClick={() => {
+                                    window.location.reload(true);
+                                }}
+                            >
+                                Refresh Database
+                            </div>
+                        </Col>
+                    </Row>
+
+                </div>
+
             </Container>
 
         </div>
-    )
-}
+
+    );
+};
 
 export default RegisterWorker
