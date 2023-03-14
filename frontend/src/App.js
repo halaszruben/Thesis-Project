@@ -55,7 +55,7 @@ function App() {
       }
       />
 
-      <Route path='/tables'
+      <Route path='/tables/:bookstoreId'
         element={
           roles.find((role) => role === "ROLE_MANAGER" || role === "ROLE_WORKER") ? (
             <PrivateRoute>
@@ -68,7 +68,7 @@ function App() {
           )
         } />
 
-      < Route path="/tables/:tableId"
+      < Route path="/table/:tableId"
         element={
           roles.find((role) => role === "ROLE_WORKER" || role === "ROLE_MANAGER") ? (
             < PrivateRoute >

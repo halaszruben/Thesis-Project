@@ -26,6 +26,7 @@ const RegisterWorker = () => {
             if (response.status === 200) return response.json();
         }).then((usersData) => {
             setUsers(usersData);
+            console.log(usersData);
         });
     }, []);
 

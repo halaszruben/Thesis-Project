@@ -187,7 +187,7 @@ const WorkerTableView = () => {
                             size="lg"
                             variant="secondary"
                             className="mt-5"
-                            onClick={() => (window.location.href = "/dashboard")}
+                            onClick={() => (window.location.href = `/tables/${table.bookStoreId.id}`)}
                         >
                             Back
                         </Button>

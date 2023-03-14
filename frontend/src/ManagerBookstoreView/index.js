@@ -151,7 +151,7 @@ const ManagerBookstoreView = () => {
                         className='me-3'
                         size='lg'
                         variant='info'
-                        onClick={() => (navigate("/tables"))}>
+                        onClick={() => (navigate(`/tables/${bookstore.id}`))}>
                         Manage Tables
                     </Button>
 

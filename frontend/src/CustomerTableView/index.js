@@ -9,7 +9,7 @@ import CommentContainer from '../CommentContainer';
 
 const CustomerTableView = () => {
     const user = useUser();
-    const tableId = window.location.href.split("/tables/")[1];
+    const tableId = window.location.href.split("/table/")[1];
     const [table, setTable] = useState({
         chairs: "",
         description: "",
@@ -31,7 +31,7 @@ const CustomerTableView = () => {
 
         if (status && table.status !== status) {
             updateTable("status", status);
-            window.location.href = "/dashboard";
+            window.location.href = "/tables";
         } else {
             persist();
         }

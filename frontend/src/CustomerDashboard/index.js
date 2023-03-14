@@ -17,7 +17,7 @@ const CustomerDashboard = () => {
     });
 
     function orderAtTable(table) {
-        window.location.href = `/tables/${table.id}`;
+        window.location.href = `/table/${table.id}`;
         claimTable(table);
     }
 

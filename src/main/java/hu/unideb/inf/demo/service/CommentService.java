@@ -19,11 +19,11 @@ public class CommentService {
     private CommentRepository commentRepo;
 
     @Autowired
-    private BookStoreTableRepository bookStoreRepo;
+    private BookStoreTableRepository bookStoreTableRepo;
 
     public Comment save(CommentDto commentDto, User user) {
         Comment comment = new Comment();
-        BookStoreTable bookStoreTable = bookStoreRepo.getById(commentDto.getTableId());
+        BookStoreTable bookStoreTable = bookStoreTableRepo.getById(commentDto.getTableId());
 
         comment.setId(commentDto.getId());
         comment.setBookStoreTable(bookStoreTable);

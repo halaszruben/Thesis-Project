@@ -8,7 +8,17 @@ import { useUser } from "../UserProvider";
 const WorkerDashboard = () => {
     const user = useUser();
     const [tables, setTables] = useState(null);
-    const navigate = useNavigate();
+    const bookstoreId = window.location.href.split("/tables/")[1];
+
+    const emptyTable = {
+        id: null,
+        bookStoreId: bookstoreId != null ? parseInt(bookstoreId) : null,
+        chairs: null,
+        assignedNumber: null,
+        description: "",
+        status: "",
+    }
+
 
     function deleteTable(tableId) {
         ajax(`api/tables/${tableId}`, "DELETE", user.jwt)
@@ -20,20 +30,20 @@ const WorkerDashboard = () => {
     }
 
     function createTable() {
-        ajax("api/tables", "POST", user.jwt)
+        ajax("/api/tables", "POST", user.jwt, emptyTable)
             .then((table) => {
-                window.location.href = `/tables/${table.id}`;
+                console.log("this is my log", table);
+                console.log("Should pass through this", emptyTable);
+                window.location.href = `/table/${table.id}`;
             });
     }
 
     useEffect(() => {
-
-        ajax("api/tables", "GET", user.jwt)
+        ajax(`/api/tables?bookStoreId=${bookstoreId}`, "GET", user.jwt, null)
             .then((tablesData) => {
                 setTables(tablesData);
             });
-        if (!user.jwt) window.location.href = "/login";
-    }, [user.jwt]);
+    }, []);
 
     return (
         <div style={{ margin: "3em" }}>
@@ -91,7 +101,7 @@ const WorkerDashboard = () => {
                                 <Button
                                     variant="secondary"
                                     onClick={() => {
-                                        window.location.href = `/tables/${table.id}`;
+                                        window.location.href = `/table/${table.id}`;
                                     }}
                                 >
                                     Edit

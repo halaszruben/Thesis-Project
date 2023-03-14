@@ -72,7 +72,7 @@ const CustomerBookstoreView = () => {
                                 <Button
                                     variant="primary"
                                     onClick={() => {
-                                        window.location.href = `/tables`;
+                                        window.location.href = `/tables/${bookstore.id}`;
                                     }}>
                                     Look around
                                 </Button>

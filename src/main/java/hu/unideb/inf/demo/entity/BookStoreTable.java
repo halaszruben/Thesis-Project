@@ -1,12 +1,16 @@
 package hu.unideb.inf.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.Fetch;
 
 @Entity
 @Table(name = "book_store_tables")
@@ -23,6 +27,10 @@ public class BookStoreTable {
     @ManyToOne
     private User tableClaimer;
     //this might not be a great idea
+    @ManyToOne
+    @JoinColumn(name = "bookstore_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private BookStore bookStoreId;
 
     public Long getId() {
         return id;
@@ -70,5 +78,13 @@ public class BookStoreTable {
 
     public void setTableClaimer(User tableClaimer) {
         this.tableClaimer = tableClaimer;
+    }
+
+    public BookStore getBookStoreId() {
+        return bookStoreId;
+    }
+
+    public void setBookStoreId(BookStore bookStoreId) {
+        this.bookStoreId = bookStoreId;
     }
 }
