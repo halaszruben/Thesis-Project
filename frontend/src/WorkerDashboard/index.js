@@ -32,8 +32,6 @@ const WorkerDashboard = () => {
     function createTable() {
         ajax("/api/tables", "POST", user.jwt, emptyTable)
             .then((table) => {
-                console.log("this is my log", table);
-                console.log("Should pass through this", emptyTable);
                 window.location.href = `/table/${table.id}`;
             });
     }

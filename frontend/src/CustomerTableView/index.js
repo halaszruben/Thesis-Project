@@ -31,7 +31,7 @@ const CustomerTableView = () => {
 
         if (status && table.status !== status) {
             updateTable("status", status);
-            window.location.href = "/tables";
+            window.location.href = `/tables/${table.bookStoreId.id}`;
         } else {
             persist();
         }

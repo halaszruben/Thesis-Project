@@ -9,7 +9,7 @@ import { useUser } from "../UserProvider";
 const CustomerDashboard = () => {
     const user = useUser();
     const [tables, setTables] = useState(null);
-    const navigate = useNavigate();
+    const bookstoreId = window.location.href.split("/tables/")[1];
 
     useEffect(() => {
         if (!user.jwt)
@@ -40,27 +40,40 @@ const CustomerDashboard = () => {
     }
 
     useEffect(() => {
-        ajax("api/tables", "GET", user.jwt)
+        ajax(`/api/tables?bookStoreId=${bookstoreId}`, "GET", user.jwt, null)
             .then((tablesData) => {
                 setTables(tablesData);
             });
-    }, [user.jwt]);
+    }, []);
 
     return (
         <Container style={{ margin: "3em" }}>
 
             <Row>
                 <Col>
-                    <div
-                        className="d-flex justify-content-end"
-                        style={{ cursor: "pointer", fontSize: "large", color: "burgundy" }}
-                        onClick={() => {
-                            user.setJwt(null);
-                            window.location.href = "/login";
-                        }}
-                    >
-                        Logout
-                    </div>
+                    <Row>
+                        <p
+                            className="d-flex justify-content-end"
+                            style={{ cursor: "pointer", fontSize: "large", color: "burgundy" }}
+                            onClick={() => {
+                                user.setJwt(null);
+                                window.location.href = "/login";
+                            }}
+                        >
+                            Logout
+                        </p>
+
+                        <p
+                            className="d-flex justify-content-end"
+                            style={{ cursor: "pointer", fontSize: "large", color: "burgundy" }}
+                            onClick={() => {
+                                window.location.href = "/dashboard";
+                            }}
+                        >
+                            Back to the Book Stores
+                        </p>
+                    </Row>
+
                 </Col>
             </Row>
 
