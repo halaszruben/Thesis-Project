@@ -22,7 +22,7 @@ const CommentContainer = (props) => {
 
     useInterval(() => {
         updateCommentTimeDisplay();
-    }, 1000 * 5);
+    }, 1000 * 1);
     function updateCommentTimeDisplay() {
         const commentsCopy = [...comments];
         commentsCopy.forEach(

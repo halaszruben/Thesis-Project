@@ -18,12 +18,12 @@ const CustomerBookstoreView = () => {
     }, [user.jwt]);
 
     return (
-        <Container>
+        <Container className='mt-3'>
 
             <Row>
                 <Col>
                     <div
-                        className="d-flex justify-content-end"
+                        className="logout d-flex justify-content-end"
                         style={{ cursor: "pointer" }}
                         onClick={() => {
                             user.setJwt(null);

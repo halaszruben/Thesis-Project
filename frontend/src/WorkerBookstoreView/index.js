@@ -23,8 +23,7 @@ const WorkerBookstoreView = () => {
             <Row>
                 <Col>
                     <div
-                        className="d-flex justify-content-end"
-                        style={{ cursor: "pointer" }}
+                        className="logout d-flex justify-content-end"
                         onClick={() => {
                             user.setJwt(null);
                             navigate("/login")

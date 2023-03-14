@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { useUser } from '../UserProvider';
@@ -9,12 +9,23 @@ const ManagerBookstoreView = () => {
 
     const navigate = useNavigate();
     const user = useUser();
-    const bookstoreId = window.location.href.split("bookstores")[1];
+    const bookstoreId = window.location.href.split("bookstores/")[1];
     const [bookstore, setBookstore] = useState({
         name: "",
         location: "",
         description: "",
     });
+
+    const emptyComment = {
+        title: "",
+        author: "",
+        themes: "",
+        language: "",
+        pages: null,
+        numberOfBooks: null,
+        bookstoreId: bookstoreId != null ? parseInt(bookstoreId) : null
+    }
+    const [book, setBook] = useState(emptyComment)
 
     function updateBookstore(prop, value) {
         const newBookstore = { ...bookstore };
@@ -54,18 +65,28 @@ const ManagerBookstoreView = () => {
             });
     }, []);
 
+    function submitBook() {
+        ajax("/api/books", "POST", user.jwt, book).then((data) => {
+            console.log(data);
+        });
+    }
+
+    function onValChange(prop, value) {
+        const newBook = { ...book };
+        console.log("book values : ", book);
+        newBook[prop] = value;
+        setBook(newBook);
+    }
+
     return (
         <Container className='mt-5'>
+            <h1 className='bookstoreTitle d-flex'>{bookstore.name}</h1>
 
             {bookstore ? (
                 <>
-
-                    <h1 className='bookstoreTitle d-flex'>{bookstore.name}</h1>
-
                     <Form.Group
                         as={Row}
-                        className='my-3'
-                        controlId="formPlaintextEmail">
+                        className='my-3'>
                         <Form.Label
                             column
                             sm="3"
@@ -87,8 +108,7 @@ const ManagerBookstoreView = () => {
 
                     <Form.Group
                         as={Row}
-                        className='my-3'
-                        controlId="formPlaintextEmail">
+                        className='my-3'>
                         <Form.Label
                             column
                             sm="3"
@@ -110,8 +130,7 @@ const ManagerBookstoreView = () => {
 
                     <Form.Group
                         as={Row}
-                        className='my-3'
-                        controlId="formPlaintextEmail">
+                        className='my-3'>
                         <Form.Label
                             column
                             sm="3"
@@ -164,12 +183,55 @@ const ManagerBookstoreView = () => {
                     </Button>
 
                     <ToastContainer />
-
                 </>
 
             ) : (
                 <></>
             )}
+
+            <InputGroup.Text
+                className='mt-4'>
+                Enter the book's data's in this order: Title, Author, Themes, Language, pages, number of available books
+            </InputGroup.Text>
+
+            <InputGroup className="mt-1">
+                <Form.Control
+                    placeholder='Title'
+                    type='text'
+                    onChange={(e) => onValChange("title", e.target.value)}
+                    value={book.title}
+                />
+                <Form.Control
+                    placeholder='Author'
+                    type='text'
+                    onChange={(e) => onValChange("author", e.target.value)}
+                    value={book.author} />
+                <Form.Control
+                    placeholder='Themes'
+                    type='text'
+                    onChange={(e) => onValChange("themes", e.target.value)}
+                    value={book.themes} />
+                <Form.Control
+                    placeholder='Language'
+                    type='text'
+                    onChange={(e) => onValChange("language", e.target.value)}
+                    value={book.language} />
+                <Form.Control
+                    placeholder='pages'
+                    type='number'
+                    onChange={(e) => onValChange("pages", e.target.value)}
+                    value={book.pages} />
+                <Form.Control
+                    placeholder='number of books'
+                    type='number'
+                    onChange={(e) => onValChange("numberOfBooks", e.target.value)}
+                    value={book.numberOfBooks} />
+                <Button
+                    onClick={() => submitBook()}
+                >
+                    Add book
+                </Button>
+            </InputGroup>
 
         </Container>
     );

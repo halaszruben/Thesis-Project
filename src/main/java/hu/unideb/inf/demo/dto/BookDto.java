@@ -1,36 +1,21 @@
-package hu.unideb.inf.demo.entity;
+package hu.unideb.inf.demo.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+public class BookDto {
 
-@Entity
-@Table(name = "books")
-public class Book {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long bookstoreId;
     private String title;
     private String author;
     private String themes;
     private String language;
     private Integer pages;
     private Integer numberOfBooks;
-    @ManyToOne
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private BookStore bookStore;
 
-    public Long getId() {
-        return id;
+    public Long getBookstoreId() {
+        return bookstoreId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBookstoreId(Long bookstoreId) {
+        this.bookstoreId = bookstoreId;
     }
 
     public String getTitle() {
@@ -81,11 +66,16 @@ public class Book {
         this.numberOfBooks = numberOfBooks;
     }
 
-    public BookStore getBookStore() {
-        return bookStore;
-    }
-
-    public void setBookStore(BookStore bookStore) {
-        this.bookStore = bookStore;
+    @Override
+    public String toString() {
+        return "BookDto{" +
+                "bookstoreId=" + bookstoreId +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", themes='" + themes + '\'' +
+                ", language='" + language + '\'' +
+                ", pages=" + pages +
+                ", numberOfBooks=" + numberOfBooks +
+                '}';
     }
 }

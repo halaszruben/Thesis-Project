@@ -46,20 +46,26 @@ const WorkerDashboard = () => {
     return (
         <div style={{ margin: "3em" }}>
 
-            <Row>
-                <Col>
-                    <div
-                        className="d-flex justify-content-end"
-                        style={{ cursor: "pointer", fontSize: "large", color: "burgundy" }}
-                        onClick={() => {
-                            user.setJwt(null);
-                            window.location.href = "/login";
-                        }}
-                    >
-                        Logout
-                    </div>
-                </Col>
-            </Row>
+            <div>
+                <div
+                    className="logout"
+                    onClick={() => {
+                        user.setJwt(null);
+                        window.location.href = "/login";
+                    }}
+                >
+                    Logout
+                </div>
+
+                <div
+                    className="back"
+                    onClick={() => {
+                        window.location.href = "/dashboard";
+                    }}
+                >
+                    Back to the Book Stores
+                </div>
+            </div>
 
             <div className="mb-5">
                 <Button size="lg" onClick={() => createTable()}>

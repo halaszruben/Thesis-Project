@@ -49,33 +49,26 @@ const CustomerDashboard = () => {
     return (
         <Container style={{ margin: "3em" }}>
 
-            <Row>
-                <Col>
-                    <Row>
-                        <p
-                            className="d-flex justify-content-end"
-                            style={{ cursor: "pointer", fontSize: "large", color: "burgundy" }}
-                            onClick={() => {
-                                user.setJwt(null);
-                                window.location.href = "/login";
-                            }}
-                        >
-                            Logout
-                        </p>
+            <div>
+                <div
+                    className="logout"
+                    onClick={() => {
+                        user.setJwt(null);
+                        window.location.href = "/login";
+                    }}
+                >
+                    Logout
+                </div>
 
-                        <p
-                            className="d-flex justify-content-end"
-                            style={{ cursor: "pointer", fontSize: "large", color: "burgundy" }}
-                            onClick={() => {
-                                window.location.href = "/dashboard";
-                            }}
-                        >
-                            Back to the Book Stores
-                        </p>
-                    </Row>
-
-                </Col>
-            </Row>
+                <div
+                    className="back"
+                    onClick={() => {
+                        window.location.href = "/dashboard";
+                    }}
+                >
+                    Back to the Book Stores
+                </div>
+            </div>
 
             <Row>
                 <Col>

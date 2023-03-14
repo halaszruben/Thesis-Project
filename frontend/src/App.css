@@ -36,10 +36,10 @@
 }
 
 .bookstoreTitle {
-  margin-top: 1em;
-  margin-bottom: 2em;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
   align-items: center;
-  justify-content: center;
+  margin-left: 5%;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   color: darkred;
 }
@@ -50,4 +50,19 @@
   margin-top: 65px;
   font-family: cursive;
   color: chocolate;
+}
+
+.logout {
+  cursor: pointer;
+  font-size: large;
+  color: red;
+  float: right;
+}
+
+.back {
+  cursor: pointer;
+  font-size: large;
+  color: darkblue;
+  float: right;
+  margin-right: 5em;
 }

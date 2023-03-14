@@ -30,8 +30,7 @@ const ManagerDashboard = () => {
             <Row>
                 <Col>
                     <div
-                        className="d-flex justify-content-end"
-                        style={{ cursor: "pointer", marginBottom: "1em" }}
+                        className="logout d-flex justify-content-end"
                         onClick={() => {
                             user.setJwt(null);
                             navigate("/login")
@@ -44,7 +43,7 @@ const ManagerDashboard = () => {
 
             {bookstores ? (
                 <div
-                    className='d-grid gap-5'
+                    className='d-grid gap-5 justify-content-center'
                     style={{ gridTemplateColumns: "repeat(auto-fit, 18rem)" }}
                 >
 
@@ -86,7 +85,7 @@ const ManagerDashboard = () => {
                 <></>
             )}
 
-            <div className="mt-5">
+            <div className="mt-5 text-center">
                 <Button
                     size='lg'
                     onClick={() => createBookStore()}>

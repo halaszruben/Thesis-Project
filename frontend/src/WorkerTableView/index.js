@@ -168,7 +168,7 @@ const WorkerTableView = () => {
                     <div className="d-flex gap-3">
                         <Button
                             size="lg"
-                            className="mt-5"
+                            className="mt-3"
                             variant="success"
                             onClick={() => save(tableStatuses[0].status)}>
                             Save Attributes /
@@ -177,7 +177,7 @@ const WorkerTableView = () => {
 
                         <Button
                             size="lg"
-                            className="mt-5"
+                            className="mt-3"
                             variant="info"
                             onClick={() => save(tableStatuses[3].status)}>
                             Tidying
@@ -186,7 +186,7 @@ const WorkerTableView = () => {
                         <Button
                             size="lg"
                             variant="secondary"
-                            className="mt-5"
+                            className="mt-3"
                             onClick={() => (window.location.href = `/tables/${table.bookStoreId.id}`)}
                         >
                             Back
@@ -196,7 +196,7 @@ const WorkerTableView = () => {
                     <div className='d-flex gap-3'>
                         <Button
                             size="lg"
-                            className="mt-5"
+                            className="mt-3"
                             variant="dark"
                             onClick={() => save(tableStatuses[4].status)}>
                             Unavailable
@@ -204,7 +204,7 @@ const WorkerTableView = () => {
 
                         <Button
                             size="lg"
-                            className="mt-5"
+                            className="mt-3"
                             variant="dark"
                             onClick={() => deleteAllComments()}>
                             Delete All comments
