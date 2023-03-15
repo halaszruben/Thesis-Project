@@ -1,6 +1,6 @@
-import { Button, Table } from "react-bootstrap";
+import { Badge, Button, Table } from "react-bootstrap";
 
-function BooksTable({ tableData }) {
+function BooksTable({ tableData, emitDeleteBook, emitEditBook }) {
     return (
         <div className="mt-5">
             <Table striped bordered hover>
@@ -25,13 +25,19 @@ function BooksTable({ tableData }) {
                                 <td>{data.id}</td>
                                 <td>{data.title}</td>
                                 <td>{data.author}</td>
-                                <td>{data.themes}</td>
+                                <td>
+                                    <Badge bg="info">{data.themes}</Badge>
+                                </td>
                                 <td>{data.language}</td>
                                 <td>{data.pages}</td>
                                 <td>{data.numberOfBooks}</td>
                                 <Button variant="primary"
-                                    style={{ margin: "0.2em" }}>Edit</Button>
-                                <Button variant="danger">Delete</Button>
+                                    style={{ margin: "0.2em" }}
+                                    onClick={() => emitEditBook(data.id)}
+                                >Edit</Button>
+                                <Button variant="danger"
+                                    onClick={() => emitDeleteBook(data.id)}
+                                >Delete</Button>
                             </tr>
                         ))
                     ) : (<></>)}

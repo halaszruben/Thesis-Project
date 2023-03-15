@@ -17,16 +17,17 @@ const ManagerBookstoreView = () => {
         description: "",
     });
 
-    const emptyComment = {
+    const emptyBook = {
+        id: null,
         title: "",
         author: "",
         themes: "",
         language: "",
-        pages: null,
-        numberOfBooks: null,
+        pages: 0,
+        numberOfBooks: 0,
         bookstoreId: bookstoreId != null ? parseInt(bookstoreId) : null
     }
-    const [book, setBook] = useState(emptyComment)
+    const [book, setBook] = useState(emptyBook)
     const [books, setBooks] = useState([]);
 
     function updateBookstore(prop, value) {
@@ -68,13 +69,51 @@ const ManagerBookstoreView = () => {
     }, []);
 
     function submitBook() {
-        ajax("/api/books", "POST", user.jwt, book).then((bookData) => {
-            const booksCopy = [...books]
-            booksCopy.push(bookData);
-            setBooks(booksCopy);
-        });
+
+        if (book.id) {
+            ajax(`/api/books/${book.id}`, "PUT", user.jwt, book)
+                .then((data) => {
+                    const booksCopy = [...books];
+                    const i = booksCopy.findIndex((book) => book.id === data.id);
+                    booksCopy[i] = data;
+                    setBooks(booksCopy);
+                    setBook(emptyBook);
+                });
+
+        } else {
+            ajax("/api/books", "POST", user.jwt, book).then((bookData) => {
+                const booksCopy = [...books]
+                booksCopy.push(bookData);
+                setBooks(booksCopy);
+                setBook(emptyBook)
+            });
+        }
     }
 
+    function handleEditBook(bookId) {
+        const i = books.findIndex((book) => book.id === bookId);
+        const bookCopy = {
+            id: books[i].id,
+            title: books[i].title,
+            author: books[i].author,
+            themes: books[i].themes,
+            language: books[i].language,
+            pages: books[i].pages,
+            numberOfBooks: books[i].numberOfBooks,
+            bookstoreId: bookstoreId != null ? parseInt(bookstoreId) : null
+        }
+        setBook(bookCopy);
+    }
+
+    function handleDeleteBook(bookId) {
+        ajax(`/api/books/${bookId}`, "DELETE", user.jwt)
+            .then((msg) => {
+                const booksCopy = [...books];
+                const i = booksCopy.findIndex((book) => book.id === bookId);
+                booksCopy.splice(i, 1);
+                setBooks(booksCopy);
+            })
+    }
 
     useEffect(() => {
         ajax(`/api/books?bookstoreId=${bookstoreId}`, "GET", user.jwt, null)
@@ -245,7 +284,9 @@ const ManagerBookstoreView = () => {
             </InputGroup>
 
             <div >
-                <BooksTable tableData={books} />
+                <BooksTable tableData={books}
+                    emitEditBook={handleEditBook}
+                    emitDeleteBook={handleDeleteBook} />
             </div>
 
         </Container>

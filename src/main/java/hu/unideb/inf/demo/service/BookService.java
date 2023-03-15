@@ -23,6 +23,7 @@ public class BookService {
         Book book = new Book();
         BookStore bookstore = bookStoreRepository.getReferenceById(bookDto.getBookstoreId());
 
+        book.setId(bookDto.getId());
         book.setBookStore(bookstore);
         book.setTitle(bookDto.getTitle());
         book.setAuthor(bookDto.getAuthor());
@@ -38,6 +39,10 @@ public class BookService {
         Set<Book> books = bookRepository.findByBookStore(bookstoreId);
 
         return books;
+    }
+
+    public void delete(Long bookId) {
+        bookRepository.deleteById(bookId);
     }
 
 }

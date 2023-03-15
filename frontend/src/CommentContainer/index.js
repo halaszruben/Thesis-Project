@@ -112,7 +112,7 @@ const CommentContainer = (props) => {
                     value="">Post Comment</Button>
             </div>
 
-            <div className="mt-5">
+            <div className="mt-4">
                 {comments.map((comment) => (
                     <Comment
                         key={comment.id}

@@ -16,6 +16,7 @@ const WorkerTableView = () => {
         assignedNumber: null,
         status: null,
     });
+    const [books, setBooks] = useState([]);
 
     const [tableStatuses, setTableStatuses] = useState([]);
     const prevTableValue = useRef(table);
@@ -89,11 +90,20 @@ const WorkerTableView = () => {
                 if (tableData.description === null) tableData.description = "";
 
                 setTable(tableData);
-                console.log(tableData);
-                console.log(tableResponse);
+                console.log("data", tableData);
+                console.log("response", tableResponse);
                 setTableStatuses(tableResponse.statusEnums);
+
             });
     }, []);
+
+    // useEffect(() => {
+    //     ajax(`/api/books?bookstoreId=${table.bookStoreId.id}`, "GET", user.jwt, null)
+    //         .then((booksData) => {
+    //             console.log("ez itt az", booksData);
+    //             setBooks(booksData);
+    //         });
+    // }, []);
 
     return (
         <Container className="mt-5" >
