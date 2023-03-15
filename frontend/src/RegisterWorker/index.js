@@ -183,7 +183,7 @@ const RegisterWorker = () => {
                 <h1 className="employee-header" >Here are your current employees! </h1>
 
                 <div className="table-wrapper occupied-table mb-2">
-                    <Table responsive>
+                    <Table responsive size="sm">
                         <thead>
                             <tr>
                                 <th>#</th>

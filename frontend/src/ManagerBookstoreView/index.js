@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import BooksTable from '../BooksTable';
 import { useUser } from '../UserProvider';
 import ajax from '../util/fetchService';
 
@@ -26,6 +27,7 @@ const ManagerBookstoreView = () => {
         bookstoreId: bookstoreId != null ? parseInt(bookstoreId) : null
     }
     const [book, setBook] = useState(emptyComment)
+    const [books, setBooks] = useState([]);
 
     function updateBookstore(prop, value) {
         const newBookstore = { ...bookstore };
@@ -66,14 +68,23 @@ const ManagerBookstoreView = () => {
     }, []);
 
     function submitBook() {
-        ajax("/api/books", "POST", user.jwt, book).then((data) => {
-            console.log(data);
+        ajax("/api/books", "POST", user.jwt, book).then((bookData) => {
+            const booksCopy = [...books]
+            booksCopy.push(bookData);
+            setBooks(booksCopy);
         });
     }
 
+
+    useEffect(() => {
+        ajax(`/api/books?bookstoreId=${bookstoreId}`, "GET", user.jwt, null)
+            .then((booksData) => {
+                setBooks(booksData);
+            });
+    }, []);
+
     function onValChange(prop, value) {
         const newBook = { ...book };
-        console.log("book values : ", book);
         newBook[prop] = value;
         setBook(newBook);
     }
@@ -232,6 +243,10 @@ const ManagerBookstoreView = () => {
                     Add book
                 </Button>
             </InputGroup>
+
+            <div >
+                <BooksTable tableData={books} />
+            </div>
 
         </Container>
     );

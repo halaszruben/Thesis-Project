@@ -1,5 +1,7 @@
 package hu.unideb.inf.demo.service;
 
+import java.util.Set;
+
 import hu.unideb.inf.demo.dto.BookDto;
 import hu.unideb.inf.demo.entity.Book;
 import hu.unideb.inf.demo.entity.BookStore;
@@ -31,4 +33,11 @@ public class BookService {
 
         return bookRepository.save(book);
     }
+
+    public Set<Book> getBooksByBookstoreId(Long bookstoreId) {
+        Set<Book> books = bookRepository.findByBookStore(bookstoreId);
+
+        return books;
+    }
+
 }
