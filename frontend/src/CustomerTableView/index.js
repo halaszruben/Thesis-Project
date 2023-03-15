@@ -6,6 +6,7 @@ import StatusBadge from '../StatusBadge';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../UserProvider';
 import CommentContainer from '../CommentContainer';
+import ShowBooks from '../ShowBooks';
 
 const CustomerTableView = () => {
     const user = useUser();
@@ -19,6 +20,9 @@ const CustomerTableView = () => {
     const [tableStatuses, setTableStatuses] = useState([]);
     const prevTableValue = useRef(table);
     const navigate = useNavigate();
+
+    const [modalShow, setModalShow] = useState(false);
+    const [books, setBooks] = useState([]);
 
     function updateTable(prop, value) {
         const newTable = { ...table };
@@ -65,6 +69,12 @@ const CustomerTableView = () => {
 
                 setTable(tableData);
                 setTableStatuses(tableResponse.statusEnums);
+
+                ajax(`/api/books?bookstoreId=${tableData.bookStoreId.id}`, "GET", user.jwt, null)
+                    .then((booksData) => {
+                        console.log("ez itt az", booksData);
+                        setBooks(booksData);
+                    });
             });
     }, []);
 
@@ -143,14 +153,35 @@ const CustomerTableView = () => {
                         </Col>
                     </Form.Group>
 
-                    <div className="d-flex gap-5">
+                    <div className="d-flex gap-5 mt-5">
 
                         <Button
                             variant="danger"
                             size="lg"
-                            className="mt-5"
+
                             onClick={() => leave(tableStatuses[2].status)}>
                             Leave
+                        </Button>
+
+                        <Button
+                            size='lg'
+                            variant='info btn-outline-dark'
+                            className="d-flex"
+                            onClick={() => setModalShow(true)}>
+                            Show Books
+                        </Button>
+
+                        <ShowBooks
+                            show={modalShow}
+                            onHide={() => setModalShow(false)}
+                            bookdata={books} />
+
+                        <Button
+                            size='lg'
+                            variant='info btn-outline-dark'
+
+                            className="d-flex">
+                            Show Drinks & Pastries
                         </Button>
 
                         <ToastContainer />

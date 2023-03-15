@@ -6,6 +6,7 @@ import StatusBadge from '../StatusBadge';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from "../UserProvider";
 import CommentContainer from '../CommentContainer';
+import ShowBooks from '../ShowBooks';
 
 const WorkerTableView = () => {
     const user = useUser();
@@ -22,6 +23,8 @@ const WorkerTableView = () => {
     const prevTableValue = useRef(table);
     const navigate = useNavigate();
 
+    const [modalShow, setModalShow] = useState(false);
+
     function deleteAllComments() {
         ajax("/api/comments", "DELETE", user.jwt).then(() => window.location.reload(true))
     }
@@ -34,8 +37,6 @@ const WorkerTableView = () => {
 
     function save(status) {
 
-        // if (table.status === tableStatuses[4].status) {
-        //     updateTable("status", tableStatuses[0].status);
         if (status && table.status !== status) {
             updateTable("status", status);
             toast.info(`The table status has been updated to: '${status}'`, {
@@ -90,20 +91,15 @@ const WorkerTableView = () => {
                 if (tableData.description === null) tableData.description = "";
 
                 setTable(tableData);
-                console.log("data", tableData);
-                console.log("response", tableResponse);
                 setTableStatuses(tableResponse.statusEnums);
 
-            });
+                ajax(`/api/books?bookstoreId=${tableData.bookStoreId.id}`, "GET", user.jwt, null)
+                    .then((booksData) => {
+                        console.log("ez itt az", booksData);
+                        setBooks(booksData);
+                    });
+            })
     }, []);
-
-    // useEffect(() => {
-    //     ajax(`/api/books?bookstoreId=${table.bookStoreId.id}`, "GET", user.jwt, null)
-    //         .then((booksData) => {
-    //             console.log("ez itt az", booksData);
-    //             setBooks(booksData);
-    //         });
-    // }, []);
 
     return (
         <Container className="mt-5" >
@@ -203,11 +199,33 @@ const WorkerTableView = () => {
                         </Button>
                         <ToastContainer />
                     </div>
+
+                    <div className="d-flex justify-content-end gap-5">
+                        <Button
+                            size='lg'
+                            variant='info btn-outline-dark'
+                            className="d-flex"
+                            onClick={() => setModalShow(true)}>
+                            Show Books
+                        </Button>
+                        <ShowBooks
+                            show={modalShow}
+                            onHide={() => setModalShow(false)}
+                            bookdata={books} />
+                        <Button
+                            size='lg'
+                            variant='info btn-outline-dark'
+
+                            className="d-flex">
+                            Show Drinks & Pastries
+                        </Button>
+                    </div>
+
                     <div className='d-flex gap-3'>
                         <Button
                             size="lg"
                             className="mt-3"
-                            variant="dark"
+                            variant="warning"
                             onClick={() => save(tableStatuses[4].status)}>
                             Unavailable
                         </Button>
@@ -215,7 +233,7 @@ const WorkerTableView = () => {
                         <Button
                             size="lg"
                             className="mt-3"
-                            variant="dark"
+                            variant="warning"
                             onClick={() => deleteAllComments()}>
                             Delete All comments
                         </Button>
