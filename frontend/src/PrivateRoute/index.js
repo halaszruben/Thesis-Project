@@ -15,7 +15,7 @@ const PrivateRoute = (props) => {
             setIsLoading(false);
         });
     } else {
-        return <Navigate to="/login" />;
+        return <Navigate to="/" />;
     }
 
     return isLoading ? (
@@ -23,7 +23,7 @@ const PrivateRoute = (props) => {
     ) : isValid === true ? (
         children
     ) : (
-        <Navigate to="/login" />
+        <Navigate to="/" />
     );
 };
 

@@ -43,10 +43,6 @@ const CommentContainer = (props) => {
         setComment(commentCopy);
     }
 
-    useEffect(() => {
-        console.log(comment);
-    }, [comment]);
-
     function handleDeleteComment(commentId) {
         ajax(`/api/comments/${commentId}`, "DELETE", user.jwt)
             .then((msg) => {

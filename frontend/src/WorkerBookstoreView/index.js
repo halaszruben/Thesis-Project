@@ -26,7 +26,7 @@ const WorkerBookstoreView = () => {
                         className="logout d-flex justify-content-end"
                         onClick={() => {
                             user.setJwt(null);
-                            navigate("/login")
+                            navigate("/")
                         }}
                     >
                         Logout

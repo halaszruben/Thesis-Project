@@ -2,12 +2,24 @@ import React from 'react';
 import { Badge, Table } from 'react-bootstrap';
 
 const BookTableView = ({ books }) => {
+
+    let sortedProducts = [...books];
+    console.log(sortedProducts);
+    sortedProducts.sort((a, b) => {
+        if (a.title < b.title) {
+            return -1;
+        }
+        if (a.title > b.title) {
+            return 1;
+        }
+        return 0;
+    });
+
     return (
         <Table striped bordered hover>
 
             <thead dark>
                 <tr>
-                    <th>#</th>
                     <th>Title</th>
                     <th>Author</th>
                     <th>Themes</th>
@@ -18,9 +30,8 @@ const BookTableView = ({ books }) => {
             </thead>
             <tbody>
                 {books ? (
-                    books.map((data) => (
+                    sortedProducts.map((data) => (
                         <tr key={data.id}>
-                            <td>{data.id}</td>
                             <td>{data.title}</td>
                             <td>{data.author}</td>
                             <td>

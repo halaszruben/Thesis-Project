@@ -91,11 +91,12 @@ const RegisterCustomer = () => {
                         </Form.Group>
                     </Col>
                 </Row>
+
                 <Row className="justify-content-center">
                     <Col
                         md="8"
                         lg="6"
-                        className="mt-2 d-flex flex-column gap-5 flex-md-row justify-content-md-between"
+                        className="d-flex justify-content-center"
                     >
                         <Button
                             id="submit"
@@ -106,16 +107,6 @@ const RegisterCustomer = () => {
                             }}
                         >
                             Register
-                        </Button>
-                        <Button
-                            variant="secondary"
-                            type="button"
-                            size="lg"
-                            onClick={() => {
-                                navigate("/");
-                            }}
-                        >
-                            Exit
                         </Button>
                     </Col>
                 </Row>

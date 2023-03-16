@@ -51,7 +51,7 @@ const WorkerDashboard = () => {
                     className="logout"
                     onClick={() => {
                         user.setJwt(null);
-                        window.location.href = "/login";
+                        window.location.href = "/";
                     }}
                 >
                     Logout

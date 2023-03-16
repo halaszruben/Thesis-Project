@@ -13,7 +13,7 @@ const CustomerDashboard = () => {
 
     useEffect(() => {
         if (!user.jwt)
-            window.location.href = "/login";
+            window.location.href = "/";
     });
 
     function orderAtTable(table) {
@@ -54,7 +54,7 @@ const CustomerDashboard = () => {
                     className="logout"
                     onClick={() => {
                         user.setJwt(null);
-                        window.location.href = "/login";
+                        window.location.href = "/";
                     }}
                 >
                     Logout

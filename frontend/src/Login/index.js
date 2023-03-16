@@ -45,7 +45,7 @@ const Login = () => {
 
     return (
         <>
-            <Container className="mt-5">
+            <Container className="mt-4">
                 <Row className="justify-content-center">
                     <Col md="8" lg="6">
                         <Form.Group className="mb-3" >
@@ -82,7 +82,7 @@ const Login = () => {
                     <Col
                         md="8"
                         lg="6"
-                        className="mt-2 d-flex flex-column gap-5 flex-md-row justify-content-md-between">
+                        className="d-flex justify-content-center">
                         <Button
                             id="submit"
                             type="button"
@@ -90,17 +90,6 @@ const Login = () => {
                             onClick={() => sendLoginRequest()}
                         >
                             Login
-                        </Button>
-
-                        <Button
-                            variant="secondary"
-                            type="button"
-                            size="lg"
-                            onClick={() => {
-                                window.location.href = "/";
-                            }}
-                        >
-                            Exit
                         </Button>
                     </Col>
                 </Row>

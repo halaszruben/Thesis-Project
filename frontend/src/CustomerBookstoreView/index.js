@@ -27,7 +27,7 @@ const CustomerBookstoreView = () => {
                         style={{ cursor: "pointer" }}
                         onClick={() => {
                             user.setJwt(null);
-                            navigate("/login")
+                            navigate("/")
                         }}
                     >
                         Logout
