@@ -25,6 +25,7 @@ const WorkerTableView = () => {
 
     const [modalShow, setModalShow] = useState(false);
 
+
     function deleteAllComments() {
         ajax("/api/comments", "DELETE", user.jwt).then(() => window.location.reload(true))
     }
@@ -212,13 +213,6 @@ const WorkerTableView = () => {
                             show={modalShow}
                             onHide={() => setModalShow(false)}
                             bookdata={books} />
-                        <Button
-                            size='lg'
-                            variant='info btn-outline-dark'
-
-                            className="d-flex">
-                            Show Drinks & Pastries
-                        </Button>
                     </div>
 
                     <div className='d-flex gap-3'>

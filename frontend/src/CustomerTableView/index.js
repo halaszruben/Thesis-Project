@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../UserProvider';
 import CommentContainer from '../CommentContainer';
 import ShowBooks from '../ShowBooks';
+import ShowFoodBeverage from '../ShowFoodBeverage';
 
 const CustomerTableView = () => {
     const user = useUser();
@@ -23,6 +24,9 @@ const CustomerTableView = () => {
 
     const [modalShow, setModalShow] = useState(false);
     const [books, setBooks] = useState([]);
+
+    const [modalShowBevAndPast, setModalShowBevAndPast] = useState(false);
+    const [bevsAndPasts, setBevsAndPasts] = useState([]);
 
     function updateTable(prop, value) {
         const newTable = { ...table };
@@ -74,6 +78,12 @@ const CustomerTableView = () => {
                     .then((booksData) => {
                         console.log("ez itt az", booksData);
                         setBooks(booksData);
+                    });
+
+                ajax(`/api/bevsAndPasties?bookstoreId=${tableData.bookStoreId.id}`, "GET", user.jwt, null)
+                    .then((bevsAndPastsData) => {
+                        console.log("ez itt az", bevsAndPastsData);
+                        setBevsAndPasts(bevsAndPastsData);
                     });
             });
     }, []);
@@ -179,10 +189,17 @@ const CustomerTableView = () => {
                         <Button
                             size='lg'
                             variant='info btn-outline-dark'
-
-                            className="d-flex">
+                            className="d-flex"
+                            onClick={() => setModalShowBevAndPast(true)}>
                             Show Drinks & Pastries
                         </Button>
+
+                        <ShowFoodBeverage
+                            show={modalShowBevAndPast}
+                            onHide={() => setModalShowBevAndPast(false)}
+                            bevAndPastData={bevsAndPasts} />
+
+
 
                         <ToastContainer />
                     </div>

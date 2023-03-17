@@ -1,17 +1,21 @@
 package hu.unideb.inf.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "beverages")
-public class Beverage {
+@Table(name = "beverages_pastries")
+public class BeverageAndPastry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer costs;
     private String name;
-    private Integer liters;
+    private String type;
+    @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private BookStore bookStore;
 
     public Long getId() {
         return id;
@@ -37,11 +41,19 @@ public class Beverage {
         this.name = name;
     }
 
-    public Integer getLiters() {
-        return liters;
+    public String getType() {
+        return type;
     }
 
-    public void setLiters(Integer liters) {
-        this.liters = liters;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public BookStore getBookStore() {
+        return bookStore;
+    }
+
+    public void setBookStore(BookStore bookStore) {
+        this.bookStore = bookStore;
     }
 }

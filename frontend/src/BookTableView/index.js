@@ -4,7 +4,7 @@ import { Badge, Table } from 'react-bootstrap';
 const BookTableView = ({ books }) => {
 
     let sortedProducts = [...books];
-    console.log(sortedProducts);
+
     sortedProducts.sort((a, b) => {
         if (a.title < b.title) {
             return -1;

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import ajax from "../util/fetchService";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, InputGroup, Row } from "react-bootstrap";
 import StatusBadge from "../StatusBadge";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserProvider";
+import BeverageAndPastryTable from "../BeverageAndPastryTable";
 
 const WorkerDashboard = () => {
     const user = useUser();
     const [tables, setTables] = useState(null);
     const bookstoreId = window.location.href.split("/tables/")[1];
-
     const emptyTable = {
         id: null,
         bookStoreId: bookstoreId != null ? parseInt(bookstoreId) : null,
@@ -18,7 +18,15 @@ const WorkerDashboard = () => {
         description: "",
         status: "",
     }
-
+    const emptyBevAndPast = {
+        id: null,
+        bookstoreId: bookstoreId != null ? parseInt(bookstoreId) : null,
+        name: "",
+        type: "",
+        costs: 0,
+    }
+    const [bevAndPast, setBevAndPast] = useState(emptyBevAndPast);
+    const [bevsAndPasts, setBevsAndPasts] = useState([]);
 
     function deleteTable(tableId) {
         ajax(`api/tables/${tableId}`, "DELETE", user.jwt)
@@ -42,6 +50,65 @@ const WorkerDashboard = () => {
                 setTables(tablesData);
             });
     }, []);
+
+    function submitBevAndPast() {
+
+        if (bevAndPast.id) {
+            ajax(`/api/bevsAndPasties/${bevAndPast.id}`, "PUT", user.jwt, bevAndPast)
+                .then((data) => {
+                    const bevsAndPastiesCopy = [...bevsAndPasts];
+                    const i = bevsAndPasts.findIndex((bevAndPast) => bevAndPast.id === data.id);
+                    bevsAndPastiesCopy[i] = data;
+                    setBevsAndPasts(bevsAndPastiesCopy);
+                    setBevAndPast(emptyBevAndPast);
+                });
+        } else {
+
+            ajax("/api/bevsAndPasties", "POST", user.jwt, bevAndPast)
+                .then((data) => {
+                    const bevsAndPastsCopy = [...bevsAndPasts];
+                    bevsAndPastsCopy.push(data);
+                    setBevsAndPasts(bevsAndPastsCopy);
+                    setBevAndPast(emptyBevAndPast);
+                });
+        }
+    }
+
+    useEffect(() => {
+        ajax(`/api/bevsAndPasties?bookstoreId=${bookstoreId}`, "GET", user.jwt, null)
+            .then((data) => {
+                setBevsAndPasts(data);
+            });
+    }, []);
+
+    function onValChange(prop, value) {
+        const newBevAndPast = { ...bevAndPast };
+        console.log("values are:", bevAndPast);
+        newBevAndPast[prop] = value;
+        setBevAndPast(newBevAndPast);
+    }
+
+    function handleEditBevAndPast(bevAndPastId) {
+        const i = bevsAndPasts.findIndex((bevAndPast) => bevAndPast.id === bevAndPastId);
+        const bevAndPastCopy = {
+            id: bevsAndPasts[i].id,
+            bookstoreId: bookstoreId != null ? parseInt(bookstoreId) : null,
+            name: bevsAndPasts[i].name,
+            type: bevsAndPasts[i].type,
+            costs: bevsAndPasts[i].costs,
+        }
+        setBevAndPast(bevAndPastCopy);
+    }
+
+    function handleDeleteBevAndPast(bevAndPastId) {
+        ajax(`/api/bevsAndPasties/${bevAndPast.id}`, "DELETE", user.jwt)
+            .then((msg) => {
+                const bevsAndPastiesCopy = [...bevsAndPasts];
+                const i = bevsAndPastiesCopy.findIndex((bevAndPast) => bevAndPast.id === bevAndPastId);
+                bevsAndPastiesCopy.splice(i, 1);
+                setBevsAndPasts(bevsAndPastiesCopy);
+            });
+    }
 
     return (
         <div style={{ margin: "3em" }}>
@@ -81,7 +148,7 @@ const WorkerDashboard = () => {
                     {tables.map((table) => (
                         <Card
                             key={table.id}
-                            style={{ width: "18rem", height: "32rem" }}
+                            style={{ width: "18rem", height: "24rem" }}
                         >
                             <Card.Body
                                 className="d-flex flex-column justify-content-around">
@@ -119,11 +186,47 @@ const WorkerDashboard = () => {
                             </Card.Body>
                         </Card>
                     ))}
+
                 </div>
+
             ) : (
                 <></>
             )
             }
+
+            <InputGroup className="mt-4">
+                <InputGroup.Text>
+                    Enter the Beverage and Pastries's data's in this order: Name, Cost of the item, Type of the item
+                </InputGroup.Text>
+                <Form.Control
+                    placeholder='Name'
+                    type='text'
+                    onChange={(e) => onValChange("name", e.target.value)}
+                    value={bevAndPast.name}
+                />
+                <Form.Control
+                    placeholder='Costs'
+                    type='number'
+                    onChange={(e) => onValChange("costs", e.target.value)}
+                    value={bevAndPast.costs} />
+                <Form.Control
+                    placeholder='Type'
+                    type='text'
+                    onChange={(e) => onValChange("type", e.target.value)}
+                    value={bevAndPast.type} />
+                <Button
+                    onClick={() => submitBevAndPast()}
+                >
+                    Add new item to the Menu
+                </Button>
+            </InputGroup>
+
+            <div >
+                <BeverageAndPastryTable tableData={bevsAndPasts}
+                    emitDeleteBevAndPast={handleDeleteBevAndPast}
+                    emitEditBevAndPast={handleEditBevAndPast} />
+            </div>
+
         </div >
     );
 };
