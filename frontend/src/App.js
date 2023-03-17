@@ -83,9 +83,7 @@ function App() {
       />
 
       <Route path="/bookstores/:bookstoreId" element={
-        roles.find((role) => role === "ROLE_WORKER") ? (
-          <></>
-        ) : roles.find((role) => role === "ROLE_MANAGER") ? (
+        roles.find((role) => role === "ROLE_MANAGER") ? (
           <PrivateRoute>
             < ManagerBookstoreView />
           </PrivateRoute>
@@ -95,11 +93,9 @@ function App() {
       }
       />
 
-      < Route path="/login" element={< Login />} />
-
       < Route path="/" element={< Homepage />} />
 
-      <Route path="/registerWorker" element={
+      <Route path="/registerWorker/:bookstoreId" element={
         roles.find((role) => role === "ROLE_MANAGER") ? (
           <PrivateRoute>
             < RegisterWorker />
@@ -109,8 +105,6 @@ function App() {
         )
       }
       />
-
-      <Route path="/registerCustomer" element={< RegisterCustomer />} />
 
     </Routes >
   );

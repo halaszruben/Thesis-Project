@@ -6,11 +6,13 @@ import java.util.Collection;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,6 +35,9 @@ public class User implements UserDetails {
     private List<Authority> authorities = new ArrayList<>();
     private String name;
     private Long phoneNumber;
+    @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private BookStore bookStore;
 
     public Long getId() {
         return id;
@@ -119,5 +124,13 @@ public class User implements UserDetails {
 
     public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public BookStore getBookStore() {
+        return bookStore;
+    }
+
+    public void setBookStore(BookStore bookStore) {
+        this.bookStore = bookStore;
     }
 }

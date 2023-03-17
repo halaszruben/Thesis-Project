@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserDto {
+    private Long id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("username")
@@ -17,6 +18,16 @@ public class UserDto {
     private String email;
     @JsonProperty("phoneNumber")
     private Long phoneNumber;
+    @JsonProperty("bookstoreId")
+    private Long bookstoreId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -64,5 +75,13 @@ public class UserDto {
 
     public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Long getBookstoreId() {
+        return bookstoreId;
+    }
+
+    public void setBookstoreId(Long bookstoreId) {
+        this.bookstoreId = bookstoreId;
     }
 }

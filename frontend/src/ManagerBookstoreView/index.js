@@ -212,7 +212,7 @@ const ManagerBookstoreView = () => {
                         className='me-3'
                         size='lg'
                         variant='info'
-                        onClick={() => (navigate("/registerWorker"))}>
+                        onClick={() => (navigate(`/registerWorker/${bookstore.id}`))}>
                         Manage Workers
                     </Button>
 

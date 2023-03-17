@@ -14,11 +14,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -33,10 +35,10 @@ public class UserController {
     private JwtUtil jwtUtil;
 
     @PostMapping("register/worker")
-    private void createWorkerUser(@RequestBody UserDto userDto) {
+    private ResponseEntity<User> createWorkerUser(@RequestBody UserDto userDto) {
+        User user = userService.createWorkerUser(userDto);
 
-        userService.createWorkerUser(userDto);
-
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("register/customer")
@@ -70,10 +72,22 @@ public class UserController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> getUsers(@AuthenticationPrincipal User user) {
-        Set<User> users = userService.findByUsername(user);
-        
+    public ResponseEntity<Set<User>> getUsersByBookstore(@RequestParam Long bookstoreId) {
+        Set<User> users = userService.getUsersByBookstoreId(bookstoreId);
+
         return ResponseEntity.ok(users);
     }
+
+    @DeleteMapping("{userId}")
+    public ResponseEntity<?> deleteWorkerUser(@PathVariable Long userId) {
+        try {
+            userService.delete(userId);
+            return ResponseEntity.ok("The user has been deleted");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 
 }

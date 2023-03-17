@@ -3,6 +3,7 @@ import { Button, Col, Container, Row, Form, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { useUser } from '../UserProvider';
+import ajax from "../util/fetchService";
 
 const RegisterWorker = () => {
     const userJwt = useUser();
@@ -13,32 +14,37 @@ const RegisterWorker = () => {
     const [cohortStartDate, setCohortStartDate] = useState(null);
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [users, setUsers] = useState(null);
+    const [users, setUsers] = useState([]);
+
+    const bookstoreId = window.location.href.split("registerWorker/")[1];
+    const emptyUser = {
+        username: "",
+        password: "",
+        name: "",
+        email: "",
+        phoneNumber: 12345678,
+        id: null,
+        bookstoreId: bookstoreId != null ? parseInt(bookstoreId) : null
+    }
+    const [user, setUser] = useState(emptyUser)
+
+    //so from here on is a test
+
+    function onValChange(prop, value) {
+        const newUser = { ...user };
+        newUser[prop] = value;
+        setUser(newUser);
+    }
 
     useEffect(() => {
-        fetch("/api/users", {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${userJwt.jwt}`
-            },
-            method: "GET",
-        }).then((response) => {
-            if (response.status === 200) return response.json();
-        }).then((usersData) => {
-            setUsers(usersData);
-            console.log(usersData);
-        });
+        ajax(`/api/users?bookstoreId=${bookstoreId}`, "GET", user.jwt, null)
+            .then((usersData) => {
+                setUsers(usersData);
+                console.log(usersData);
+            });
     }, []);
 
     function createWorkerUser() {
-        const reqBody = {
-            username: username,
-            password: password,
-            name: name,
-            cohortStartDate: cohortStartDate,
-            email: email,
-            phoneNumber: phoneNumber,
-        };
 
         toast.info(`Your new worker is: '${name}' !`, {
             position: "top-right",
@@ -51,20 +57,25 @@ const RegisterWorker = () => {
             theme: "light",
         });
 
-        fetch("api/users/register/worker", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "post",
-            body: JSON.stringify(reqBody),
-        })
-            .then((response) => response.json)
-            .then((data) =>
-                setPassword(""), setUsername(""), setName(""), setEmail(""), setPhoneNumber("")
-            );
+        ajax("/api/users/register/worker", "POST", null, user)
+            .then((userData) => {
+                console.log(userData);
+                const userCopy = [...users];
+                userCopy.push(userData);
+                setUsers(userCopy);
+                setUser(emptyUser);
+            });
     }
 
-
+    function handleDeleteUser(userId) {
+        ajax(`/api/users/${user.id}`, "DELETE", user.jwt)
+            .then((msg) => {
+                const usersCopy = [...users];
+                const i = usersCopy.findIndex((user) => user.id === userId);
+                usersCopy.splice(i, 1);
+                setUsers(usersCopy);
+            })
+    }
 
     return (
         <div>
@@ -82,8 +93,8 @@ const RegisterWorker = () => {
                                 type="text"
                                 size="lg"
                                 placeholder="John Doe"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                value={user.name}
+                                onChange={(e) => onValChange("name", e.target.value)}
                             />
                         </Form.Group>
                     </Col>
@@ -97,8 +108,8 @@ const RegisterWorker = () => {
                                 type="text"
                                 size="lg"
                                 placeholder="dogPoop@email.com"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                value={user.username}
+                                onChange={(e) => onValChange("username", e.target.value)}
                             />
                         </Form.Group>
                     </Col>
@@ -111,9 +122,9 @@ const RegisterWorker = () => {
                             <Form.Control
                                 type="number"
                                 size="lg"
-                                placeholder="00407523473984"
-                                value={phoneNumber}
-                                onChange={(e) => setPhoneNumber(e.target.value)}
+                                placeholder="20752347"
+                                value={user.phoneNumber}
+                                onChange={(e) => onValChange("phoneNumber", e.target.value)}
                             />
                         </Form.Group>
                     </Col>
@@ -127,8 +138,8 @@ const RegisterWorker = () => {
                                 type="email"
                                 size="lg"
                                 placeholder="something@something"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                value={user.email}
+                                onChange={(e) => onValChange("email", e.target.value)}
                             />
                         </Form.Group>
                     </Col>
@@ -142,8 +153,8 @@ const RegisterWorker = () => {
                                 type="password"
                                 size="lg"
                                 placeholder="Type in your password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                value={user.password}
+                                onChange={(e) => onValChange("password", e.target.value)}
                             />
                         </Form.Group>
                     </Col>
@@ -158,9 +169,7 @@ const RegisterWorker = () => {
                             id="submit"
                             type="button"
                             size="lg"
-                            onClick={() => {
-                                createWorkerUser()
-                            }}
+                            onClick={() => { createWorkerUser() }}
                         >
                             Register Worker
                         </Button>
@@ -192,6 +201,7 @@ const RegisterWorker = () => {
                                 <th>Phone number</th>
                                 <th>Email</th>
                                 <th>Started (Y/M/D)</th>
+                                <th></th>
                             </tr>
                         </thead>
 
@@ -205,26 +215,16 @@ const RegisterWorker = () => {
                                         <td>{user.phoneNumber}</td>
                                         <td>{user.email}</td>
                                         <td>{user.cohortStartDate}</td>
+                                        <td><Button
+                                            size="sm"
+                                            variant="danger"
+                                            onClick={() => handleDeleteUser(user.id)}>Delete</Button></td>
                                     </tr>
                                 ))
                             ) : (<></>)}
                         </tbody>
 
                     </Table>
-
-                    <Row>
-                        <Col>
-                            <div
-                                className="d-flex justify-content-center"
-                                style={{ cursor: "pointer", fontSize: "large", color: "burgundy" }}
-                                onClick={() => {
-                                    window.location.reload(true);
-                                }}
-                            >
-                                Refresh Database
-                            </div>
-                        </Col>
-                    </Row>
 
                 </div>
 
