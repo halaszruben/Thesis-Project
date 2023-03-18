@@ -2,22 +2,24 @@
   font-style: italic;
   font-family: cursive;
   font-size: x-large !important;
-  color: purple;
+  color: aquamarine;
+  text-align: center;
 }
 
 .table-wrapper {
-  border: 2px dashed coral;
+  border: 2px dashed lightseagreen;
   padding: 2em;
   border-radius: 1em;
-  margin-top: 2em;
+  margin-top: 3em;
 }
 
 .table-statuses {
   width: min-content;
-  background-color: white;
+  background-color: transparent;
+  color: white;
   white-space: nowrap;
   font-family: cursive;
-  margin-top: -1.85em !important;
+  margin-top: -2.1em !important;
   margin-bottom: 1em !important;
 }
 
@@ -63,6 +65,5 @@
   cursor: pointer;
   font-size: large;
   color: darkblue;
-  float: right;
-  margin-right: 5em;
+  float: left;
 }

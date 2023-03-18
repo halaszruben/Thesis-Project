@@ -61,7 +61,7 @@ const Comment = (props) => {
             </div>
 
             <div
-                style={{ marginTop: "-1.25em", marginLeft: "1.4em", fontSize: "12px" }}
+                style={{ marginTop: "-1.25em", marginLeft: "1.4em", fontSize: "12px", fontFamily: "-moz-initial", color: "white" }}
             >
                 {commentRelativeTime ? `Posted ${commentRelativeTime}` : ""}
             </div>

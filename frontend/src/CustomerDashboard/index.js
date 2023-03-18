@@ -47,177 +47,205 @@ const CustomerDashboard = () => {
     }, []);
 
     return (
-        <Container style={{ margin: "3em" }}>
 
-            <div>
-                <div
-                    className="logout"
-                    onClick={() => {
-                        user.setJwt(null);
-                        window.location.href = "/";
-                    }}
-                >
-                    Logout
-                </div>
+        <div style={{
+            padding: "0.25%",
+            minHeight: "100vh",
+            maxHeight: "500vh",
+            backgroundImage: `url("/tables2.jpg")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover"
+        }}>
 
-                <div
-                    className="back"
-                    onClick={() => {
-                        window.location.href = "/dashboard";
-                    }}
-                >
-                    Back to the Book Stores
-                </div>
-            </div>
+            <Container style={{ margin: "3em" }}>
 
-            <Row>
-                <Col>
-                    <div className="h1">Customer Dashboard</div>
-                </Col>
-            </Row>
+                <Row>
+                    <Col>
+                        <div
+                            className="back my-4 d-flex justify-content-end"
+                            style={{ cursor: "pointer", fontSize: "2vw" }}
+                            onClick={() => {
+                                window.location.href = "/dashboard";
+                            }}
+                        >
+                            Back to the Book Stores
+                        </div>
+                    </Col>
 
-            <div className="table-wrapper free-table">
-                <div
-                    className="table-statuses h2 px-2">
-                    Free Tables
-                </div>
+                    <Col>
+                        <div
+                            className="logout my-4 d-flex justify-content-end"
+                            style={{ cursor: "pointer", fontSize: "2vw" }}
+                            onClick={() => {
+                                user.setJwt(null);
+                                window.location.href = "/";
+                            }}
+                        >
+                            Logout
+                        </div>
+                    </Col>
+                </Row>
 
-                {(tables && tables.filter((table) => table.status === "Table is free").length > 0) ? (
+
+                <div className="table-wrapper free-table">
                     <div
-                        className="d-grid gap-4"
-                        style={{ gridTemplateColumns: "repeat(auto-fit, 18rem)" }}
-                    >
-                        {tables.filter((table) => table.status === "Table is free")
-                            .map((table) => (
-                                <Card
-                                    key={table.id}
-                                    style={{ width: "18rem", height: "32rem" }}
-                                >
-                                    <Card.Body
-                                        className="d-flex flex-column justify-content-around">
-                                        <Card.Title
-                                            className="tableNumber"
-                                        >
-                                            Table #{table.assignedNumber}
-                                        </Card.Title>
-                                        <div>
-                                            <StatusBadge text={table.status} />
-                                        </div>
-                                        <Card.Text style={{ marginTop: "1em" }}>
-                                            <p>
-                                                <b>Description</b>: {table.description}
-                                            </p>
-                                            <p>
-                                                <b>Number of seating places</b>: {table.chairs}
-                                            </p>
-                                        </Card.Text>
-
-                                        <Button
-                                            variant="info"
-                                            onClick={() => {
-                                                orderAtTable(table);
-                                            }}
-                                        >
-                                            Sit down
-                                        </Button>
-
-                                    </Card.Body>
-                                </Card>
-                            ))}
+                        className="table-statuses h2 px-2">
+                        Free Tables
                     </div>
-                ) : (
-                    <div>Currently there are no free tables</div>
-                )}
-            </div>
 
-            <div className="table-wrapper occupied-table">
-                <div
-                    className="table-statuses h2 px-2">
-                    Occupied Tables
+                    {(tables && tables.filter((table) => table.status === "Table is free").length > 0) ? (
+                        <div
+                            className="d-grid gap-4"
+                            style={{ gridTemplateColumns: "repeat(auto-fit, 18rem)" }}
+
+                        >
+                            {tables.filter((table) => table.status === "Table is free")
+                                .map((table) => (
+                                    <Card
+                                        key={table.id}
+                                        style={{
+                                            width: "18rem", height: "32rem",
+                                            backgroundImage: `url("/tables.jpg")`,
+                                            backgroundRepeat: "no-repeat",
+                                            backgroundSize: "cover"
+                                        }}
+                                    >
+                                        <Card.Body
+                                            className="d-flex flex-column justify-content-around">
+                                            <Card.Title
+                                                className="tableNumber"
+                                            >
+                                                Table #{table.assignedNumber}
+                                            </Card.Title>
+                                            <div>
+                                                <StatusBadge text={table.status} />
+                                            </div>
+                                            <Card.Text style={{ marginTop: "1em" }}>
+                                                <p>
+                                                    <b style={{ fontFamily: "-moz-initial", color: "white" }}>Description</b>: {table.description}
+                                                </p>
+                                                <p>
+                                                    <b style={{ fontFamily: "-moz-initial", color: "white" }}>Number of seating places</b>: {table.chairs}
+                                                </p>
+                                            </Card.Text>
+
+                                            <Button
+                                                variant="info"
+                                                onClick={() => {
+                                                    orderAtTable(table);
+                                                }}
+                                            >
+                                                Sit down
+                                            </Button>
+
+                                        </Card.Body>
+                                    </Card>
+                                ))}
+                        </div>
+                    ) : (
+                        <div style={{ fontFamily: "-moz-initial", color: "white" }}>Currently there are no free tables</div>
+                    )}
                 </div>
-                {(tables && tables.filter((table) => table.status === "Table is occupied").length > 0) ? (
-                    <div
-                        className="d-grid gap-5"
-                        style={{ gridTemplateColumns: "repeat(auto-fit, 18rem)" }}
-                    >
-                        {tables.filter((table) => table.status === "Table is occupied")
-                            .map((table) => (
-                                <Card
-                                    key={table.id}
-                                    style={{ width: "18rem", height: "32rem" }}
-                                >
-                                    <Card.Body
-                                        className="d-flex flex-column justify-content-around">
-                                        <Card.Title
-                                            className="tableNumber"
-                                        >
-                                            Table #{table.assignedNumber}
-                                        </Card.Title>
-                                        <div>
-                                            <StatusBadge text={table.status} />
-                                        </div>
-                                        <Card.Text style={{ marginTop: "1em" }}>
-                                            <p>
-                                                <b>Description</b>: {table.description}
-                                            </p>
-                                            <p>
-                                                <b>Number of seating places</b>: {table.chairs}
-                                            </p>
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                            ))}
-                    </div>
-                ) : (
-                    <div>There are no occupied tables</div>
-                )}
-            </div>
 
-            <div className="table-wrapper unavailable-table">
-                <div
-                    className="table-statuses h2 px-2">
-                    Unavailable Tables
+                <div className="table-wrapper occupied-table">
+                    <div
+                        className="table-statuses h2 px-2">
+                        Occupied Tables
+                    </div>
+                    {(tables && tables.filter((table) => table.status === "Table is occupied").length > 0) ? (
+                        <div
+                            className="d-grid gap-5"
+                            style={{ gridTemplateColumns: "repeat(auto-fit, 18rem)" }}
+                        >
+                            {tables.filter((table) => table.status === "Table is occupied")
+                                .map((table) => (
+                                    <Card
+                                        key={table.id}
+                                        style={{
+                                            width: "18rem", height: "32rem",
+                                            backgroundImage: `url("/tables.jpg")`,
+                                            backgroundRepeat: "no-repeat",
+                                            backgroundSize: "cover"
+                                        }}
+                                    >
+                                        <Card.Body
+                                            className="d-flex flex-column justify-content-around">
+                                            <Card.Title
+                                                className="tableNumber"
+                                            >
+                                                Table #{table.assignedNumber}
+                                            </Card.Title>
+                                            <div>
+                                                <StatusBadge text={table.status} />
+                                            </div>
+                                            <Card.Text style={{ marginTop: "1em" }}>
+                                                <p>
+                                                    <b style={{ fontFamily: "-moz-initial", color: "white" }}>Description</b>: {table.description}
+                                                </p>
+                                                <p>
+                                                    <b style={{ fontFamily: "-moz-initial", color: "white" }}>Number of seating places</b>: {table.chairs}
+                                                </p>
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                ))}
+                        </div>
+                    ) : (
+                        <div style={{ fontFamily: "-moz-initial", color: "white" }}>There are no occupied tables</div>
+                    )}
                 </div>
-                {(tables && tables.filter((table) => table.status === "Unavailable").length > 0) ? (
+
+                <div className="table-wrapper unavailable-table">
                     <div
-                        className="d-grid gap-5"
-                        style={{ gridTemplateColumns: "repeat(auto-fit, 18rem)" }}
-                    >
-                        {tables.filter((table) => table.status === "Unavailable")
-                            .map((table) => (
-                                <Card
-                                    key={table.id}
-                                    style={{ width: "18rem", height: "32rem" }}
-                                >
-                                    <Card.Body
-                                        className="d-flex flex-column justify-content-around">
-                                        <Card.Title
-                                            className="tableNumber"
-                                        >
-                                            Table #{table.assignedNumber}
-                                        </Card.Title>
-                                        <div>
-                                            <StatusBadge text={table.status} />
-                                        </div>
-                                        <Card.Text style={{ marginTop: "1em" }}>
-                                            <p>
-                                                <b>Description</b>: {table.description}
-                                            </p>
-                                            <p>
-                                                <b>Number of seating places</b>: {table.chairs}
-                                            </p>
-                                        </Card.Text>
-
-                                    </Card.Body>
-                                </Card>
-                            ))}
+                        className="table-statuses h2 px-2">
+                        Unavailable Tables
                     </div>
-                ) : (
-                    <div>All the tables are available for customers</div>
-                )}
-            </div>
+                    {(tables && tables.filter((table) => table.status === "Unavailable").length > 0) ? (
+                        <div
+                            className="d-grid gap-5"
+                            style={{ gridTemplateColumns: "repeat(auto-fit, 18rem)" }}
+                        >
+                            {tables.filter((table) => table.status === "Unavailable")
+                                .map((table) => (
+                                    <Card
+                                        key={table.id}
+                                        style={{
+                                            width: "18rem", height: "32rem",
+                                            backgroundImage: `url("/tables.jpg")`,
+                                            backgroundRepeat: "no-repeat",
+                                            backgroundSize: "cover"
+                                        }}
+                                    >
+                                        <Card.Body
+                                            className="d-flex flex-column justify-content-around">
+                                            <Card.Title
+                                                className="tableNumber"
+                                            >
+                                                Table #{table.assignedNumber}
+                                            </Card.Title>
+                                            <div>
+                                                <StatusBadge text={table.status} />
+                                            </div>
+                                            <Card.Text style={{ marginTop: "1em" }}>
+                                                <p>
+                                                    <b style={{ fontFamily: "-moz-initial", color: "white" }}>Description</b>: {table.description}
+                                                </p>
+                                                <p>
+                                                    <b style={{ fontFamily: "-moz-initial", color: "white" }}>Number of seating places</b>: {table.chairs}
+                                                </p>
+                                            </Card.Text>
 
-        </Container>
+                                        </Card.Body>
+                                    </Card>
+                                ))}
+                        </div>
+                    ) : (
+                        <div style={{ fontFamily: "-moz-initial", color: "white" }}>All the tables are available for customers</div>
+                    )}
+                </div>
+
+            </Container>
+        </div >
     );
 };
 

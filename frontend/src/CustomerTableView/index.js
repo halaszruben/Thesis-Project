@@ -89,128 +89,141 @@ const CustomerTableView = () => {
     }, []);
 
     return (
-        <Container className="mt-5" >
-            <Row className="d-flex justify-content-center">
-                <Col>
-                    {table.assignedNumber ?
-                        (<h1 className='tableNumber'>Table #{table.assignedNumber}</h1>) : (
-                            <h1 className='tableNumber'>This is a new Table</h1>
-                        )}
+        <div style={{
+            padding: "0.25%",
+            minHeight: "100vh",
+            maxHeight: "200vh",
+            backgroundImage: `url("/tableview3.jpg")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover"
+        }}>
 
-                </Col>
-                <Col>
-                    <StatusBadge text={table.status} />
-                </Col>
-            </Row>
+            <Container className="mt-5" >
+                <Row className="d-flex justify-content-center">
+                    <Col>
+                        {table.assignedNumber ?
+                            (<h1 className='tableNumber'>Table #{table.assignedNumber}</h1>) : (
+                                <h1 className='tableNumber'>This is a new Table</h1>
+                            )}
 
-            {table ? (
-                <>
+                    </Col>
+                    <Col>
+                        <StatusBadge text={table.status} />
+                    </Col>
+                </Row>
 
-                    <Form.Group
-                        as={Row}
-                        className="my-3"
-                        controlId="assignedNumber">
-                        <Form.Label column sm="3" md="2">
-                            Assigned Table number:
-                        </Form.Label>
-                        <Col sm="4" md="3" lg="2" xs="5">
-                            <Form.Control
-                                onChange={(event) => updateTable("assignedNumber", event.target.value)}
-                                type="text"
-                                readOnly
-                                value={table.assignedNumber}
-                                placeholder="the_number_you_want_to_identify_this_table_with"
-                                style={{ backgroundColor: "lightgrey" }}
-                            />
-                        </Col>
-                    </Form.Group>
+                {table ? (
+                    <>
 
-                    <Form.Group
-                        as={Row}
-                        className="my-3"
-                        controlId="chairs">
-                        <Form.Label column sm="3" md="2">
-                            Number of sitting places:
-                        </Form.Label>
-                        <Col sm="4" md="3" lg="2" xs="5">
-                            <Form.Control
-                                onChange={(event) => updateTable("chairs", event.target.value)}
-                                type="text"
-                                readOnly
-                                value={table.chairs}
-                                placeholder="0"
-                                style={{ backgroundColor: "lightgrey" }}
-                            />
-                        </Col>
-                    </Form.Group>
+                        <Form.Group
+                            as={Row}
+                            className="my-3"
+                            controlId="assignedNumber">
+                            <Form.Label column sm="3" md="2"
+                                style={{ fontFamily: "-moz-initial", color: "white" }}>
+                                Assigned Table number:
+                            </Form.Label>
+                            <Col sm="4" md="3" lg="2" xs="5">
+                                <Form.Control
+                                    onChange={(event) => updateTable("assignedNumber", event.target.value)}
+                                    type="text"
+                                    readOnly
+                                    value={table.assignedNumber}
+                                    placeholder="the_number_you_want_to_identify_this_table_with"
+                                    style={{ backgroundColor: "lightgrey" }}
+                                />
+                            </Col>
+                        </Form.Group>
 
-                    <Form.Group
-                        as={Row}
-                        className="mb-3"
-                        controlId="description">
-                        <Form.Label column sm="3" md="2">
-                            Description:
-                        </Form.Label>
-                        <Col sm="9" md="8" lg="8">
-                            <textarea
-                                type=""
-                                readOnly
-                                placeholder="describe_the_background"
-                                onChange={(event) => updateTable("description", event.target.value)}
-                                value={table.description}
-                                style={{ width: "80%", height: "80px", borderRadius: "0.25em", backgroundColor: "lightgrey", color: "darkblue" }}
-                            />
-                        </Col>
-                    </Form.Group>
+                        <Form.Group
+                            as={Row}
+                            className="my-3"
+                            controlId="chairs">
+                            <Form.Label column sm="3" md="2"
+                                style={{ fontFamily: "-moz-initial", color: "white" }}>
+                                Number of sitting places:
+                            </Form.Label>
+                            <Col sm="4" md="3" lg="2" xs="5">
+                                <Form.Control
+                                    onChange={(event) => updateTable("chairs", event.target.value)}
+                                    type="text"
+                                    readOnly
+                                    value={table.chairs}
+                                    placeholder="0"
+                                    style={{ backgroundColor: "lightgrey" }}
+                                />
+                            </Col>
+                        </Form.Group>
 
-                    <div className="d-flex gap-5 mt-5">
+                        <Form.Group
+                            as={Row}
+                            className="mb-3"
+                            controlId="description">
+                            <Form.Label column sm="3" md="2"
+                                style={{ fontFamily: "-moz-initial", color: "white" }}>
+                                Description:
+                            </Form.Label>
+                            <Col sm="9" md="8" lg="8">
+                                <textarea
+                                    type=""
+                                    readOnly
+                                    placeholder="describe_the_background"
+                                    onChange={(event) => updateTable("description", event.target.value)}
+                                    value={table.description}
+                                    style={{ width: "80%", height: "80px", borderRadius: "0.25em", backgroundColor: "lightgrey", color: "darkblue" }}
+                                />
+                            </Col>
+                        </Form.Group>
 
-                        <Button
-                            variant="danger"
-                            size="lg"
+                        <div className="d-flex gap-5 mt-5">
 
-                            onClick={() => leave(tableStatuses[2].status)}>
-                            Leave
-                        </Button>
+                            <Button
+                                variant="danger"
+                                size="lg"
 
-                        <Button
-                            size='lg'
-                            variant='info btn-outline-dark'
-                            className="d-flex"
-                            onClick={() => setModalShow(true)}>
-                            Show Books
-                        </Button>
+                                onClick={() => leave(tableStatuses[2].status)}>
+                                Leave
+                            </Button>
 
-                        <ShowBooks
-                            show={modalShow}
-                            onHide={() => setModalShow(false)}
-                            bookdata={books} />
+                            <Button
+                                size='lg'
+                                variant='info btn-outline-dark'
+                                className="d-flex"
+                                onClick={() => setModalShow(true)}>
+                                Show Books
+                            </Button>
 
-                        <Button
-                            size='lg'
-                            variant='info btn-outline-dark'
-                            className="d-flex"
-                            onClick={() => setModalShowBevAndPast(true)}>
-                            Show Drinks & Pastries
-                        </Button>
+                            <ShowBooks
+                                show={modalShow}
+                                onHide={() => setModalShow(false)}
+                                bookdata={books} />
 
-                        <ShowFoodBeverage
-                            show={modalShowBevAndPast}
-                            onHide={() => setModalShowBevAndPast(false)}
-                            bevAndPastData={bevsAndPasts} />
+                            <Button
+                                size='lg'
+                                variant='info btn-outline-dark'
+                                className="d-flex"
+                                onClick={() => setModalShowBevAndPast(true)}>
+                                Show Drinks & Pastries
+                            </Button>
+
+                            <ShowFoodBeverage
+                                show={modalShowBevAndPast}
+                                onHide={() => setModalShowBevAndPast(false)}
+                                bevAndPastData={bevsAndPasts} />
 
 
 
-                        <ToastContainer />
-                    </div>
+                            <ToastContainer />
+                        </div>
 
-                    <CommentContainer tableId={tableId} />
-                </>
-            ) : (
-                <></>
-            )
-            }
-        </Container>
+                        <CommentContainer tableId={tableId} />
+                    </>
+                ) : (
+                    <></>
+                )
+                }
+            </Container>
+        </div>
 
     );
 };

@@ -15,14 +15,15 @@ const Homepage = () => {
 
     return (
 
-
         <div style={{
-            width: "100%",
-            height: "100%",
+            padding: "0.25%",
+            minHeight: "100vh",
+            maxHeight: "200vh",
             backgroundImage: `url("/Homepage.jpg")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
         }}>
+
             <Container>
 
                 <Row>
@@ -61,7 +62,6 @@ const Homepage = () => {
             </Container >
 
         </div>
-
     )
 
 }

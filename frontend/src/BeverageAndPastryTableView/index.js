@@ -21,9 +21,9 @@ const BeverageAndPastryTableView = ({ bevsAndPasts }) => {
 
                 <thead dark>
                     <tr>
-                        <th>Name</th>
-                        <th>Amount in HUF</th>
-                        <th>Type of food or beverage</th>
+                        <th style={{ color: "white" }}>Name</th>
+                        <th style={{ color: "white" }}>Amount in HUF</th>
+                        <th style={{ color: "white" }}>Type of food or beverage</th>
                     </tr>
                 </thead>
 
@@ -31,9 +31,9 @@ const BeverageAndPastryTableView = ({ bevsAndPasts }) => {
                     {bevsAndPasts ? (
                         sortedProducts.map((data) => (
                             <tr key={data.id}>
-                                <td>{data.name}</td>
-                                <td>{data.costs}</td>
-                                <td>{data.type}</td>
+                                <td style={{ color: "white" }}>{data.name}</td>
+                                <td style={{ color: "white" }}>{data.costs}</td>
+                                <td style={{ color: "white" }}>{data.type}</td>
                             </tr>
                         ))
                     ) : (<></>)}

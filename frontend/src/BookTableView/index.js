@@ -20,26 +20,26 @@ const BookTableView = ({ books }) => {
 
             <thead dark>
                 <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Themes</th>
-                    <th>Language</th>
-                    <th>Pages</th>
-                    <th>Number of books</th>
+                    <th style={{ color: "white" }}>Title</th>
+                    <th style={{ color: "white" }}>Author</th>
+                    <th style={{ color: "white" }}>Themes</th>
+                    <th style={{ color: "white" }}>Language</th>
+                    <th style={{ color: "white" }}>Pages</th>
+                    <th style={{ color: "white" }}>Number of books</th>
                 </tr>
             </thead>
             <tbody>
                 {books ? (
                     sortedProducts.map((data) => (
                         <tr key={data.id}>
-                            <td>{data.title}</td>
-                            <td>{data.author}</td>
-                            <td>
+                            <td style={{ color: "white" }}>{data.title}</td>
+                            <td style={{ color: "white" }}>{data.author}</td>
+                            <td style={{ color: "white" }}>
                                 <Badge bg="info">{data.themes}</Badge>
                             </td>
-                            <td>{data.language}</td>
-                            <td>{data.pages}</td>
-                            <td>{data.numberOfBooks}</td>
+                            <td style={{ color: "white" }}>{data.language}</td>
+                            <td style={{ color: "white" }}>{data.pages}</td>
+                            <td style={{ color: "white" }}>{data.numberOfBooks}</td>
                         </tr>
                     ))
                 ) : (<></>)}
