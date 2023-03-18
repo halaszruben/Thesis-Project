@@ -46,7 +46,7 @@ const RegisterWorker = () => {
 
     function createWorkerUser() {
 
-        toast.info(`Your new worker is: '${name}' !`, {
+        toast.info(`Your new worker is: '${user.name}' !`, {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,

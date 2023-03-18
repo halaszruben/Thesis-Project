@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Homepage from './Homepage'
-import Login from './Login';
 import PrivateRoute from './PrivateRoute';
 import WorkerDashboard from './WorkerDashboard';
 import WorkerTableView from './WorkerTableView';
@@ -13,7 +12,6 @@ import CustomerDashboard from './CustomerDashboard';
 import CustomerTableView from './CustomerTableView';
 import { useUser } from './UserProvider';
 import RegisterWorker from './RegisterWorker';
-import RegisterCustomer from './RegisterCustomer';
 import ManagerDashboard from './ManagerDashboard';
 import ManagerBookstoreView from './ManagerBookstoreView';
 import CustomerBookstoreView from './CustomerBookstoreView';

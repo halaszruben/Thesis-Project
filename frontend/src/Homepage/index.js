@@ -1,9 +1,16 @@
-import React from "react";
-import { Button } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Login from "../Login";
 import RegisterCustomer from "../RegisterCustomer"
+import { useUser } from "../UserProvider";
 
 const Homepage = () => {
+    const user = useUser();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user.jwt) navigate("/dashboard");
+    }, [user])
 
     return (
         <>

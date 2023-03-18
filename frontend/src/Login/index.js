@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserProvider";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const user = useUser();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (user.jwt) window.location.href = "/dashboard";
-    }, [user])
 
     function sendLoginRequest() {
         const reqBody = {
@@ -36,10 +30,17 @@ const Login = () => {
             })
             .then(([body, headers]) => {
                 user.setJwt(headers.get("authorization"));
-                window.location.href = "/dashboard";
+                if (body.bookStore.id !== null)
+                    window.location.href = `/tables/${body.bookStore.id}`;
+                else
+                    window.location.href = `/dashboard`;
             })
             .catch((message) => {
-                alert(message);
+                if (message instanceof TypeError) {
+
+                }
+                else
+                    alert(message);
             });
     }
 
