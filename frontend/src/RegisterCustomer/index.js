@@ -44,11 +44,12 @@ const RegisterCustomer = () => {
 
 
     return (
-        <div>
-            <Container className="mt-5 ">
+        <div style={{ width: "50%" }}>
+            <Container className="mt-5 "
+            >
 
                 <Row className="justify-content-center">
-                    <Col md="8" lg="6">
+                    <Col md="8" lg="8">
                         <Form.Group className="mb-3" controlId="name">
                             <Form.Label className="fs-4">Nickname:</Form.Label>
                             <Form.Control
@@ -63,7 +64,7 @@ const RegisterCustomer = () => {
                 </Row>
 
                 <Row className="justify-content-center">
-                    <Col md="8" lg="6">
+                    <Col md="8" lg="8">
                         <Form.Group className="mb-3" controlId="username">
                             <Form.Label className="fs-4">Username:</Form.Label>
                             <Form.Control
@@ -78,7 +79,7 @@ const RegisterCustomer = () => {
                 </Row>
 
                 <Row className="justify-content-center">
-                    <Col md="8" lg="6">
+                    <Col md="8" lg="8">
                         <Form.Group className="mb-3" controlId="password">
                             <Form.Label className="fs-4">Password:</Form.Label>
                             <Form.Control

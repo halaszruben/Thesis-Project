@@ -46,9 +46,9 @@ const Login = () => {
 
     return (
         <>
-            <Container className="mt-4">
+            <Container className="mt-5">
                 <Row className="justify-content-center">
-                    <Col md="8" lg="6">
+                    <Col md="6" lg="6">
                         <Form.Group className="mb-3" >
                             <Form.Label htmlFor="username" className="fs-4">Username:</Form.Label>
                             <Form.Control
@@ -64,7 +64,7 @@ const Login = () => {
 
                 <Row className="justify-content-center">
                     <Col
-                        md="8"
+                        md="6"
                         lg="6">
                         <Form.Group className="mb-3" >
                             <Form.Label htmlFor="password" className="fs-4">Password:</Form.Label>
