@@ -52,7 +52,7 @@ const CustomerDashboard = () => {
             padding: "0.25%",
             minHeight: "100vh",
             maxHeight: "500vh",
-            backgroundImage: `url("/tables2.jpg")`,
+            backgroundImage: `url("/booksview.jpg")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
         }}>

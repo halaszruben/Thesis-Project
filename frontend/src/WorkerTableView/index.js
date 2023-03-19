@@ -103,144 +103,156 @@ const WorkerTableView = () => {
     }, []);
 
     return (
-        <Container className="mt-5" >
-            <Row className="d-flex justify-content-center">
-                <Col>
-                    {table.assignedNumber ?
-                        (<h1 className='tableNumber'>Table #{table.assignedNumber}</h1>) : (
-                            <h1 className='tableNumber'>This is a new Table</h1>
-                        )}
+        <div style={{
+            padding: "0.25%",
+            minHeight: "100vh",
+            maxHeight: "200vh",
+            backgroundImage: `url("/tableview3.jpg")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover"
+        }}>
+            <Container className="mt-5" >
+                <Row className="d-flex justify-content-center">
+                    <Col>
+                        {table.assignedNumber ?
+                            (<h1 className='tableNumber'>Table #{table.assignedNumber}</h1>) : (
+                                <h1 className='tableNumber'>This is a new Table</h1>
+                            )}
 
-                </Col>
-                <Col>
-                    <StatusBadge text={table.status} />
-                </Col>
-            </Row>
+                    </Col>
+                    <Col>
+                        <StatusBadge text={table.status} />
+                    </Col>
+                </Row>
 
-            {table ? (
-                <>
+                {table ? (
+                    <>
 
-                    <Form.Group
-                        as={Row}
-                        className="my-3"
-                        controlId="assignedNumber">
-                        <Form.Label column sm="3" md="2">
-                            Assigned Table number:
-                        </Form.Label>
-                        <Col sm="4" md="3" lg="2" xs="5">
-                            <Form.Control
-                                onChange={(event) => updateTable("assignedNumber", event.target.value)}
-                                type="number"
-                                value={table.assignedNumber}
-                                placeholder="the_number_you_want_to_identify_this_table_with"
-                            />
-                        </Col>
-                    </Form.Group>
+                        <Form.Group
+                            as={Row}
+                            className="my-3"
+                            controlId="assignedNumber">
+                            <Form.Label column sm="3" md="2"
+                                style={{ fontFamily: "-moz-initial", color: "white" }}>
+                                Assigned Table number:
+                            </Form.Label>
+                            <Col sm="4" md="3" lg="2" xs="5">
+                                <Form.Control
+                                    onChange={(event) => updateTable("assignedNumber", event.target.value)}
+                                    type="number"
+                                    value={table.assignedNumber}
+                                    placeholder="the_number_you_want_to_identify_this_table_with"
+                                />
+                            </Col>
+                        </Form.Group>
 
-                    <Form.Group
-                        as={Row}
-                        className="my-3"
-                        controlId="chairs">
-                        <Form.Label column sm="3" md="2">
-                            Number of sitting places:
-                        </Form.Label>
-                        <Col sm="4" md="3" lg="2" xs="5">
-                            <Form.Control
-                                onChange={(event) => updateTable("chairs", event.target.value)}
-                                type="number"
-                                value={table.chairs}
-                                placeholder="0"
-                            />
-                        </Col>
-                    </Form.Group>
+                        <Form.Group
+                            as={Row}
+                            className="my-3"
+                            controlId="chairs">
+                            <Form.Label column sm="3" md="2"
+                                style={{ fontFamily: "-moz-initial", color: "white" }}>
+                                Number of sitting places:
+                            </Form.Label>
+                            <Col sm="4" md="3" lg="2" xs="5">
+                                <Form.Control
+                                    onChange={(event) => updateTable("chairs", event.target.value)}
+                                    type="number"
+                                    value={table.chairs}
+                                    placeholder="0"
+                                />
+                            </Col>
+                        </Form.Group>
 
-                    <Form.Group
-                        as={Row}
-                        className="mb-3"
-                        controlId="description">
-                        <Form.Label column sm="3" md="2">
-                            Description:
-                        </Form.Label>
-                        <Col sm="9" md="8" lg="8">
-                            <textarea
-                                style={{ width: "80%", height: "80px", borderRadius: "0.25em" }}
-                                type=""
-                                placeholder="describe_the_background"
-                                onChange={(event) => updateTable("description", event.target.value)}
-                                value={table.description}
-                            />
-                        </Col>
-                    </Form.Group>
+                        <Form.Group
+                            as={Row}
+                            className="mb-3"
+                            controlId="description">
+                            <Form.Label column sm="3" md="2"
+                                style={{ fontFamily: "-moz-initial", color: "white" }}>
+                                Description:
+                            </Form.Label>
+                            <Col sm="9" md="8" lg="8">
+                                <textarea
+                                    style={{ width: "80%", height: "80px", borderRadius: "0.25em" }}
+                                    type=""
+                                    placeholder="describe_the_background"
+                                    onChange={(event) => updateTable("description", event.target.value)}
+                                    value={table.description}
+                                />
+                            </Col>
+                        </Form.Group>
 
-                    <div className="d-flex gap-3">
-                        <Button
-                            size="lg"
-                            className="mt-3"
-                            variant="success"
-                            onClick={() => save(tableStatuses[0].status)}>
-                            Save Attributes /
-                            Free the table up
-                        </Button>
+                        <div className="d-flex gap-3">
+                            <Button
+                                size="lg"
+                                className="mt-3"
+                                variant="success"
+                                onClick={() => save(tableStatuses[0].status)}>
+                                Save Attributes /
+                                Free the table up
+                            </Button>
 
-                        <Button
-                            size="lg"
-                            className="mt-3"
-                            variant="info"
-                            onClick={() => save(tableStatuses[3].status)}>
-                            Tidying
-                        </Button>
+                            <Button
+                                size="lg"
+                                className="mt-3"
+                                variant="info"
+                                onClick={() => save(tableStatuses[3].status)}>
+                                Tidying
+                            </Button>
 
-                        <Button
-                            size="lg"
-                            variant="secondary"
-                            className="mt-3"
-                            onClick={() => (window.location.href = `/tables/${table.bookStoreId.id}`)}
-                        >
-                            Back
-                        </Button>
-                        <ToastContainer />
-                    </div>
+                            <Button
+                                size="lg"
+                                variant="secondary"
+                                className="mt-3"
+                                onClick={() => (window.location.href = `/tables/${table.bookStoreId.id}`)}
+                            >
+                                Back
+                            </Button>
+                            <ToastContainer />
+                        </div>
 
-                    <div className="d-flex justify-content-end gap-5">
-                        <Button
-                            size='lg'
-                            variant='info btn-outline-dark'
-                            className="d-flex"
-                            onClick={() => setModalShow(true)}>
-                            Show Books
-                        </Button>
-                        <ShowBooks
-                            show={modalShow}
-                            onHide={() => setModalShow(false)}
-                            bookdata={books} />
-                    </div>
+                        <div className="d-flex justify-content-end gap-5">
+                            <Button
+                                size='lg'
+                                variant='info btn-outline-dark'
+                                className="d-flex"
+                                onClick={() => setModalShow(true)}>
+                                Show Books
+                            </Button>
+                            <ShowBooks
+                                show={modalShow}
+                                onHide={() => setModalShow(false)}
+                                bookdata={books} />
+                        </div>
 
-                    <div className='d-flex gap-3'>
-                        <Button
-                            size="lg"
-                            className="mt-3"
-                            variant="warning"
-                            onClick={() => save(tableStatuses[4].status)}>
-                            Unavailable
-                        </Button>
+                        <div className='d-flex gap-3'>
+                            <Button
+                                size="lg"
+                                className="mt-3"
+                                variant="warning"
+                                onClick={() => save(tableStatuses[4].status)}>
+                                Unavailable
+                            </Button>
 
-                        <Button
-                            size="lg"
-                            className="mt-3"
-                            variant="warning"
-                            onClick={() => deleteAllComments()}>
-                            Delete All comments
-                        </Button>
-                    </div>
+                            <Button
+                                size="lg"
+                                className="mt-3"
+                                variant="warning"
+                                onClick={() => deleteAllComments()}>
+                                Delete All comments
+                            </Button>
+                        </div>
 
-                    <CommentContainer tableId={tableId} />
+                        <CommentContainer tableId={tableId} />
 
-                </>
-            ) : (
-                <></>
-            )
-            }
-        </Container>
+                    </>
+                ) : (
+                    <></>
+                )
+                }
+            </Container>
+        </div>
 
     );
 };

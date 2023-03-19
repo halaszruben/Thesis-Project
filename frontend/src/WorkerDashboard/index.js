@@ -5,6 +5,7 @@ import StatusBadge from "../StatusBadge";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserProvider";
 import BeverageAndPastryTable from "../BeverageAndPastryTable";
+import jwt_decode from "jwt-decode";
 
 const WorkerDashboard = () => {
     const user = useUser();
@@ -29,7 +30,7 @@ const WorkerDashboard = () => {
     const [bevsAndPasts, setBevsAndPasts] = useState([]);
 
     function deleteTable(tableId) {
-        ajax(`api/tables/${tableId}`, "DELETE", user.jwt)
+        ajax(`/api/tables/${tableId}`, "DELETE", user.jwt)
 
         const tablesCopy = [...tables];
         const i = tablesCopy.findIndex((table) => table.id === tableId);
@@ -111,122 +112,140 @@ const WorkerDashboard = () => {
     }
 
     return (
-        <div style={{ margin: "3em" }}>
 
-            <div>
-                <div
-                    className="logout"
-                    onClick={() => {
-                        user.setJwt(null);
-                        window.location.href = "/";
-                    }}
-                >
-                    Logout
-                </div>
+        <div style={{
+            padding: "0.25%",
+            minHeight: "100vh",
+            maxHeight: "500vh",
+            backgroundImage: `url("/booksview.jpg")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover"
+        }}>
+            <div style={{ margin: "3em" }}>
 
-                <div
-                    className="back"
-                    onClick={() => {
-                        window.location.href = "/dashboard";
-                    }}
-                >
-                    Back to the Book Stores
-                </div>
-            </div>
+                <div>
+                    <div
+                        className="logout"
+                        style={{ cursor: "pointer", fontSize: "2vw" }}
+                        onClick={() => {
+                            user.setJwt(null);
+                            window.location.href = "/";
+                        }}
+                    >
+                        Logout
+                    </div>
 
-            <div className="mb-5">
-                <Button size="lg" onClick={() => createTable()}>
-                    Add new Table
-                </Button>
-            </div>
-
-            {tables ? (
-                <div
-                    className="d-grid gap-5"
-                    style={{ gridTemplateColumns: "repeat(auto-fit, 18rem)" }}
-                >
-                    {tables.map((table) => (
-                        <Card
-                            key={table.id}
-                            style={{ width: "18rem", height: "24rem" }}
-                        >
-                            <Card.Body
-                                className="d-flex flex-column justify-content-around">
-                                <Card.Title
-                                    className="tableNumber"
-                                >
-                                    Table #{table.assignedNumber}
-                                </Card.Title>
-                                <div>
-                                    <StatusBadge text={table.status} />
-                                </div>
-                                <Card.Text style={{ marginTop: "1em" }}>
-                                    <p>
-                                        <b>Description</b>: {table.description}
-                                    </p>
-                                    <p>
-                                        <b>Number of seating places</b>: {table.chairs}
-                                    </p>
-                                </Card.Text>
-
-                                <Button
-                                    variant="secondary"
-                                    onClick={() => {
-                                        window.location.href = `/table/${table.id}`;
-                                    }}
-                                >
-                                    Edit
-                                </Button>
-                                <Button
-                                    variant="danger" size="sm"
-                                    onClick={() => deleteTable(table.id)}
-                                >
-                                    Delete
-                                </Button>
-                            </Card.Body>
-                        </Card>
-                    ))}
+                    < div
+                        className="back"
+                        onClick={() => {
+                            window.location.href = "/dashboard";
+                        }}
+                    >
+                        Back to the Book Stores
+                    </div>
 
                 </div>
 
-            ) : (
-                <></>
-            )
-            }
+                <div className="mb-5">
+                    <Button size="lg" onClick={() => createTable()}>
+                        Add new Table
+                    </Button>
+                </div>
 
-            <InputGroup className="mt-4">
-                <InputGroup.Text>
-                    Enter the Beverage and Pastries's data's in this order: Name, Cost of the item, Type of the item
-                </InputGroup.Text>
-                <Form.Control
-                    placeholder='Name'
-                    type='text'
-                    onChange={(e) => onValChange("name", e.target.value)}
-                    value={bevAndPast.name}
-                />
-                <Form.Control
-                    placeholder='Costs'
-                    type='number'
-                    onChange={(e) => onValChange("costs", e.target.value)}
-                    value={bevAndPast.costs} />
-                <Form.Control
-                    placeholder='Type'
-                    type='text'
-                    onChange={(e) => onValChange("type", e.target.value)}
-                    value={bevAndPast.type} />
-                <Button
-                    onClick={() => submitBevAndPast()}
-                >
-                    Add new item to the Menu
-                </Button>
-            </InputGroup>
+                {tables ? (
+                    <div
+                        className="d-grid gap-5"
+                        style={{ gridTemplateColumns: "repeat(auto-fit, 18rem)" }}
+                    >
+                        {tables.map((table) => (
+                            <Card
+                                key={table.id}
+                                style={{
+                                    width: "18rem", height: "32rem",
+                                    backgroundImage: `url("/tables.jpg")`,
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundSize: "cover"
+                                }}
+                            >
+                                <Card.Body
+                                    className="d-flex flex-column justify-content-around">
+                                    <Card.Title
+                                        className="tableNumber"
+                                    >
+                                        Table #{table.assignedNumber}
+                                    </Card.Title>
+                                    <div>
+                                        <StatusBadge text={table.status} />
+                                    </div>
+                                    <Card.Text style={{ marginTop: "1em" }}>
+                                        <p>
+                                            <b style={{ fontFamily: "-moz-initial", color: "white" }}>Description</b>: {table.description}
+                                        </p>
+                                        <p>
+                                            <b style={{ fontFamily: "-moz-initial", color: "white" }}>Number of seating places</b>: {table.chairs}
+                                        </p>
+                                    </Card.Text>
 
-            <div >
-                <BeverageAndPastryTable tableData={bevsAndPasts}
-                    emitDeleteBevAndPast={handleDeleteBevAndPast}
-                    emitEditBevAndPast={handleEditBevAndPast} />
-            </div>
+                                    <Button
+                                        variant="secondary"
+                                        onClick={() => {
+                                            window.location.href = `/table/${table.id}`;
+                                        }}
+                                    >
+                                        Edit
+                                    </Button>
+                                    <Button
+                                        variant="danger" size="sm"
+                                        onClick={() => deleteTable(table.id)}
+                                    >
+                                        Delete
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                        ))}
 
+                    </div>
+
+                ) : (
+                    <></>
+                )
+                }
+
+                <InputGroup className="mt-4">
+                    <InputGroup.Text
+                        style={{ fontFamily: "-moz-initial", color: "black" }}>
+                        Enter the Beverage and Pastries's data's in this order: Name, Cost of the item, Type of the item
+                    </InputGroup.Text>
+                    <Form.Control
+                        placeholder='Name'
+                        type='text'
+                        onChange={(e) => onValChange("name", e.target.value)}
+                        value={bevAndPast.name}
+                    />
+                    <Form.Control
+                        placeholder='Costs'
+                        type='number'
+                        onChange={(e) => onValChange("costs", e.target.value)}
+                        value={bevAndPast.costs} />
+                    <Form.Control
+                        placeholder='Type'
+                        type='text'
+                        onChange={(e) => onValChange("type", e.target.value)}
+                        value={bevAndPast.type} />
+                    <Button
+                        onClick={() => submitBevAndPast()}
+                    >
+                        Add new item to the Menu
+                    </Button>
+                </InputGroup>
+
+                <div >
+                    <BeverageAndPastryTable tableData={bevsAndPasts}
+                        emitDeleteBevAndPast={handleDeleteBevAndPast}
+                        emitEditBevAndPast={handleEditBevAndPast} />
+                </div>
+
+            </div >
         </div >
     );
 };

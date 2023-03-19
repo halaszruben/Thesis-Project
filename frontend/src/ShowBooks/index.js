@@ -27,7 +27,7 @@ function ShowBooks(props) {
                 padding: "0.25%",
                 minHeight: "50vh",
                 maxHeight: "200vh",
-                backgroundImage: `url("/book3.jpg")`,
+                backgroundImage: `url("/menu3.jpg")`,
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover"
             }}>

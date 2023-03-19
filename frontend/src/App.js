@@ -37,19 +37,15 @@ function App() {
 
     <Routes>
       <Route path="/dashboard" element={
-        roles.find((role) => role === "ROLE_WORKER") ? (
-          < PrivateRoute >
-            <WorkerBookstoreView />
-          </PrivateRoute>
-        ) : roles.find((role) => role === "ROLE_MANAGER") ? (
+        roles.find((role) => role === "ROLE_MANAGER") ? (
           <PrivateRoute>
             < ManagerDashboard />
           </PrivateRoute>
-        ) : (
+        ) : roles.find((role) => role === "ROLE_CUSTOMER") ? (
           <PrivateRoute>
             <CustomerBookstoreView />
           </PrivateRoute>
-        )
+        ) : (<>You cannot access the bookstores as a worker you should be instantly redirected</>)
       }
       />
 
