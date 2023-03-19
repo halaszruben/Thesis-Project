@@ -129,167 +129,180 @@ const ManagerBookstoreView = () => {
     }
 
     return (
-        <Container className='mt-5'>
-            <h1 className='bookstoreTitle d-flex'>{bookstore.name}</h1>
+        <div style={{
+            padding: "0.25%",
+            minHeight: "100vh",
+            maxHeight: "500vh",
+            backgroundImage: `url("/booksview.jpg")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover"
+        }}>
+            <Container className='mt-5'>
+                <h1 className='bookstoreTitle d-flex'>{bookstore.name}</h1>
 
-            {bookstore ? (
-                <>
-                    <Form.Group
-                        as={Row}
-                        className='my-3'>
-                        <Form.Label
-                            column
-                            sm="3"
-                            md="2">
-                            Name:
-                        </Form.Label>
-                        <Col sm="9" md="8" lg="6">
+                {bookstore ? (
+                    <>
+                        <Form.Group
+                            as={Row}
+                            className='my-3'>
+                            <Form.Label
+                                column
+                                sm="3"
+                                md="2"
+                                style={{ fontFamily: "-moz-initial", color: "white" }}>
+                                Name:
+                            </Form.Label>
+                            <Col sm="9" md="8" lg="6">
 
-                            <Form.Control
-                                id="name"
-                                onChange={(e) => updateBookstore("name", e.target.value)}
-                                type="text"
-                                value={bookstore.name}
-                                placeholder="What is the place called"
-                            />
+                                <Form.Control
+                                    id="name"
+                                    onChange={(e) => updateBookstore("name", e.target.value)}
+                                    type="text"
+                                    value={bookstore.name}
+                                    placeholder="What is the place called"
+                                />
 
-                        </Col>
-                    </Form.Group>
+                            </Col>
+                        </Form.Group>
 
-                    <Form.Group
-                        as={Row}
-                        className='my-3'>
-                        <Form.Label
-                            column
-                            sm="3"
-                            md="2">
-                            Location:
-                        </Form.Label>
-                        <Col sm="9" md="8" lg="6">
+                        <Form.Group
+                            as={Row}
+                            className='my-3'
+                            style={{ fontFamily: "-moz-initial", color: "white" }}>
+                            <Form.Label
+                                column
+                                sm="3"
+                                md="2">
+                                Location:
+                            </Form.Label>
+                            <Col sm="9" md="8" lg="6">
 
-                            <Form.Control
-                                id="location"
-                                onChange={(e) => updateBookstore("location", e.target.value)}
-                                type="text"
-                                value={bookstore.location}
-                                placeholder="Where is it located"
-                            />
+                                <Form.Control
+                                    id="location"
+                                    onChange={(e) => updateBookstore("location", e.target.value)}
+                                    type="text"
+                                    value={bookstore.location}
+                                    placeholder="Where is it located"
+                                />
 
-                        </Col>
-                    </Form.Group>
+                            </Col>
+                        </Form.Group>
 
-                    <Form.Group
-                        as={Row}
-                        className='my-3'>
-                        <Form.Label
-                            column
-                            sm="3"
-                            md="2">
-                            Description:
-                        </Form.Label>
-                        <Col sm="9" md="8" lg="6">
+                        <Form.Group
+                            as={Row}
+                            className='my-3'
+                            style={{ fontFamily: "-moz-initial", color: "white" }}>
+                            <Form.Label
+                                column
+                                sm="3"
+                                md="2">
+                                Description:
+                            </Form.Label>
+                            <Col sm="9" md="8" lg="6">
 
-                            <textarea
-                                style={{ width: "100%", height: "80px", borderRadius: "0.25em" }}
-                                id="description"
-                                onChange={(e) => updateBookstore("description", e.target.value)}
-                                type="text"
-                                value={bookstore.description}
-                                placeholder="Describe the place"
-                            />
+                                <textarea
+                                    style={{ width: "100%", height: "80px", borderRadius: "0.25em" }}
+                                    id="description"
+                                    onChange={(e) => updateBookstore("description", e.target.value)}
+                                    type="text"
+                                    value={bookstore.description}
+                                    placeholder="Describe the place"
+                                />
 
-                        </Col>
-                    </Form.Group>
+                            </Col>
+                        </Form.Group>
 
+                        <Button
+                            className='me-3'
+                            size='lg'
+                            onClick={() => save()}>
+                            Update bookstore
+                        </Button>
+
+                        <Button
+                            className='me-3'
+                            size='lg'
+                            variant='info'
+                            onClick={() => (navigate(`/registerWorker/${bookstore.id}`))}>
+                            Manage Workers
+                        </Button>
+
+                        <Button
+                            className='me-3'
+                            size='lg'
+                            variant='info'
+                            onClick={() => (navigate(`/tables/${bookstore.id}`))}>
+                            Manage Tables
+                        </Button>
+
+                        <Button
+                            className='me-3'
+                            size='lg'
+                            variant='secondary'
+                            onClick={() => (navigate("/dashboard"))}>
+                            Back
+                        </Button>
+
+                        <ToastContainer />
+                    </>
+
+                ) : (
+                    <></>
+                )}
+
+                <InputGroup.Text
+                    className='mt-4 d-flex justify-content-center'
+                    style={{ fontFamily: "-moz-initial", color: "black" }}>
+                    Enter the book's data's in this order: Title, Author, Themes, Language, pages, number of available books
+                </InputGroup.Text>
+
+                <InputGroup className="mt-1">
+                    <Form.Control
+                        placeholder='Title'
+                        type='text'
+                        onChange={(e) => onValChange("title", e.target.value)}
+                        value={book.title}
+                    />
+                    <Form.Control
+                        placeholder='Author'
+                        type='text'
+                        onChange={(e) => onValChange("author", e.target.value)}
+                        value={book.author} />
+                    <Form.Control
+                        placeholder='Themes'
+                        type='text'
+                        onChange={(e) => onValChange("themes", e.target.value)}
+                        value={book.themes} />
+                    <Form.Control
+                        placeholder='Language'
+                        type='text'
+                        onChange={(e) => onValChange("language", e.target.value)}
+                        value={book.language} />
+                    <Form.Control
+                        placeholder='pages'
+                        type='number'
+                        onChange={(e) => onValChange("pages", e.target.value)}
+                        value={book.pages} />
+                    <Form.Control
+                        placeholder='number of books'
+                        type='number'
+                        onChange={(e) => onValChange("numberOfBooks", e.target.value)}
+                        value={book.numberOfBooks} />
                     <Button
-                        className='me-3'
-                        size='lg'
-                        onClick={() => save()}>
-                        Update bookstore
+                        onClick={() => submitBook()}
+                    >
+                        Add book
                     </Button>
+                </InputGroup>
 
-                    <Button
-                        className='me-3'
-                        size='lg'
-                        variant='info'
-                        onClick={() => (navigate(`/registerWorker/${bookstore.id}`))}>
-                        Manage Workers
-                    </Button>
+                <div >
+                    <BooksTable tableData={books}
+                        emitEditBook={handleEditBook}
+                        emitDeleteBook={handleDeleteBook} />
+                </div>
 
-                    <Button
-                        className='me-3'
-                        size='lg'
-                        variant='info'
-                        onClick={() => (navigate(`/tables/${bookstore.id}`))}>
-                        Manage Tables
-                    </Button>
-
-                    <Button
-                        className='me-3'
-                        size='lg'
-                        variant='secondary'
-                        onClick={() => (navigate("/dashboard"))}>
-                        Back
-                    </Button>
-
-                    <ToastContainer />
-                </>
-
-            ) : (
-                <></>
-            )}
-
-            <InputGroup.Text
-                className='mt-4'>
-                Enter the book's data's in this order: Title, Author, Themes, Language, pages, number of available books
-            </InputGroup.Text>
-
-            <InputGroup className="mt-1">
-                <Form.Control
-                    placeholder='Title'
-                    type='text'
-                    onChange={(e) => onValChange("title", e.target.value)}
-                    value={book.title}
-                />
-                <Form.Control
-                    placeholder='Author'
-                    type='text'
-                    onChange={(e) => onValChange("author", e.target.value)}
-                    value={book.author} />
-                <Form.Control
-                    placeholder='Themes'
-                    type='text'
-                    onChange={(e) => onValChange("themes", e.target.value)}
-                    value={book.themes} />
-                <Form.Control
-                    placeholder='Language'
-                    type='text'
-                    onChange={(e) => onValChange("language", e.target.value)}
-                    value={book.language} />
-                <Form.Control
-                    placeholder='pages'
-                    type='number'
-                    onChange={(e) => onValChange("pages", e.target.value)}
-                    value={book.pages} />
-                <Form.Control
-                    placeholder='number of books'
-                    type='number'
-                    onChange={(e) => onValChange("numberOfBooks", e.target.value)}
-                    value={book.numberOfBooks} />
-                <Button
-                    onClick={() => submitBook()}
-                >
-                    Add book
-                </Button>
-            </InputGroup>
-
-            <div >
-                <BooksTable tableData={books}
-                    emitEditBook={handleEditBook}
-                    emitDeleteBook={handleDeleteBook} />
-            </div>
-
-        </Container>
+            </Container>
+        </div>
     );
 };
 

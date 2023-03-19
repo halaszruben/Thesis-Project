@@ -78,158 +78,173 @@ const RegisterWorker = () => {
     }
 
     return (
-        <div>
 
-            <h1 className="registerHeaders" >Here you can add new personal's to your work force! </h1>
+        <div style={{
+            padding: "0.25%",
+            minHeight: "20vh",
+            maxHeight: "500vh",
+            backgroundImage: `url("/employee.jpg")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover"
+        }}>
+            <div>
+
+                <h1 className="registerHeaders" >Here you can add new personal's to your work force! </h1>
 
 
-            <Container className="mt-5 ">
+                <Container className="mt-4 ">
 
-                <Row className="justify-content-center">
-                    <Col md="8" lg="6">
-                        <Form.Group className="mb-3" controlId="name">
-                            <Form.Label className="fs-4">Nickname:</Form.Label>
-                            <Form.Control
-                                type="text"
-                                size="lg"
-                                placeholder="John Doe"
-                                value={user.name}
-                                onChange={(e) => onValChange("name", e.target.value)}
-                            />
-                        </Form.Group>
-                    </Col>
-                </Row>
+                    <Row className="justify-content-center">
+                        <Col md="8" lg="6">
+                            <Form.Group className="mb-3" controlId="name">
+                                <Form.Label className="fs-4"
+                                    style={{ fontFamily: "-moz-initial", color: "white" }}>Nickname:</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    size="lg"
+                                    placeholder="John Doe"
+                                    value={user.name}
+                                    onChange={(e) => onValChange("name", e.target.value)}
+                                />
+                            </Form.Group>
+                        </Col>
+                    </Row>
 
-                <Row className="justify-content-center">
-                    <Col md="8" lg="6">
-                        <Form.Group className="mb-3" controlId="username">
-                            <Form.Label className="fs-4">Username:</Form.Label>
-                            <Form.Control
-                                type="text"
-                                size="lg"
-                                placeholder="dogPoop@email.com"
-                                value={user.username}
-                                onChange={(e) => onValChange("username", e.target.value)}
-                            />
-                        </Form.Group>
-                    </Col>
-                </Row>
+                    <Row className="justify-content-center">
+                        <Col md="8" lg="6">
+                            <Form.Group className="mb-3" controlId="username">
+                                <Form.Label className="fs-4"
+                                    style={{ fontFamily: "-moz-initial", color: "white" }}>Username:</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    size="lg"
+                                    placeholder="dogPoop@email.com"
+                                    value={user.username}
+                                    onChange={(e) => onValChange("username", e.target.value)}
+                                />
+                            </Form.Group>
+                        </Col>
+                    </Row>
 
-                <Row className="justify-content-center">
-                    <Col md="8" lg="6">
-                        <Form.Group className="mb-3" controlId="phoneNumber">
-                            <Form.Label className="fs-4">Phone Number:</Form.Label>
-                            <Form.Control
-                                type="number"
-                                size="lg"
-                                placeholder="20752347"
-                                value={user.phoneNumber}
-                                onChange={(e) => onValChange("phoneNumber", e.target.value)}
-                            />
-                        </Form.Group>
-                    </Col>
-                </Row>
+                    <Row className="justify-content-center">
+                        <Col md="8" lg="6">
+                            <Form.Group className="mb-3" controlId="phoneNumber">
+                                <Form.Label className="fs-4"
+                                    style={{ fontFamily: "-moz-initial", color: "white" }}>Phone Number:</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    size="lg"
+                                    placeholder="20752347"
+                                    value={user.phoneNumber}
+                                    onChange={(e) => onValChange("phoneNumber", e.target.value)}
+                                />
+                            </Form.Group>
+                        </Col>
+                    </Row>
 
-                <Row className="justify-content-center">
-                    <Col md="8" lg="6">
-                        <Form.Group className="mb-3" controlId="name">
-                            <Form.Label className="fs-4">Email:</Form.Label>
-                            <Form.Control
-                                type="email"
-                                size="lg"
-                                placeholder="something@something"
-                                value={user.email}
-                                onChange={(e) => onValChange("email", e.target.value)}
-                            />
-                        </Form.Group>
-                    </Col>
-                </Row>
+                    <Row className="justify-content-center">
+                        <Col md="8" lg="6">
+                            <Form.Group className="mb-3" controlId="name">
+                                <Form.Label className="fs-4"
+                                    style={{ fontFamily: "-moz-initial", color: "white" }}>Email:</Form.Label>
+                                <Form.Control
+                                    type="email"
+                                    size="lg"
+                                    placeholder="something@something"
+                                    value={user.email}
+                                    onChange={(e) => onValChange("email", e.target.value)}
+                                />
+                            </Form.Group>
+                        </Col>
+                    </Row>
 
-                <Row className="justify-content-center">
-                    <Col md="8" lg="6">
-                        <Form.Group className="mb-3" controlId="password">
-                            <Form.Label className="fs-4">Password:</Form.Label>
-                            <Form.Control
-                                type="password"
-                                size="lg"
-                                placeholder="Type in your password"
-                                value={user.password}
-                                onChange={(e) => onValChange("password", e.target.value)}
-                            />
-                        </Form.Group>
-                    </Col>
-                </Row>
-                <Row className="justify-content-center">
-                    <Col
-                        md="8"
-                        lg="6"
-                        className="mt-2 d-flex flex-column gap-5 flex-md-row justify-content-md-between"
-                    >
-                        <Button
-                            id="submit"
-                            type="button"
-                            size="lg"
-                            onClick={() => { createWorkerUser() }}
+                    <Row className="justify-content-center">
+                        <Col md="8" lg="6">
+                            <Form.Group className="mb-3" controlId="password">
+                                <Form.Label className="fs-4"
+                                    style={{ fontFamily: "-moz-initial", color: "white" }}>Password:</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    size="lg"
+                                    placeholder="Type in your password"
+                                    value={user.password}
+                                    onChange={(e) => onValChange("password", e.target.value)}
+                                />
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                    <Row className="justify-content-center">
+                        <Col
+                            md="8"
+                            lg="6"
+                            className="mt-2 d-flex flex-column gap-5 flex-md-row justify-content-md-between"
                         >
-                            Register Worker
-                        </Button>
+                            <Button
+                                id="submit"
+                                type="button"
+                                size="lg"
+                                onClick={() => { createWorkerUser() }}
+                            >
+                                Register Worker
+                            </Button>
 
-                        <Button
-                            variant="secondary"
-                            type="button"
-                            size="lg"
-                            onClick={() => {
-                                navigate("/dashboard");
-                            }}
-                        >
-                            Back
-                        </Button>
+                            <Button
+                                variant="secondary"
+                                type="button"
+                                size="lg"
+                                onClick={() => {
+                                    navigate("/dashboard");
+                                }}
+                            >
+                                Back
+                            </Button>
 
-                    </Col>
-                </Row>
-                <ToastContainer />
+                        </Col>
+                    </Row>
+                    <ToastContainer />
 
-                <h1 className="employee-header" >Here are your current employees! </h1>
+                    <h1 className="employee-header" >Here are your current employees! </h1>
 
-                <div className="table-wrapper occupied-table mb-2">
-                    <Table responsive size="sm">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nickname</th>
-                                <th>Username</th>
-                                <th>Phone number</th>
-                                <th>Email</th>
-                                <th>Started (Y/M/D)</th>
-                                <th></th>
-                            </tr>
-                        </thead>
+                    <div className="table-wrapper occupied-table mb-2">
+                        <Table responsive size="sm">
+                            <thead>
+                                <tr>
+                                    <th style={{ color: "yellow" }}>#</th>
+                                    <th style={{ color: "yellow" }}>Nickname</th>
+                                    <th style={{ color: "yellow" }}>Username</th>
+                                    <th style={{ color: "yellow" }}>Phone number</th>
+                                    <th style={{ color: "yellow" }}>Email</th>
+                                    <th style={{ color: "yellow" }}>Started (Y/M/D)</th>
+                                    <th style={{ color: "yellow" }}></th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                            {users ? (
-                                users.map((user) => (
-                                    <tr key={user.id}>
-                                        <td>{user.id}</td>
-                                        <td>{user.name}</td>
-                                        <td>{user.username}</td>
-                                        <td>{user.phoneNumber}</td>
-                                        <td>{user.email}</td>
-                                        <td>{user.cohortStartDate}</td>
-                                        <td><Button
-                                            size="sm"
-                                            variant="danger"
-                                            onClick={() => handleDeleteUser(user.id)}>Delete</Button></td>
-                                    </tr>
-                                ))
-                            ) : (<></>)}
-                        </tbody>
+                            <tbody>
+                                {users ? (
+                                    users.map((user) => (
+                                        <tr key={user.id}>
+                                            <td style={{ color: "yellow" }}>{user.id}</td>
+                                            <td style={{ color: "yellow" }}>{user.name}</td>
+                                            <td style={{ color: "yellow" }}>{user.username}</td>
+                                            <td style={{ color: "yellow" }}>{user.phoneNumber}</td>
+                                            <td style={{ color: "yellow" }}>{user.email}</td>
+                                            <td style={{ color: "yellow" }}>{user.cohortStartDate}</td>
+                                            <td style={{ color: "white" }}><Button
+                                                size="sm"
+                                                variant="danger"
+                                                onClick={() => handleDeleteUser(user.id)}>Delete</Button></td>
+                                        </tr>
+                                    ))
+                                ) : (<></>)}
+                            </tbody>
 
-                    </Table>
+                        </Table>
 
-                </div>
+                    </div>
 
-            </Container>
+                </Container>
 
+            </div>
         </div>
 
     );

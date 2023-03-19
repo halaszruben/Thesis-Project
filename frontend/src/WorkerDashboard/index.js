@@ -135,14 +135,14 @@ const WorkerDashboard = () => {
                         Logout
                     </div>
 
-                    < div
+                    {/* < div
                         className="back"
                         onClick={() => {
                             window.location.href = "/dashboard";
                         }}
                     >
                         Back to the Book Stores
-                    </div>
+                    </div> */}
 
                 </div>
 

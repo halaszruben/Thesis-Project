@@ -34,7 +34,7 @@
   text-align: center !important;
   font-family: cursive;
   margin: 1.1em;
-  color: navy;
+  color: white;
 }
 
 .bookstoreTitle {
@@ -42,8 +42,8 @@
   margin-bottom: 1em;
   align-items: center;
   margin-left: 5%;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  color: darkred;
+  font-family: -moz-initial;
+  color: aqua;
 }
 
 .employee-header {
@@ -51,7 +51,7 @@
   text-align: center !important;
   margin-top: 65px;
   font-family: cursive;
-  color: chocolate;
+  color: yellow;
 }
 
 .logout {
