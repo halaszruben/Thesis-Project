@@ -42,7 +42,7 @@ function ShowBooks(props) {
                     <div className="mt-2">
                         <InputGroup className="mb-3">
                             <InputGroup.Text
-                                style={{ fontFamily: "-moz-initial", color: "black" }}>Search by: Title and Author and Theme</InputGroup.Text>
+                                style={{ fontFamily: "-moz-initial", color: "black" }}>Search by: Title, Author and Theme</InputGroup.Text>
                             <Form.Control
                                 placeholder='Search ...'
                                 onChange={(e) => setQuery(e.target.value.toLowerCase())} />

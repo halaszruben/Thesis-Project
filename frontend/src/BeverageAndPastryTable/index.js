@@ -4,7 +4,7 @@ function BeverageAndPastryTable({ tableData, emitDeleteBevAndPast, emitEditBevAn
     return (
         <div className="mt-5"
             style={{
-                minHeight: "15vh",
+                minHeight: "5vh",
                 maxHeight: "200vh",
                 backgroundImage: `url("/menu3.jpg")`,
                 backgroundRepeat: "no-repeat",

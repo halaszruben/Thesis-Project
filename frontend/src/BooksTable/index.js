@@ -3,7 +3,7 @@ import { Badge, Button, Table } from "react-bootstrap";
 function BooksTable({ tableData, emitDeleteBook, emitEditBook }) {
     return (
         <div style={{
-            minHeight: "20vh",
+            minHeight: "5vh",
             maxHeight: "200vh",
             backgroundImage: `url("/menu3.jpg")`,
             backgroundRepeat: "no-repeat",
