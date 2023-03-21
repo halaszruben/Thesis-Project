@@ -29,8 +29,9 @@ const CustomerDashboard = () => {
         table.tableClaimer = tableClaimer;
         //TODO: no hard code
         table.status = "Table is occupied";
+        console.log("table", table);
 
-        ajax(`api/tables/${table.id}`, "PUT", user.jwt, table)
+        ajax(`/api/tables/${table.id}`, "PUT", user.jwt, table)
             .then(updatedTable => {
                 const tablesCopy = [...tables];
                 const i = tablesCopy.findIndex((t) => t.id === table.id);
