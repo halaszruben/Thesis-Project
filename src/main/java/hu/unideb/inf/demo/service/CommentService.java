@@ -22,6 +22,7 @@ public class CommentService {
     private BookStoreTableRepository bookStoreTableRepo;
 
     public Comment save(CommentDto commentDto, User user) {
+        
         Comment comment = new Comment();
         BookStoreTable bookStoreTable = bookStoreTableRepo.getById(commentDto.getTableId());
 

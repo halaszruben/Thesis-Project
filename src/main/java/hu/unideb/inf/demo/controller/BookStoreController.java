@@ -6,7 +6,6 @@ import java.util.Set;
 import hu.unideb.inf.demo.entity.BookStore;
 import hu.unideb.inf.demo.entity.User;
 import hu.unideb.inf.demo.service.BookStoreService;
-import hu.unideb.inf.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,8 +23,6 @@ public class BookStoreController {
 
     @Autowired
     private BookStoreService bookStoreService;
-    @Autowired
-    private UserService userService;
 
     @PostMapping("")
     public ResponseEntity<?> createBookstore(@AuthenticationPrincipal User user) {
@@ -43,7 +40,7 @@ public class BookStoreController {
 
     @GetMapping("{bookstoreId}")
     public ResponseEntity<?> getBookstore(@PathVariable Long bookstoreId,
-                                           @AuthenticationPrincipal User user) {
+            @AuthenticationPrincipal User user) {
         Optional<BookStore> bookStoreOpt = bookStoreService.findById(bookstoreId);
 
         return ResponseEntity.ok(bookStoreOpt.orElse(new BookStore()));
@@ -51,8 +48,8 @@ public class BookStoreController {
 
     @PutMapping("{bookstoreId}")
     public ResponseEntity<?> updateBookstore(@PathVariable Long bookstoreId,
-                                             @RequestBody BookStore bookStore,
-                                             @AuthenticationPrincipal User user) {
+            @RequestBody BookStore bookStore,
+            @AuthenticationPrincipal User user) {
         BookStore updatedBookstore = bookStoreService.save(bookStore);
 
         return ResponseEntity.ok(updatedBookstore);

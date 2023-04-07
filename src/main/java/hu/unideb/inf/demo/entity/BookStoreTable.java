@@ -1,6 +1,5 @@
 package hu.unideb.inf.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import org.hibernate.annotations.Fetch;
 
 @Entity
 @Table(name = "book_store_tables")
@@ -19,14 +17,19 @@ public class BookStoreTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Integer chairs;
+
     private Integer assignedNumber;
+
     @Column(columnDefinition = "TEXT")
     private String description;
+
     private String status;
+
     @ManyToOne
     private User tableClaimer;
-    //this might not be a great idea
+
     @ManyToOne
     @JoinColumn(name = "bookstore_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

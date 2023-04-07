@@ -3,12 +3,19 @@ package hu.unideb.inf.demo.dto;
 public class BookDto {
 
     private Long id;
+
     private Long bookstoreId;
+
     private String title;
+
     private String author;
+
     private String themes;
+
     private String language;
+
     private Integer pages;
+    
     private Integer numberOfBooks;
 
     public Long getId() {

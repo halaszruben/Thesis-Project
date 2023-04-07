@@ -3,10 +3,15 @@ package hu.unideb.inf.demo.dto;
 import java.time.ZonedDateTime;
 
 public class CommentDto {
+
     private Long id;
+
     private Long tableId;
+
     private String text;
+
     private String user;
+
     private ZonedDateTime createdDate;
 
     public Long getTableId() {
@@ -51,8 +56,11 @@ public class CommentDto {
 
     @Override
     public String toString() {
-        return "CommentDto [id=" + id + ", tableId=" + tableId + ", text=" + text + ", user=" + user
-                + ", createdDate=" + createdDate + "]";
+        return "CommentDto [id=" + id
+                + ", tableId=" + tableId
+                + ", text=" + text
+                + ", user=" + user
+                + ", createdDate=" + createdDate
+                + "]";
     }
-
 }

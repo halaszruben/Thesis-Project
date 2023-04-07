@@ -19,8 +19,9 @@ public class BookstoreTableService {
 
     @Autowired
     private BookStoreTableRepository bookStoreTableRepository;
+    
     @Autowired
-    BookStoreRepository bookStoreRepository;
+    private BookStoreRepository bookStoreRepository;
 
     public BookStoreTable create(BookStoreTableDto bookStoreTableDto, User user) {
 

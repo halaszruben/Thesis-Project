@@ -29,7 +29,7 @@ public class BeverageAndPastryController {
 
     @PostMapping("")
     public ResponseEntity<BeverageAndPastry> createBevAndPastry(@RequestBody BeverageAndPastryDto bevAndPastDto,
-                                                                @AuthenticationPrincipal User user) {
+            @AuthenticationPrincipal User user) {
         BeverageAndPastry bevAndPast = bevAndPastService.save(bevAndPastDto, user);
 
         return ResponseEntity.ok(bevAndPast);
@@ -55,7 +55,7 @@ public class BeverageAndPastryController {
 
     @PutMapping("{bevAndPastId}")
     public ResponseEntity<BeverageAndPastry> updateBevAndPast(@RequestBody BeverageAndPastryDto bevAndPastDto,
-                                                              @AuthenticationPrincipal User user) {
+            @AuthenticationPrincipal User user) {
         BeverageAndPastry bevAndPast = bevAndPastService.save(bevAndPastDto, user);
 
         return ResponseEntity.ok(bevAndPast);

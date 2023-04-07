@@ -3,6 +3,7 @@ package hu.unideb.inf.demo.dto;
 public class AuthCredentialsRequest {
 
     private String username;
+
     private String password;
 
     public String getUsername() {

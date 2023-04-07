@@ -13,7 +13,13 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -35,7 +41,7 @@ public class AuthController {
                             new UsernamePasswordAuthenticationToken(
                                     request.getUsername(), request.getPassword()
                             )
-                    );
+                                 );
 
             User user = (User) authenticate.getPrincipal();
 
@@ -45,7 +51,7 @@ public class AuthController {
                     .header(
                             HttpHeaders.AUTHORIZATION,
                             jwtUtil.generateToken(user)
-                    )
+                           )
                     //Not so great, because it leaves the password open
                     .body(user);
 
@@ -56,7 +62,7 @@ public class AuthController {
 
     @GetMapping("/validate")
     public ResponseEntity<?> validateToken(@RequestParam String token,
-                                           @AuthenticationPrincipal User user) {
+            @AuthenticationPrincipal User user) {
         try {
             Boolean isValidToken = jwtUtil.validateToken(token, user);
             return ResponseEntity.ok(isValidToken);

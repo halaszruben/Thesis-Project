@@ -15,12 +15,17 @@ public class BookStore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     private String location;
+
     @Column(columnDefinition = "TEXT")
     private String description;
+
     @ManyToOne(optional = false)
     private User user;
+
     @ManyToOne
     private User customer;
 

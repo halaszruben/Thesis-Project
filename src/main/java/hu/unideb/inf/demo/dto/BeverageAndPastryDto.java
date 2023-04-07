@@ -1,10 +1,15 @@
 package hu.unideb.inf.demo.dto;
 
 public class BeverageAndPastryDto {
+
     private Long id;
+
     private Long bookstoreId;
+
     private String name;
+
     private String type;
+
     private Integer costs;
 
     public Long getId() {

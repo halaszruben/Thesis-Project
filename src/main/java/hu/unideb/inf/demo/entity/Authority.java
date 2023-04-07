@@ -1,7 +1,10 @@
 package hu.unideb.inf.demo.entity;
 
-
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
@@ -10,12 +13,13 @@ public class Authority implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String authority;
+
     @ManyToOne(optional = false)
     private User user;
 
     public Authority() {
-
     }
 
     public Authority(String authority) {

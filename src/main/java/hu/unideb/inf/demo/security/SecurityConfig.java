@@ -41,7 +41,6 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
-                //.requestMatchers("/api").permitAll()
                 .requestMatchers("/api/users/register/**").anonymous()
                 .requestMatchers("/api/tables/**").permitAll()
                 .requestMatchers("/api/users").permitAll()
@@ -49,8 +48,6 @@ public class SecurityConfig {
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
         ;
-
-        // .authorizeRequests() -> .authorizeHttpRequests()
 
         return http.build();
     }

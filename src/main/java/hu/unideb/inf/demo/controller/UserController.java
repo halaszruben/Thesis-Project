@@ -29,8 +29,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @Autowired
     private JwtUtil jwtUtil;
 
@@ -52,7 +54,7 @@ public class UserController {
                             new UsernamePasswordAuthenticationToken(
                                     userDto.getUsername(), userDto.getPassword()
                             )
-                    );
+                                 );
 
             User user = (User) authenticate.getPrincipal();
 
@@ -62,8 +64,7 @@ public class UserController {
                     .header(
                             HttpHeaders.AUTHORIZATION,
                             jwtUtil.generateToken(user)
-                    )
-                    //Not so great, because it leaves the password open
+                           )
                     .body(user);
 
         } catch (BadCredentialsException ex) {
@@ -80,6 +81,7 @@ public class UserController {
 
     @DeleteMapping("{userId}")
     public ResponseEntity<?> deleteWorkerUser(@PathVariable Long userId) {
+        
         try {
             userService.delete(userId);
             return ResponseEntity.ok("The user has been deleted");

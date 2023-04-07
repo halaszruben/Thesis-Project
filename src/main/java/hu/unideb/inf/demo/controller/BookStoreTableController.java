@@ -1,6 +1,5 @@
 package hu.unideb.inf.demo.controller;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -38,7 +37,7 @@ public class BookStoreTableController {
 
     @PostMapping("")
     public ResponseEntity<BookStoreTable> createTable(@RequestBody BookStoreTableDto bookStoreTableDto,
-                                         @AuthenticationPrincipal User user) {
+            @AuthenticationPrincipal User user) {
         BookStoreTable newBookStore = bookstoreTableService.create(bookStoreTableDto, user);
 
         return ResponseEntity.ok(newBookStore);
@@ -53,8 +52,8 @@ public class BookStoreTableController {
 
     @GetMapping("{tableId}")
     public ResponseEntity<?> getTable(@PathVariable Long tableId) {
-        Optional<BookStoreTable> bookStoreTableOpt = bookstoreTableService.findById(tableId);
 
+        Optional<BookStoreTable> bookStoreTableOpt = bookstoreTableService.findById(tableId);
         BookStoreTableResponseDto response =
                 new BookStoreTableResponseDto(bookStoreTableOpt.orElse(new BookStoreTable()));
 
@@ -63,7 +62,8 @@ public class BookStoreTableController {
 
     @PutMapping("{tableId}")
     public ResponseEntity<?> updateTable(@PathVariable Long tableId,
-                                         @RequestBody BookStoreTable bookStoreTable) {
+            @RequestBody BookStoreTable bookStoreTable) {
+        
         if (bookStoreTable.getTableClaimer() != null) {
             User tableClaimer = bookStoreTable.getTableClaimer();
             tableClaimer = userService.findUserByUsername(tableClaimer.getUsername()).orElse(new User());

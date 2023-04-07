@@ -24,6 +24,7 @@ public class BookStoreService {
     }
 
     public Set<BookStore> findByUser(User user) {
+
         boolean hasCustomerRole = user.getAuthorities()
                 .stream()
                 .filter(auth -> AuthorityEnum.ROLE_CUSTOMER.name().equals(auth.getAuthority()))

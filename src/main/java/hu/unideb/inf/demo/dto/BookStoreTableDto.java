@@ -3,9 +3,13 @@ package hu.unideb.inf.demo.dto;
 public class BookStoreTableDto {
 
     private Long bookStoreId;
+
     private Integer chairs;
+
     private Integer assignedNumber;
+
     private String description;
+
     private String status;
 
     public Long getBookStoreId() {

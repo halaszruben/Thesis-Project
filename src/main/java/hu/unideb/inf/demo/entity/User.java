@@ -25,16 +25,24 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private LocalDate cohortStartDate;
+
     private String username;
+
     @JsonIgnore
     private String password;
+
     private String email;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     @JsonIgnore
     private List<Authority> authorities = new ArrayList<>();
+
     private String name;
+
     private Long phoneNumber;
+
     @ManyToOne
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private BookStore bookStore;

@@ -5,19 +5,27 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserDto {
+
     private Long id;
+
     @JsonProperty("name")
     private String name;
+
     @JsonProperty("username")
     private String username;
+
     @JsonProperty("password")
     private String password;
+
     @JsonProperty("cohortStartDate")
     private LocalDateTime cohortStartDate;
+
     @JsonProperty("email")
     private String email;
+
     @JsonProperty("phoneNumber")
     private Long phoneNumber;
+
     @JsonProperty("bookstoreId")
     private Long bookstoreId;
 

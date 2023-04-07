@@ -1,18 +1,18 @@
 package hu.unideb.inf.demo.util;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 @Component
 public class JwtUtil implements Serializable {
@@ -59,8 +59,9 @@ public class JwtUtil implements Serializable {
     }
 
     public String generateToken(UserDetails userDetails) {
+
         Map<String, Object> claims = new HashMap<>();
-        
+
         claims.put("authorities", userDetails.getAuthorities()
                 .stream()
                 .map(auth -> auth.getAuthority())
@@ -70,6 +71,7 @@ public class JwtUtil implements Serializable {
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
+
         return Jwts
                 .builder()
                 .setClaims(claims)

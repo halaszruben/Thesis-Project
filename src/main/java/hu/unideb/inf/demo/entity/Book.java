@@ -15,12 +15,19 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
+
     private String author;
+
     private String themes;
+
     private String language;
+
     private Integer pages;
+
     private Integer numberOfBooks;
+    
     @ManyToOne
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private BookStore bookStore;

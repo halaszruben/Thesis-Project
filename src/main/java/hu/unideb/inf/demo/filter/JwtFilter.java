@@ -1,6 +1,9 @@
 package hu.unideb.inf.demo.filter;
 
 
+import java.io.IOException;
+import java.util.List;
+
 import hu.unideb.inf.demo.repository.UserRepository;
 import hu.unideb.inf.demo.util.JwtUtil;
 import jakarta.servlet.FilterChain;
@@ -16,9 +19,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import java.io.IOException;
-import java.util.List;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -59,7 +59,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         authentication.setDetails(
                 new WebAuthenticationDetailsSource().buildDetails(request)
-        );
+                                 );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);

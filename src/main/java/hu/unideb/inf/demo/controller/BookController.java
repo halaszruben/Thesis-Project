@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/books")
+@RequestMapping(value = "/api/books")
 public class BookController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class BookController {
 
     @PostMapping("")
     public ResponseEntity<Book> createBook(@RequestBody BookDto bookDto,
-                                           @AuthenticationPrincipal User user) {
+            @AuthenticationPrincipal User user) {
         Book book = bookService.save(bookDto, user);
 
         return ResponseEntity.ok(book);
@@ -43,8 +43,8 @@ public class BookController {
     }
 
     @PutMapping("{bookId}")
-    public ResponseEntity<Book> updateBook (@RequestBody BookDto bookDto,
-                                            @AuthenticationPrincipal User user) {
+    public ResponseEntity<Book> updateBook(@RequestBody BookDto bookDto,
+            @AuthenticationPrincipal User user) {
         Book book = bookService.save(bookDto, user);
 
         return ResponseEntity.ok(book);

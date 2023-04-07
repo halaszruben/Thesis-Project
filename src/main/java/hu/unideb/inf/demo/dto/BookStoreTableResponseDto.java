@@ -6,6 +6,7 @@ import hu.unideb.inf.demo.enums.BookStoreTableStatusEnum;
 public class BookStoreTableResponseDto {
 
     private BookStoreTable table;
+
     private BookStoreTableStatusEnum[] statusEnums = BookStoreTableStatusEnum.values();
 
     public BookStoreTableResponseDto(BookStoreTable table) {

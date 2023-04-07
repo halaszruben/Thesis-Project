@@ -21,10 +21,13 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @Autowired
     private AuthorityRepository authorityRepository;
+
     @Autowired
     private BookStoreRepository bookStoreRepository;
 
@@ -33,6 +36,7 @@ public class UserService {
     }
 
     public User createWorkerUser(UserDto userDto) {
+
         User newUser = new User();
 
         BookStore bookStore = bookStoreRepository.getReferenceById(userDto.getBookstoreId());
@@ -60,6 +64,7 @@ public class UserService {
     }
 
     public void createCustomerUser(UserDto userDto) {
+
         User newUser = new User();
 
         newUser.setUsername(userDto.getUsername());
@@ -77,7 +82,7 @@ public class UserService {
         authorityRepository.save(authority);
     }
 
-    public Set<User> getUsersByBookstoreId (Long bookstoreId) {
+    public Set<User> getUsersByBookstoreId(Long bookstoreId) {
         Set<User> users = userRepository.findByBookStore(bookstoreId);
 
         return users;

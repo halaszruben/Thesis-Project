@@ -16,10 +16,12 @@ public class BookService {
 
     @Autowired
     private BookRepository bookRepository;
+
     @Autowired
     private BookStoreRepository bookStoreRepository;
 
     public Book save(BookDto bookDto, User user) {
+
         Book book = new Book();
         BookStore bookstore = bookStoreRepository.getReferenceById(bookDto.getBookstoreId());
 
