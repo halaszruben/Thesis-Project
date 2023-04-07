@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Nav, Navbar, NavbarBrand, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../UserProvider';
 import ajax from '../util/fetchService';
@@ -33,35 +33,34 @@ const ManagerDashboard = () => {
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
         }}>
+
+            <Navbar bg='dark' variant='dark'
+                style={{
+                    backgroundImage: `url("/navbar6.jpg")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover"
+                }}>
+                <Container>
+                    <Navbar.Brand
+                        style={{ fontSize: "2vw", margin: "0em" }}>Manager Bookstores view</Navbar.Brand>
+                    <Navbar.Brand
+                        className='justify-content-center'>Here you can add your bookstores and start managing them</Navbar.Brand>
+                    <Nav.Link
+                        style={{ color: "red", cursor: "pointer", fontSize: "1.7vw", fontWeight: "bold" }}
+                        onClick={() => {
+                            user.setJwt(null);
+                            navigate("/")
+                        }}>
+                        Logout
+                    </Nav.Link>
+                </Container>
+            </Navbar>
+
             <div style={{ margin: "2em" }}>
-
-                <Row>
-                    <Col>
-                        <div
-                            className="logout d-flex justify-content-end"
-                            style={{ cursor: "pointer", fontSize: "2vw" }}
-                            onClick={() => {
-                                user.setJwt(null);
-                                navigate("/")
-                            }}
-                        >
-                            Logout
-                        </div>
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col>
-
-                        <p className="text-break text-center"
-                            style={{ fontFamily: "-moz-initial", color: "white", fontSize: "2vw" }}>
-                            Here you can add the bookstores and manage them. </p>
-                    </Col>
-                </Row>
 
                 {bookstores ? (
                     <div
-                        className='d-grid mt-3 gap-5 justify-content-center'
+                        className='d-grid mt-2 gap-5 justify-content-center'
                         style={{ gridTemplateColumns: "repeat(auto-fit, 18rem)" }}
                     >
 
@@ -69,8 +68,8 @@ const ManagerDashboard = () => {
                             <Card
                                 key={bookstore.id}
                                 style={{
-                                    width: "18rem", height: "18rem",
-                                    backgroundImage: `url("/booksview.jpg")`,
+                                    width: "18rem", height: "28rem",
+                                    backgroundImage: `url("/bookstoreview1.jpg")`,
                                     backgroundRepeat: "no-repeat",
                                     backgroundSize: "cover"
                                 }}
@@ -81,16 +80,16 @@ const ManagerDashboard = () => {
 
                                     <Card.Title
                                         className='d-flex justify-content-center'
-                                        style={{ fontFamily: "-moz-initial", color: "white" }}
-                                    >{bookstore.name} bookstore</Card.Title>
+                                        style={{ fontFamily: "-moz-initial", fontWeight: "bold", color: "black" }}
+                                    >{bookstore.name}</Card.Title>
 
                                     <Card.Text
                                         style={{ marginTop: "1em" }}>
                                         <p>
-                                            <b style={{ fontFamily: "-moz-initial", color: "white" }}>Description</b>: {bookstore.description}
+                                            <b style={{ fontFamily: "-moz-initial", color: "black", fontSize: "1.2em" }}>Description</b>: {bookstore.description}
                                         </p>
                                         <p>
-                                            <b style={{ fontFamily: "-moz-initial", color: "white" }}>Location</b>: {bookstore.location}
+                                            <b style={{ fontFamily: "-moz-initial", color: "black", fontSize: "1.2em" }}>Location</b>: {bookstore.location}
                                         </p>
                                     </Card.Text>
 
@@ -115,7 +114,7 @@ const ManagerDashboard = () => {
                     <Button
                         size='lg'
                         onClick={() => createBookStore()}>
-                        Add a new Restaurant
+                        Add a new Bookstore
                     </Button>
                 </div>
 

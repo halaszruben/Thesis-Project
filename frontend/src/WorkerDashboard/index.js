@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ajax from "../util/fetchService";
-import { Button, Card, Col, Form, InputGroup, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, InputGroup, Nav, Navbar, Row } from "react-bootstrap";
 import StatusBadge from "../StatusBadge";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserProvider";
@@ -84,7 +84,6 @@ const WorkerDashboard = () => {
 
     function onValChange(prop, value) {
         const newBevAndPast = { ...bevAndPast };
-        console.log("values are:", bevAndPast);
         newBevAndPast[prop] = value;
         setBevAndPast(newBevAndPast);
     }
@@ -121,48 +120,47 @@ const WorkerDashboard = () => {
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
         }}>
-            <div style={{ margin: "3em" }}>
 
-                <div>
-                    <div
-                        className="logout"
-                        style={{ cursor: "pointer", fontSize: "2vw" }}
+            <Navbar bg='dark' variant='dark'
+                style={{
+                    backgroundImage: `url("/navbar6.jpg")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover"
+                }}>
+                <Container>
+                    <Navbar.Brand
+                        style={{ fontSize: "2vw", margin: "0em" }}>Worker Tables view</Navbar.Brand>
+                    <Navbar.Brand
+                        className='justify-content-center'>Here you can manage your tables</Navbar.Brand>
+                    <Navbar.Brand>
+                        <Button size="lg" onClick={() => createTable()}>
+                            Add new Table
+                        </Button>
+                    </Navbar.Brand>
+                    <Nav.Link
+                        style={{ color: "red", cursor: "pointer", fontSize: "1.7vw", fontWeight: "bold" }}
                         onClick={() => {
                             user.setJwt(null);
                             window.location.href = "/";
-                        }}
-                    >
+                        }}>
                         Logout
-                    </div>
+                    </Nav.Link>
+                </Container>
+            </Navbar>
 
-                    {/* < div
-                        className="back"
-                        onClick={() => {
-                            window.location.href = "/dashboard";
-                        }}
-                    >
-                        Back to the Book Stores
-                    </div> */}
-
-                </div>
-
-                <div className="mb-5">
-                    <Button size="lg" onClick={() => createTable()}>
-                        Add new Table
-                    </Button>
-                </div>
+            <div style={{ margin: "1em" }}>
 
                 {tables ? (
                     <div
-                        className="d-grid gap-5"
+                        className="d-grid gap-2"
                         style={{ gridTemplateColumns: "repeat(auto-fit, 18rem)" }}
                     >
                         {tables.map((table) => (
                             <Card
                                 key={table.id}
                                 style={{
-                                    width: "18rem", height: "32rem",
-                                    backgroundImage: `url("/tables.jpg")`,
+                                    width: "18rem", height: "30.3rem",
+                                    backgroundImage: `url("/tableback4.jpg")`,
                                     backgroundRepeat: "no-repeat",
                                     backgroundSize: "cover"
                                 }}
@@ -171,18 +169,19 @@ const WorkerDashboard = () => {
                                     className="d-flex flex-column justify-content-around">
                                     <Card.Title
                                         className="tableNumber"
+                                        style={{ fontFamily: "-moz-initial", fontWeight: "bold", color: "white" }}
                                     >
                                         Table #{table.assignedNumber}
                                     </Card.Title>
                                     <div>
                                         <StatusBadge text={table.status} />
                                     </div>
-                                    <Card.Text style={{ marginTop: "1em" }}>
-                                        <p>
-                                            <b style={{ fontFamily: "-moz-initial", color: "white" }}>Description</b>: {table.description}
+                                    <Card.Text style={{ marginTop: "0.5em" }}>
+                                        <p style={{ color: "white" }}>
+                                            <b style={{ fontFamily: "-moz-initial", color: "white", fontSize: "1.2em" }}>Description:</b> {table.description}
                                         </p>
-                                        <p>
-                                            <b style={{ fontFamily: "-moz-initial", color: "white" }}>Number of seating places</b>: {table.chairs}
+                                        <p style={{ color: "white" }}>
+                                            <b style={{ fontFamily: "-moz-initial", color: "white", fontSize: "1.2em" }}>Number of seating places:</b> {table.chairs}
                                         </p>
                                     </Card.Text>
 
@@ -211,10 +210,11 @@ const WorkerDashboard = () => {
                 )
                 }
 
-                <InputGroup className="mt-4">
+                <InputGroup className="mt-4"
+                    style={{ fontFamily: "-moz-initial" }}>
                     <InputGroup.Text
-                        style={{ fontFamily: "-moz-initial", color: "black" }}>
-                        Enter the Beverage and Pastries's data's in this order: Name, Cost of the item, Type of the item
+                        style={{ fontFamily: "-moz-initial", color: "black", fontWeight: "bold" }}>
+                        Enter the Beverage or Pastry's data's in this order: Name, Cost and Type of the item
                     </InputGroup.Text>
                     <Form.Control
                         placeholder='Name'

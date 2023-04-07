@@ -19,7 +19,7 @@ const Homepage = () => {
             padding: "0.25%",
             minHeight: "100vh",
             maxHeight: "200vh",
-            backgroundImage: `url("/Homepage.jpg")`,
+            backgroundImage: `url("/homepage5.jpg")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
         }}>
@@ -30,7 +30,7 @@ const Homepage = () => {
                     <Col className="d-flex justify-content-space-around">
                         <Row style={{ width: "50%" }}
                             className="me-5">
-                            <h1 className="mt-5 text-center"
+                            <h1 className="mt-4 text-center"
                                 style={{ fontFamily: "monospace", fontWeight: "bold", color: "white" }}
                             >Well, Hello there fellow book enthusiast</h1>
                             <p className="text-break text-center"
@@ -52,7 +52,7 @@ const Homepage = () => {
                             style={{ width: "35%" }}
                         >
                             <p className=" text-break text-center"
-                                style={{ marginTop: "6em", fontFamily: "-moz-initial", color: "white" }}>
+                                style={{ marginTop: "12em", fontFamily: "-moz-initial", color: "white" }}>
                                 Oh, is this Your first time? No worries We will take good care of You, don’t you worry! You will see that this is everything you thought it would be and more! So get on already register, so You can meet our fantastic team, have a beverage, maybe some pastries and read your preferred Book. Here You will find that everything is for your convenience.
                             </p>
                         </Row>

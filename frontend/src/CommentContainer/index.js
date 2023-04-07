@@ -95,10 +95,11 @@ const CommentContainer = (props) => {
     }
 
     return (
-        <>
-            <div className="mt-5">
+        <div >
+            <div className="mt-2">
                 <textarea
-                    style={{ width: "100%", borderRadius: "0.25em" }}
+                    className="alig-items-center"
+                    style={{ width: "100%", borderRadius: "0.50em" }}
                     onChange={(e) => updateComment(e.target.value)}
                     value={comment.text}
                 ></textarea>
@@ -108,7 +109,7 @@ const CommentContainer = (props) => {
                     value="">Post Comment</Button>
             </div>
 
-            <div className="mt-4">
+            <div className="mt-2">
                 {comments.map((comment) => (
                     <Comment
                         key={comment.id}
@@ -118,7 +119,7 @@ const CommentContainer = (props) => {
                     />
                 ))}
             </div>
-        </>
+        </div>
     );
 };
 

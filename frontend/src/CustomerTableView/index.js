@@ -76,13 +76,11 @@ const CustomerTableView = () => {
 
                 ajax(`/api/books?bookstoreId=${tableData.bookStoreId.id}`, "GET", user.jwt, null)
                     .then((booksData) => {
-                        console.log("ez itt az", booksData);
                         setBooks(booksData);
                     });
 
                 ajax(`/api/bevsAndPasties?bookstoreId=${tableData.bookStoreId.id}`, "GET", user.jwt, null)
                     .then((bevsAndPastsData) => {
-                        console.log("ez itt az", bevsAndPastsData);
                         setBevsAndPasts(bevsAndPastsData);
                     });
             });
@@ -93,12 +91,12 @@ const CustomerTableView = () => {
             padding: "0.25%",
             minHeight: "100vh",
             maxHeight: "200vh",
-            backgroundImage: `url("/tableview3.jpg")`,
+            backgroundImage: `url("/tableview1.jpg")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
         }}>
 
-            <Container className="mt-5" >
+            <Container className="mt-2" >
                 <Row className="d-flex justify-content-center">
                     <Col>
                         {table.assignedNumber ?
@@ -117,10 +115,12 @@ const CustomerTableView = () => {
 
                         <Form.Group
                             as={Row}
-                            className="my-3"
-                            controlId="assignedNumber">
+                            className="my-1 align-items-center"
+                            controlId="assignedNumber"
+                            style={{ fontFamily: "-moz-initial", color: "white" }}>
                             <Form.Label column sm="3" md="2"
-                                style={{ fontFamily: "-moz-initial", color: "white" }}>
+                                className='textNextToInput'
+                                style={{ color: "black" }}>
                                 Assigned Table number:
                             </Form.Label>
                             <Col sm="4" md="3" lg="2" xs="5">
@@ -137,10 +137,11 @@ const CustomerTableView = () => {
 
                         <Form.Group
                             as={Row}
-                            className="my-3"
+                            className="my-1 align-items-center"
                             controlId="chairs">
                             <Form.Label column sm="3" md="2"
-                                style={{ fontFamily: "-moz-initial", color: "white" }}>
+                                className='textNextToInput'
+                                style={{ color: "black" }}>
                                 Number of sitting places:
                             </Form.Label>
                             <Col sm="4" md="3" lg="2" xs="5">
@@ -157,10 +158,11 @@ const CustomerTableView = () => {
 
                         <Form.Group
                             as={Row}
-                            className="mb-3"
+                            className="mb-2 align-items-center"
                             controlId="description">
                             <Form.Label column sm="3" md="2"
-                                style={{ fontFamily: "-moz-initial", color: "white" }}>
+                                className='textNextToInput'
+                                style={{ color: "black" }}>
                                 Description:
                             </Form.Label>
                             <Col sm="9" md="8" lg="8">
@@ -170,19 +172,19 @@ const CustomerTableView = () => {
                                     placeholder="describe_the_background"
                                     onChange={(event) => updateTable("description", event.target.value)}
                                     value={table.description}
-                                    style={{ width: "80%", height: "80px", borderRadius: "0.25em", backgroundColor: "lightgrey", color: "darkblue" }}
+                                    style={{ width: "80%", height: "80px", borderRadius: "0.50em", backgroundColor: "lightgrey", color: "black" }}
                                 />
                             </Col>
                         </Form.Group>
 
-                        <div className="d-flex gap-5 mt-5">
+                        <div className="d-flex gap-3 mt-5">
 
                             <Button
                                 variant="danger"
                                 size="lg"
 
                                 onClick={() => leave(tableStatuses[2].status)}>
-                                Leave
+                                Leave Table
                             </Button>
 
                             <Button
@@ -210,8 +212,6 @@ const CustomerTableView = () => {
                                 show={modalShowBevAndPast}
                                 onHide={() => setModalShowBevAndPast(false)}
                                 bevAndPastData={bevsAndPasts} />
-
-
 
                             <ToastContainer />
                         </div>

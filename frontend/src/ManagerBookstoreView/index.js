@@ -133,23 +133,25 @@ const ManagerBookstoreView = () => {
             padding: "0.25%",
             minHeight: "100vh",
             maxHeight: "500vh",
-            backgroundImage: `url("/booksview.jpg")`,
+            backgroundImage: `url("/bookstore11.jpg")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
         }}>
-            <Container className='mt-5'>
+            <Container className='mt-2'>
                 <h1 className='bookstoreTitle d-flex'>{bookstore.name}</h1>
 
                 {bookstore ? (
                     <>
                         <Form.Group
                             as={Row}
-                            className='my-3'>
+                            className='my-3 align-items-center'
+                            style={{ fontFamily: "-moz-initial", color: "white" }}>
                             <Form.Label
+                                className='textNextToInput'
                                 column
                                 sm="3"
                                 md="2"
-                                style={{ fontFamily: "-moz-initial", color: "white" }}>
+                            >
                                 Name:
                             </Form.Label>
                             <Col sm="9" md="8" lg="6">
@@ -167,9 +169,10 @@ const ManagerBookstoreView = () => {
 
                         <Form.Group
                             as={Row}
-                            className='my-3'
+                            className='my-3 align-items-center'
                             style={{ fontFamily: "-moz-initial", color: "white" }}>
                             <Form.Label
+                                className='textNextToInput'
                                 column
                                 sm="3"
                                 md="2">
@@ -190,9 +193,10 @@ const ManagerBookstoreView = () => {
 
                         <Form.Group
                             as={Row}
-                            className='my-3'
+                            className='my-3 align-items-center'
                             style={{ fontFamily: "-moz-initial", color: "white" }}>
                             <Form.Label
+                                className='textNextToInput'
                                 column
                                 sm="3"
                                 md="2">
@@ -201,7 +205,7 @@ const ManagerBookstoreView = () => {
                             <Col sm="9" md="8" lg="6">
 
                                 <textarea
-                                    style={{ width: "100%", height: "80px", borderRadius: "0.25em" }}
+                                    style={{ width: "100%", height: "80px", borderRadius: "0.50em" }}
                                     id="description"
                                     onChange={(e) => updateBookstore("description", e.target.value)}
                                     type="text"
@@ -213,14 +217,14 @@ const ManagerBookstoreView = () => {
                         </Form.Group>
 
                         <Button
-                            className='me-3'
+                            className='me-5'
                             size='lg'
                             onClick={() => save()}>
                             Update bookstore
                         </Button>
 
                         <Button
-                            className='me-3'
+                            className='me-5'
                             size='lg'
                             variant='info'
                             onClick={() => (navigate(`/registerWorker/${bookstore.id}`))}>
@@ -228,7 +232,7 @@ const ManagerBookstoreView = () => {
                         </Button>
 
                         <Button
-                            className='me-3'
+                            className='me-5'
                             size='lg'
                             variant='info'
                             onClick={() => (navigate(`/tables/${bookstore.id}`))}>
@@ -236,7 +240,7 @@ const ManagerBookstoreView = () => {
                         </Button>
 
                         <Button
-                            className='me-3'
+                            className='me-5'
                             size='lg'
                             variant='secondary'
                             onClick={() => (navigate("/dashboard"))}>
@@ -252,11 +256,12 @@ const ManagerBookstoreView = () => {
 
                 <InputGroup.Text
                     className='mt-4 d-flex justify-content-center'
-                    style={{ fontFamily: "-moz-initial", color: "black" }}>
+                    style={{ fontFamily: "-moz-initial", color: "black", fontWeight: "bold" }}>
                     Enter the book's data's in this order: Title, Author, Themes, Language, pages, number of available books
                 </InputGroup.Text>
 
-                <InputGroup className="mt-1">
+                <InputGroup className="mt-1"
+                    style={{ fontFamily: "-moz-initial" }}>
                     <Form.Control
                         placeholder='Title'
                         type='text'

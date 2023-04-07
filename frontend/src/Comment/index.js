@@ -13,20 +13,16 @@ const Comment = (props) => {
     const [commentRelativeTime, setCommentRelativeTime] = useState("");
 
     useEffect(() => {
-        console.log("Updating comment relative time");
         updateCommentRelativeTime();
     }, [createdDate]);
 
     function updateCommentRelativeTime() {
         if (createdDate) {
             dayjs.extend(relativeTime);
-            console.log("typeof createdDate", typeof createdDate);
 
             if (typeof createdDate === "string")
                 setCommentRelativeTime(dayjs(createdDate).fromNow());
             else {
-                console.log(createdDate);
-                console.log(createdDate.fromNow());
                 setCommentRelativeTime(createdDate.fromNow());
             }
         }
@@ -34,7 +30,8 @@ const Comment = (props) => {
 
     return (
         <>
-            <div className="comment-bubble">
+            <div className="comment-bubble"
+                style={{ backgroundColor: "lightgray" }}>
                 <div className="d-flex gap-5" style={{ fontWeight: "bold" }}>
                     <div>{`${createdBy.name}`}</div>
                     {decodedJwt.sub === createdBy.username ? (
@@ -61,7 +58,7 @@ const Comment = (props) => {
             </div>
 
             <div
-                style={{ marginTop: "-1.25em", marginLeft: "1.4em", fontSize: "12px", fontFamily: "-moz-initial", color: "white" }}
+                style={{ marginTop: "-1.25em", marginLeft: "1.4em", fontSize: "1em", fontWeight: "bold", fontFamily: "-moz-initial", color: "black" }}
             >
                 {commentRelativeTime ? `Posted ${commentRelativeTime}` : ""}
             </div>

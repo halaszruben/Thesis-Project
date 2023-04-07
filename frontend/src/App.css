@@ -1,13 +1,15 @@
 .tableNumber {
   font-style: italic;
-  font-family: cursive;
-  font-size: x-large !important;
-  color: aquamarine;
+  font-family: initial;
+  font-weight: bold;
+  font-size: xx-large !important;
+  color: black;
   text-align: center;
 }
 
 .table-wrapper {
-  border: 2px dashed lightseagreen;
+  border: 2px dashed;
+  border-color: gold;
   padding: 2em;
   border-radius: 1em;
   margin-top: 3em;
@@ -16,7 +18,8 @@
 .table-statuses {
   width: min-content;
   background-color: transparent;
-  color: white;
+  color: lightblue;
+  font-weight: bold;
   white-space: nowrap;
   font-family: cursive;
   margin-top: -2.1em !important;
@@ -26,7 +29,7 @@
 .comment-bubble {
   background: #eeeeee;
   border-radius: 1em;
-  padding: 1em;
+  padding: 0.5em;
   margin: 1em 0em;
 }
 
@@ -38,12 +41,12 @@
 }
 
 .bookstoreTitle {
-  margin-top: 0.5em;
-  margin-bottom: 1em;
   align-items: center;
   margin-left: 5%;
-  font-family: -moz-initial;
-  color: aqua;
+  font-family: initial;
+  color: greenyellow;
+  font-style: italic;
+  font-weight: bold;
 }
 
 .employee-header {
@@ -66,4 +69,16 @@
   font-size: large;
   color: chartreuse;
   float: left;
+}
+
+.textAboveInput {
+  font-family: "Times New Roman", Times, serif;
+  color: white;
+}
+
+.textNextToInput {
+  font-family: "Times New Roman", Times, serif;
+  color: white;
+  font-size: 4vh !important;
+  font-weight: bold;
 }

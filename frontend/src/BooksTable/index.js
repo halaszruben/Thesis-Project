@@ -9,7 +9,7 @@ function BooksTable({ tableData, emitDeleteBook, emitEditBook }) {
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
         }}>
-            <div className="mt-5">
+            <div className="mt-4">
                 <Table striped bordered hover>
 
                     <thead dark>

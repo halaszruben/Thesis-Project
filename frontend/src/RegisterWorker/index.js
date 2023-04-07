@@ -22,13 +22,11 @@ const RegisterWorker = () => {
         password: "",
         name: "",
         email: "",
-        phoneNumber: 12345678,
+        phoneNumber: 0,
         id: null,
         bookstoreId: bookstoreId != null ? parseInt(bookstoreId) : null
     }
     const [user, setUser] = useState(emptyUser)
-
-    //so from here on is a test
 
     function onValChange(prop, value) {
         const newUser = { ...user };
@@ -40,7 +38,6 @@ const RegisterWorker = () => {
         ajax(`/api/users?bookstoreId=${bookstoreId}`, "GET", user.jwt, null)
             .then((usersData) => {
                 setUsers(usersData);
-                console.log(usersData);
             });
     }, []);
 
@@ -59,7 +56,6 @@ const RegisterWorker = () => {
 
         ajax("/api/users/register/worker", "POST", null, user)
             .then((userData) => {
-                console.log(userData);
                 const userCopy = [...users];
                 userCopy.push(userData);
                 setUsers(userCopy);
@@ -68,7 +64,7 @@ const RegisterWorker = () => {
     }
 
     function handleDeleteUser(userId) {
-        ajax(`/api/users/${user.id}`, "DELETE", user.jwt)
+        ajax(`/api/users/${userId}`, "DELETE", user.jwt)
             .then((msg) => {
                 const usersCopy = [...users];
                 const i = usersCopy.findIndex((user) => user.id === userId);
@@ -83,7 +79,7 @@ const RegisterWorker = () => {
             padding: "0.25%",
             minHeight: "20vh",
             maxHeight: "500vh",
-            backgroundImage: `url("/employee.jpg")`,
+            backgroundImage: `url("/register3.jpg")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
         }}>
@@ -91,14 +87,12 @@ const RegisterWorker = () => {
 
                 <h1 className="registerHeaders" >Here you can add new personal's to your work force! </h1>
 
-
-                <Container className="mt-4 ">
-
+                <Container >
                     <Row className="justify-content-center">
                         <Col md="8" lg="6">
-                            <Form.Group className="mb-3" controlId="name">
+                            <Form.Group className="mb-3 textAboveInput" controlId="name">
                                 <Form.Label className="fs-4"
-                                    style={{ fontFamily: "-moz-initial", color: "white" }}>Nickname:</Form.Label>
+                                >Nickname:</Form.Label>
                                 <Form.Control
                                     type="text"
                                     size="lg"
@@ -112,13 +106,13 @@ const RegisterWorker = () => {
 
                     <Row className="justify-content-center">
                         <Col md="8" lg="6">
-                            <Form.Group className="mb-3" controlId="username">
-                                <Form.Label className="fs-4"
-                                    style={{ fontFamily: "-moz-initial", color: "white" }}>Username:</Form.Label>
+                            <Form.Group className="mb-3 textAboveInput" controlId="username">
+                                <Form.Label className="fs-4 "
+                                >Username:</Form.Label>
                                 <Form.Control
                                     type="text"
                                     size="lg"
-                                    placeholder="dogPoop@email.com"
+                                    placeholder="johnny"
                                     value={user.username}
                                     onChange={(e) => onValChange("username", e.target.value)}
                                 />
@@ -128,13 +122,13 @@ const RegisterWorker = () => {
 
                     <Row className="justify-content-center">
                         <Col md="8" lg="6">
-                            <Form.Group className="mb-3" controlId="phoneNumber">
+                            <Form.Group className="mb-3 textAboveInput" controlId="phoneNumber">
                                 <Form.Label className="fs-4"
-                                    style={{ fontFamily: "-moz-initial", color: "white" }}>Phone Number:</Form.Label>
+                                >Phone Number:</Form.Label>
                                 <Form.Control
                                     type="number"
                                     size="lg"
-                                    placeholder="20752347"
+                                    placeholder="0"
                                     value={user.phoneNumber}
                                     onChange={(e) => onValChange("phoneNumber", e.target.value)}
                                 />
@@ -144,13 +138,13 @@ const RegisterWorker = () => {
 
                     <Row className="justify-content-center">
                         <Col md="8" lg="6">
-                            <Form.Group className="mb-3" controlId="name">
-                                <Form.Label className="fs-4"
-                                    style={{ fontFamily: "-moz-initial", color: "white" }}>Email:</Form.Label>
+                            <Form.Group className="mb-3 textAboveInput" controlId="name">
+                                <Form.Label className="fs-4 "
+                                >Email:</Form.Label>
                                 <Form.Control
                                     type="email"
                                     size="lg"
-                                    placeholder="something@something"
+                                    placeholder="something@something.com"
                                     value={user.email}
                                     onChange={(e) => onValChange("email", e.target.value)}
                                 />
@@ -160,7 +154,7 @@ const RegisterWorker = () => {
 
                     <Row className="justify-content-center">
                         <Col md="8" lg="6">
-                            <Form.Group className="mb-3" controlId="password">
+                            <Form.Group className="mb-3 textAboveInput" controlId="password">
                                 <Form.Label className="fs-4"
                                     style={{ fontFamily: "-moz-initial", color: "white" }}>Password:</Form.Label>
                                 <Form.Control
@@ -196,7 +190,7 @@ const RegisterWorker = () => {
                                     navigate("/dashboard");
                                 }}
                             >
-                                Back
+                                Back to the Bookstores
                             </Button>
 
                         </Col>

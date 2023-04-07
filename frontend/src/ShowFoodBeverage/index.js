@@ -7,7 +7,6 @@ import BeverageAndPastryTableView from '../BeverageAndPastryTableView';
 function ShowFoodBeverage(props) {
 
     const bevsAndPasts = props.bevAndPastData;
-    console.log("italok", bevsAndPasts);
 
     const [query, setQuery] = useState("");
     const keys = ["name"];

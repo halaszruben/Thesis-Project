@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../UserProvider';
 import ajax from '../util/fetchService';
@@ -22,44 +22,40 @@ const CustomerBookstoreView = () => {
         <div style={{
             padding: "0.25%",
             minHeight: "100vh",
-            maxHeight: "200vh",
+            maxHeight: "300vh",
             backgroundImage: `url("/Bookstore.jpg")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
         }}>
 
-            <Container className='mt-3'
-            >
+            <Navbar bg='dark' variant='dark'
+                style={{
+                    backgroundImage: `url("/navbar6.jpg")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover"
+                }}>
+                <Container>
+                    <Navbar.Brand
+                        style={{ fontSize: "2vw", margin: "0em" }}>Manager Bookstores view</Navbar.Brand>
+                    <Navbar.Brand
+                        className='justify-content-center'>Here you can find all the available Bookstores to us</Navbar.Brand>
+                    <Nav.Link
+                        style={{ color: "red", cursor: "pointer", fontSize: "1.7vw", fontWeight: "bold" }}
+                        onClick={() => {
+                            user.setJwt(null);
+                            navigate("/")
+                        }}>
+                        Logout
+                    </Nav.Link>
+                </Container>
+            </Navbar>
 
-                <Row>
-                    <Col>
-                        <div
-                            className="logout my-4 d-flex justify-content-end"
-                            style={{ cursor: "pointer", fontSize: "2vw" }}
-                            onClick={() => {
-                                user.setJwt(null);
-                                navigate("/")
-                            }}
-                        >
-                            Logout
-                        </div>
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col>
-
-                        <p className="text-break text-center"
-                            style={{ fontFamily: "-moz-initial", color: "white", fontSize: "2vw" }}>
-                            Here are all the Bookstores that are registered to us. Take your time to look around and find the best place for your convenience, We’re sure whichever You choose will give You an awesome time.                    </p>
-
-                    </Col>
-                </Row>
+            <Container className='mt-3'>
 
                 {bookstores ? (
 
                     <div
-                        className='d-grid gap-5'
+                        className='d-grid gap-5 justify-content-center'
                         style={{ gridTemplateColumns: "repeat(auto-fit, 18rem)" }}
                     >
 
@@ -68,12 +64,11 @@ const CustomerBookstoreView = () => {
                             <Card
                                 key={bookstore.id}
                                 style={{
-                                    width: "18rem", height: "18rem", backgroundColor: "lightgrey",
-                                    backgroundImage: `url("/booksview.jpg")`,
+                                    width: "18rem", height: "28rem",
+                                    backgroundImage: `url("/bookstoreview1.jpg")`,
                                     backgroundRepeat: "no-repeat",
                                     backgroundSize: "cover"
                                 }}
-
 
                             >
 
@@ -81,17 +76,16 @@ const CustomerBookstoreView = () => {
                                     className='d-flex flex-column justify-content-around'
                                 >
 
-
                                     <Card.Title className='d-flex justify-content-center'
-                                        style={{ fontFamily: "-moz-initial", color: "white" }}>{bookstore.name} bookstore</Card.Title>
+                                        style={{ fontFamily: "-moz-initial", fontWeight: "bold", color: "black" }}>{bookstore.name} bookstore</Card.Title>
 
                                     <Card.Text
                                         style={{ marginTop: "1em" }}>
                                         <p>
-                                            <b style={{ fontFamily: "-moz-initial", color: "white" }}>Description</b>: {bookstore.description}
+                                            <b style={{ fontFamily: "-moz-initial", color: "black", fontSize: "1.2em" }}>Description</b>: {bookstore.description}
                                         </p>
                                         <p>
-                                            <b style={{ fontFamily: "-moz-initial", color: "white" }}>Location</b>: {bookstore.location}
+                                            <b style={{ fontFamily: "-moz-initial", color: "black", fontSize: "1.2em" }}>Location</b>: {bookstore.location}
                                         </p>
                                     </Card.Text>
 
