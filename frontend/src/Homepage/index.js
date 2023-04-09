@@ -35,7 +35,7 @@ const Homepage = () => {
                             >Well, Hello there fellow book enthusiast</h1>
                             <p className="text-break text-center"
                                 style={{ fontFamily: "-moz-initial", color: "white" }}>
-                                Here You will be able to find every Book you ever wished for and More! Our crew of book fanatics will guarantee that you will have the best time of your life, so get on already Login and you will see what We're all about.
+                                Here You will be able to find every Bookstore and within them every Book you ever wished for and More! Our crew of book fanatics will guarantee that you will have the best time of your life, so get on already Login and you will see what We're all about.
                             </p>
                         </Row>
                         <Login />

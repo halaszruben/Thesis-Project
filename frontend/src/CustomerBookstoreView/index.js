@@ -36,7 +36,7 @@ const CustomerBookstoreView = () => {
                 }}>
                 <Container>
                     <Navbar.Brand
-                        style={{ fontSize: "2vw", margin: "0em" }}>Manager Bookstores view</Navbar.Brand>
+                        style={{ fontSize: "2vw", margin: "0em" }}>Bookstores view</Navbar.Brand>
                     <Navbar.Brand
                         className='justify-content-center'>Here you can find all the available Bookstores to us</Navbar.Brand>
                     <Nav.Link
